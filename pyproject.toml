@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "py-fx-tools-dss"
+version = "0.1.0"
+description = ""
+authors = ["Jorge Lara <jorgelara1990@gmail.com>"]
+readme = "README.md"
+packages = [{include = "py_fx_tools_dss"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
