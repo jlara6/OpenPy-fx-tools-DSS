@@ -1,0 +1,5 @@
+New "Transformer.sub" Phases=3 Windings=2.0 Wdg=1.0 %R=[0.005, 0.005] Buses=[sourcebus, 650 ] Conns=[delta, wye ] KVs=[115, 4.16] KVAs=[5000, 5000] Taps=[1, 1] XHL (or X12)=0.008 
+New "Transformer.reg1" Phases=1 Buses=[650.1, rg60.1, ] KVs=[2.4, 2.4, ] KVAs=[1666, 1666, ] XHL (or X12)=0.01 %Loadloss=0.01 Bank=reg1 
+New "Transformer.reg2" Phases=1 Buses=[650.2, rg60.2, ] KVs=[2.4, 2.4, ] KVAs=[1666, 1666, ] XHL (or X12)=0.01 %Loadloss=0.01 Bank=reg1 
+New "Transformer.reg3" Phases=1 Buses=[650.3, rg60.3 ] KVs=[2.4, 2.4, ] KVAs=[1666, 1666, ] XHL (or X12)=0.01 %Loadloss=0.01 Bank=reg1 
+New "Transformer.xfm1" Phases=3 Windings=2.0 %R=[0.55, 0.55] Buses=[633, 634, ] Conns=[wye, wye, ] KVs=[4.16, 0.48, ] KVAs=[500, 500, ] Taps=[1, 1, ] XHL (or X12)=2.0 XLT (or X23)=1.0 XHT (or X13)=1.0 

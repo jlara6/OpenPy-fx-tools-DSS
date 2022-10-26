@@ -1,0 +1,3 @@
+Set Voltagebases = 1
+calcv
+Set Voltagebases=(115, 4.16, 0.48, ) 
