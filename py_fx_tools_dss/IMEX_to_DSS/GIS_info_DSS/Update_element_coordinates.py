@@ -126,8 +126,8 @@ def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str)
     Function that generates a .xlsx file with the coordinates for GIS of a circuit modeled in OpenDSS
 
     :param workbook: Name of the new .xlsx file
-    :param dss_file_3ph: address where the OpenDSS file is located
-    :param save_path: address where it is going to save
+    :param dss_file_3ph: path_save where the OpenDSS file is located
+    :param save_path: path_save where it is going to save
     :return:
     '''
 

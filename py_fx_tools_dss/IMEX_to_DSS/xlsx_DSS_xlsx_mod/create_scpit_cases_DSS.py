@@ -27,7 +27,7 @@ def copy_file(file:str, root_file_path:str, name_folder:str):
 
 
 #def create_DSS(name_dss:str, file_BBDD:str, root_path:str, name_folder:str):+
-#create_DSS(name_dss=export_name, file_BBDD=f'{address_saves_DSS_files}\BBDD_DSS_{export_name}.xlsx', dir=address_saves_DSS_files)
+#create_DSS(name_dss=export_name, file_BBDD=f'{address_saves_DSS_files}\BBDD_DSS_{export_name}.xlsx', path_save=address_saves_DSS_files)
 
 def create_DSS(name_dss: str, address_saves: str):
     '''

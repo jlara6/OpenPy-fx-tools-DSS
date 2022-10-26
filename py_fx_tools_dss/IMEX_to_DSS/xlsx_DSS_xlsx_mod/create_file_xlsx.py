@@ -5,8 +5,8 @@
 # @File    : create_file_xlsx.py
 # @Software: PyCharm
 
-import py_dss_interface
-from helper_functions import save_BBDD_xlsx
+from ...interface_dss import dss_lib
+from ...helper_functions import save_BBDD_xlsx
 from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx_mod.Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_DSS
 from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx_mod.Types_elem_DSS_to_xlxs.General_elements_DSS import General_DSS
 from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx_mod.Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_DSS
@@ -14,10 +14,10 @@ from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx_mod.Types_elem_DSS_to_xlxs.PC_ele
 from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx_mod.Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_DSS
 from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx_mod.Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_DSS
 
-dss = py_dss_interface.DSSDLL()
+dss = dss_lib
 
 
-def Create_DSS_to_xlsx_files(DSS_file: str, out_path: str, project_name: str ='default'):
+def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
 
     dss.text("ClearAll")
     dss.text(f"compile [{DSS_file}]")
@@ -82,11 +82,11 @@ def Create_DSS_to_xlsx_files(DSS_file: str, out_path: str, project_name: str ='d
         else:
             list_no_class.append(name_class)
 
-    workbook_DSS = f'BBDD_DSS_{project_name}.xlsx'
+    workbook_DSS = f'BBDD_DSS_{prj_name}.xlsx'
     save_BBDD_xlsx(workbook_DSS=workbook_DSS,
                    elements_OpenDSS=OpenDSS_element_list,
                    BBDD_OpenDSS=BBDD_OpenDSS,
-                   out_path=out_path)
+                   out_path=path_save)
 
     print('here')
 

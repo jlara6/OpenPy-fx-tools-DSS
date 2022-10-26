@@ -17,33 +17,35 @@ from py_fx_tools_dss.logg_print_alert import logg_alert
 
 log_py = logging.getLogger(__name__)
 
-def create_scrips_base_dss(name_dss: str, xlsx_file: str, file_path: str):
+def create_scrips_base_dss(name_dss: str, xlsx_file: str, path_save: str, path: bool):
     '''
     :param name_dss:
     :param xlsx_file:
-    :param file_path:
+    :param path_save:
     :return OpenDSS scripts in the specified path
 
     function that creates the OpenDSS scripts with the information from the database
     '''
 
-    delete_all_files(file_path)
-    create_master_base_dss(name_dss, xlsx_file, file_path)
+    delete_all_files(path_save)
+    create_master_base_dss(name_dss, xlsx_file, path_save, path)
     for element in check_BBDD(xlsx_file):
         create_element_base_dss(name_dss, element, xlsx_file)
     logg_alert.update_logg_file('Data loaded and .DSS files created', 2, log_py)
 
 
-def create_cases(name_dss: str, file_BBDD: str, root_path: str,name_folder: str):
-    '''
+def create_cases(name_dss: str, file_BBDD: str, root_path: str, name_folder: str):
+    """
 
     :param name_dss:
-    :param file:
+    :param file_BBDD:
     :param root_path:
     :param name_folder:
     :return:
-    '''
+    """
+
     indicator = os.path.exists(name_folder)
+
     if indicator == True:
         shutil.rmtree(name_folder)
         create_folder(name_folder)
@@ -97,14 +99,14 @@ def move_files_DSS(source_address, destination_address):
         shutil.move(dss_file, destination_address)
 
 #1
-def delete_all_files(address):
-    '''
-    :return:
+def delete_all_files(path_save):
+    """
     Delete existing .DSS files in the specified path
-    '''
-    direction = address
-    #dss
-    dss_files = glob.glob(direction+'/*.dss')
+    
+    :param path_save:
+    :return: 
+    """
+    dss_files = glob.glob(f'{path_save}/*.dss')
     for dss_file in dss_files:
         try:
             os.remove(dss_file)
@@ -116,21 +118,21 @@ def delete_files_DSS():
     :return:
     Delete existing .DSS files in the specified path
     '''
-    direction = read_direction()
-    dss_files = glob.glob(direction+'/*.dss')
+    path_save = read_direction()
+    dss_files = glob.glob(f'{path_save}/*.dss')
     for dss_file in dss_files:
         try:
             os.remove(dss_file)
         except OSError as e:
             print(f"Error:{e.strerror}")
 
-def master_content_dir(name_dss: str, list_elements: list, dir: str):
+def master_content_dir(name_dss: str, list_elements: list, path: str):
     '''
     :param name_dss:
     :param list_elements:
     :return:
     '''
-    content = f'set Datapath=({dir}\)\n'\
+    content = f'set Datapath=({path}\)\n'\
               'Clear\n'\
               '\n'\
               f'New Circuit.{name_dss}\n'\
@@ -180,46 +182,46 @@ def master_content(name_dss: str, list_elements: list):
     return aux
 
 #2
-def create_master_base_dss(name_dss: str, workbook_name: str, dir: str):
-    '''
+def create_master_base_dss(name_dss: str, xlsx_file: str, path_save: str, path: bool):
+    """
+
+
     :param name_dss:
-    :param workbook_name:
+    :param xlsx_file:
+    :param path_save:
+    :param path:
     :return:
-    '''
-    os.chdir(dir)
+    """
+    os.chdir(path_save)
     os.getcwd()
-    list_elements = check_BBDD(workbook_name)
+    list_elements = check_BBDD(xlsx_file)
     master_dss = open(f'Master_{name_dss}.dss', 'w')
-    content = master_content(name_dss, list_elements)
-    #content = master_content_dir(name_dss, list_elements, dir)
+    if path:
+        content = master_content_dir(name_dss, list_elements, path_save)
+    else:
+        content = master_content(name_dss, list_elements)
     master_dss.write(content)
     master_dss.close()
 
-def create_master_dss(name_dss: str, workbook_name: str):
-    '''
+def create_master_dss(name_dss: str, xlsx_file: str):
 
-    :param name_dss:
-    :param workbook_name:
-    :return:
-    '''
-
-    list_elements = check_BBDD(workbook_name)
+    list_elements = check_BBDD(xlsx_file)
     master_dss = open(f'Master_{name_dss}.dss', 'w')
     content = master_content(name_dss, list_elements)
     master_dss.write(content)
     master_dss.close()
 
 #4
-def check_BBDD(workbook_name: str):
+def check_BBDD(xlsx_file: str):
     '''
-    :param workbook_name:
+    :param xlsx_file:
     :return:
     '''
-    workbook = openpyxl.load_workbook(workbook_name, read_only=True)
+    workbook = openpyxl.load_workbook(xlsx_file, read_only=True)
     name_sheets = workbook.sheetnames
     list_elements = []
     for name_sheet in name_sheets:
-        df_sheet = pd.read_excel(workbook_name, sheet_name=name_sheet)
+        df_sheet = pd.read_excel(xlsx_file, sheet_name=name_sheet)
         if len(df_sheet) >= 1:
             list_elements.append(name_sheet)
         else:
@@ -227,7 +229,7 @@ def check_BBDD(workbook_name: str):
     return list_elements
 
 #5
-def create_element_base_dss(name_dss:str, element:str, direction:str):
+def create_element_base_dss(name_dss: str, element: str, direction: str):
     '''
     :param name_dss:
     :param element:

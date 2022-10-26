@@ -208,7 +208,7 @@ def create_master_base_dss(name_dss: str, workbook_name: str, dir: str):
     list_elements = check_BBDD(workbook_name)
     master_dss = open(f'Master_{name_dss}.dss', 'w')
     content = master_content(name_dss, list_elements)
-    #content = master_content_dir(name_dss, list_elements, dir)
+    #content = master_content_dir(name_dss, list_elements, path_save)
     master_dss.write(content)
     master_dss.close()
 
