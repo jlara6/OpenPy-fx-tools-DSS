@@ -5,9 +5,9 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from helper_functions import save_BBDD_xlsx
+from ...helper_functions import save_BBDD_xlsx
 import pandas as pd
-from helper_functions import *
+from ...helper_functions import *
 
 def reliability_trafo_Tr2(DataFrame_ElmTr2:pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame, DataFrame_StaCubic:pd.DataFrame )->pd.DataFrame:
 

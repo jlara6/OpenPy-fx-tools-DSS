@@ -5,7 +5,7 @@
 # @File    : lib_py_base.py
 # @Software: PyCharm
 
-class base_xlsx_DSS:
+class DSS_xlsx_save:
 
     def __init__(self, DSS_path: str = None, xlsx_path: str = None, path_save: str = None):
         self.DSS_path = DSS_path

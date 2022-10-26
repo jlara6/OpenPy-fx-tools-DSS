@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.DigSilent_to_OpenDSS import DIGS_TO_DSS
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.create_scpit_base_DSS import create_DSS
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx_mod.create_scpit_base_DSS import create_DSS
 from create_file_xlsx import Create_DSS_to_xlsx_files
 
 

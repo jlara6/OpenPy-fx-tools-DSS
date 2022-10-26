@@ -34,7 +34,7 @@ def create_scrips_base_dss(name_dss: str, xlsx_file: str, file_path: str):
     logg_alert.update_logg_file('Data loaded and .DSS files created', 2, log_py)
 
 
-def create_cases(name_dss:str, file_BBDD:str, root_path:str,name_folder:str):
+def create_cases(name_dss: str, file_BBDD: str, root_path: str,name_folder: str):
     '''
 
     :param name_dss:

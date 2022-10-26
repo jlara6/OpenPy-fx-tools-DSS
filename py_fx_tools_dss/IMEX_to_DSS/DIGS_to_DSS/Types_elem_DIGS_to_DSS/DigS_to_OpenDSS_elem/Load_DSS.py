@@ -6,9 +6,9 @@
 # @Software: PyCharm
 
 import pandas as pd
-from helper_functions import *
+from .....helper_functions import *
 
-def DIGS_load_DSS(DataFrame_ElmLod:pd.DataFrame, DataFrame_TypLod:pd.DataFrame, DataFrame_StaCubic:pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame)->pd.DataFrame:
+def DIGS_load_DSS(DataFrame_ElmLod: pd.DataFrame, DataFrame_TypLod: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame, DataFrame_ElmTerm: pd.DataFrame)->pd.DataFrame:
     df_Load_DSS = pd.DataFrame(columns=['Id_Load', 'bus1', 'phases', 'conn', 'model', 'kV', 'Kw', 'kvar', 'pf',
                                         'yearly', 'daily', 'duty', 'growth', 'Rneut', 'Xneut', 'status', 'class',
                                         'Vminpu', 'Vmaxpu', 'Vminnorm', 'Vminemerg', 'xfkVA', '%mean', '%stddev',
@@ -142,7 +142,6 @@ def DIGS_load_DSS(DataFrame_ElmLod:pd.DataFrame, DataFrame_TypLod:pd.DataFrame, 
 
     return df_Load_DSS
 
-
 def balanced_load(index: int, DataFrame_Load_DSS: pd.DataFrame, DataFrame_Load_DigS: pd.DataFrame) -> pd.DataFrame:
     balance = 0
     id_load = DataFrame_Load_DigS['Id_load'][index]
@@ -163,8 +162,7 @@ def balanced_load(index: int, DataFrame_Load_DSS: pd.DataFrame, DataFrame_Load_D
 
     return DataFrame_Load_DSS, balance
 
-def unbalanced_load(index: int, phase: str, DataFrame_Load_DSS: pd.DataFrame,
-                    DataFrame_Load_DigS: pd.DataFrame) -> pd.DataFrame:
+def unbalanced_load(index: int, phase: str, DataFrame_Load_DSS: pd.DataFrame, DataFrame_Load_DigS: pd.DataFrame) -> pd.DataFrame:
     nphases = 1
     id_load = DataFrame_Load_DigS['Id_load'][index] + f'_ph{phase}'
     conn = DataFrame_Load_DigS['conn_load'][index]
@@ -212,7 +210,7 @@ def unbalanced_load(index: int, phase: str, DataFrame_Load_DSS: pd.DataFrame,
 
     return DataFrame_Load_DSS
 
-def conn_load(technology_DigS:int) -> str:
+def conn_load(technology_DigS: int) -> str:
     # Wye=LN, Delta=LL
     if technology_DigS == 0: #3PH-'D'
         type_conn_load = 'LL'
@@ -242,7 +240,6 @@ def conn_load(technology_DigS:int) -> str:
         type_conn_load = ''
         conn_nphases = ''
     return type_conn_load, conn_nphases
-
 
 def bus_conn_load(DataFrame_elem: pd.DataFrame):
     for index, row in DataFrame_elem.iterrows():
