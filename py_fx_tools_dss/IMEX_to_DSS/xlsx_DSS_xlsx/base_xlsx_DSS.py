@@ -6,9 +6,9 @@
 # @Software: PyCharm
 
 import logging
-from ..lib_py_base import base_xlsx_DSS
+from py_fx_tools_dss.lib_py_base import base_xlsx_DSS
 from .DSS_script import create_scrips_base_dss
-from ..logg_print_alert import logg_alert
+from py_fx_tools_dss.logg_print_alert import logg_alert
 from .xlsx_files_examples import _load_files_examples
 
 log_py = logging.getLogger(__name__)

@@ -7,16 +7,12 @@
 
 import py_dss_interface
 from helper_functions import save_BBDD_xlsx
-from Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_DSS
-from Types_elem_DSS_to_xlxs.General_elements_DSS import General_DSS
-from Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_DSS
-from Types_elem_DSS_to_xlxs.PC_elements_DSS import PC_elements_DSS
-from Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_DSS
-from Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_DSS
-
-import os
-import pathlib
-import pandas as pd
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_DSS
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elements_DSS import General_DSS
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elements_DSS import PC_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_DSS
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_DSS
 
 dss = py_dss_interface.DSSDLL()
 

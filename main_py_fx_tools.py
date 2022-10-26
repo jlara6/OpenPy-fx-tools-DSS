@@ -1,6 +1,4 @@
-import py_fx_tools_dss as fx_dss
-
-xlsx_dss = fx_dss.base_xlsx_DSS
+xlsx_dss = py_fx_tools_dss.Export_Import_to_DSS.xlsx_DSS_xlsx.base_xlsx_DSS
 
 
 if __name__ == '__main__':

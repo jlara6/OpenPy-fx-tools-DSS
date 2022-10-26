@@ -8,7 +8,7 @@
 import os
 import pathlib
 import logging
-from ..logg_print_alert import logg_alert
+from py_fx_tools_dss.logg_print_alert import logg_alert
 
 log_py = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ def _load_files_examples(Opt: int):
     script_path = os.path.dirname(os.path.abspath(__file__))
     xlsx_info = dict()
     if Opt == 1:
-        xlsx_info['xlsx_path'] = pathlib.Path(script_path).joinpath("./examples", "13NodeIEEE", "13NodeIEEE.xlsx")
+        xlsx_info['xlsx_path'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "13NodeIEEE.xlsx")
         xlsx_info['prj_name'] = '13nodeIEEE'
 
     res = not xlsx_info

@@ -13,7 +13,7 @@ import openpyxl
 import os
 import glob
 import shutil
-from ..logg_print_alert import logg_alert
+from py_fx_tools_dss.logg_print_alert import logg_alert
 
 log_py = logging.getLogger(__name__)
 

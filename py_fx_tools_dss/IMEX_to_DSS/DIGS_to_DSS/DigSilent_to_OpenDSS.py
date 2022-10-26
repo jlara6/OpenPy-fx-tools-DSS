@@ -5,18 +5,17 @@
 # @File    : ------------
 # @Software: PyCharm
 
-import pandas as pd
-from helper_functions import *
-from Bus_Phases_DSS import *
-from file_for_reliability import column_selection_for_reliability
-from Types_elem_DIGS_to_DSS.Other_DSS import Other_elements_DSS
-from Types_elem_DIGS_to_DSS.General_DSS import General_elements_DSS
-from Types_elem_DIGS_to_DSS.PD_Elements import PD_elements_DSS
-from Types_elem_DIGS_to_DSS.PC_Elements import PC_elements_DSS
-from Types_elem_DIGS_to_DSS.Controls_DSS import Controls_elements_DSS
-from Types_elem_DIGS_to_DSS.Meters_DSS import Meters_elements_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Voltagebases import DIGS_Voltagebases_DSS
-from Types_elem_DIGS_to_DSS.Buscoords import Buscoords_DSS, file_Buscoords_DSS
+from ...helper_functions import *
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Bus_Phases_DSS import *
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.file_for_reliability import column_selection_for_reliability
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.Other_DSS import Other_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.General_DSS import General_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.PD_Elements import PD_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.PC_Elements import PC_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.Controls_DSS import Controls_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.Meters_DSS import Meters_elements_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Voltagebases import DIGS_Voltagebases_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.Buscoords import Buscoords_DSS, file_Buscoords_DSS
 
 
 def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str, out_path: str, reliability: bool) -> object:
