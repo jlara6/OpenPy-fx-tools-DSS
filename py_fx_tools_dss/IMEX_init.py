@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 from .lib_py_base import DSS_xlsx_save
-from .IMEX_to_DSS.xlsx_DSS_xlsx_mod.base_xlsx_DSS import _test_xlsx_files, class_xlsx_to_DSS
+from .IMEX_to_DSS.xlsx_DSS_xlsx.base_xlsx_DSS import _test_xlsx_files, class_xlsx_to_DSS
 
 aux_xlsx = class_xlsx_to_DSS()
 
