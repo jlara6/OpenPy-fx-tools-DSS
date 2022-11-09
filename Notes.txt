@@ -1,0 +1,12 @@
+Se creó el modulo IMEX_to_DSS, aqui es la importación o expotación para simluación en OpenDSS
+
+cim_DSS_cim [pediente]
+DIGS_to_DSS [codigo del proyecto de Perú]
+GIS_info_DSS [Estudiar GeoPandas]
+xml_DSS_xml [pendiente]
+xlsx_DSS_xlsx:
+- Probó y funciona el modulo que crea archivos .DSS a partir de .xlsx [ok]
+- Función para crear el archivo vació xlsx con la info base que corre sin errores [pendiente - ver OpenDSS-G]
+- Moduló lleva .DSS a xlsx [En proceso]:
+
+    * recorre list_General_DSS [los 3 primeros despues revisar el resto] quedo hasta aquí

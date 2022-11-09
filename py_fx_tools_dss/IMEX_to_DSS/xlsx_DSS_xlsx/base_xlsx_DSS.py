@@ -15,6 +15,17 @@ from .create_file_xlsx import _Create_DSS_to_xlsx_files
 
 log_py = logging.getLogger(__name__)
 
+def _test_DSS_files(Opt: int):
+    script_path = os.path.dirname(os.path.abspath(__file__))
+    DSS_info = dict()
+    if Opt == 1:
+        DSS_info['DSS_path'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "IEEE13Nodeckt.dss")
+        DSS_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE")
+        DSS_info['prj_name'] = '13nodeIEEE'
+
+    return DSS_info
+
+
 def _test_xlsx_files(Opt: int) -> object:
     script_path = os.path.dirname(os.path.abspath(__file__))
     xlsx_info = dict()
@@ -71,3 +82,5 @@ class class_xlsx_to_DSS:
             exit()
         else:
             _Create_DSS_to_xlsx_files(DSS_path, path_save, prj_name)
+
+

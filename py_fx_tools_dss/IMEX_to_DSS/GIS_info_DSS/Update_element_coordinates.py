@@ -106,7 +106,7 @@ def characters_delete(DataFrame: pd.DataFrame, column: str) -> object:
 
 def save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dict, out_path:str):
     """
-    Generates the .xlsx file, with data format for OpenDSS
+    Generates the .xlsx file, with xlsx_data format for OpenDSS
 
     :param workbook_DSS:
     :param elements_OpenDSS:

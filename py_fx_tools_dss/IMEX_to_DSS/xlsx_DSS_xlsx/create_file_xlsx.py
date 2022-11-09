@@ -27,8 +27,8 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
 
     list_class = dss.dss_classes()
 
-    list_Other = list()
     list_General = list()
+    list_Other = list()
     list_PD_elements = list()
     list_PC_elements = list()
     list_Controls = list()
@@ -36,9 +36,11 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
 
     list_no_class = list()
 
-    list_Other_DSS = ['Vsource', 'Fault', 'GICsource', 'Isource']
     list_General_DSS = ['WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape',
                         'LoadShape', 'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
+
+    list_Other_DSS = ['Vsource', 'Fault', 'GICsource', 'Isource']
+
     list_PD_elements_DSS = ['Transformer', 'Line', 'Switch', 'Capacitor', 'AutoTrans', 'GICTransformer', 'Reactor']
     list_PC_elements_DSS = ['Load', 'Generator', 'Generic5', 'GICLine', 'IndMach012', 'PVSystem', 'UPFC', 'VCCS',
                             'Storage', 'VSConverter', 'WindGen']
@@ -49,32 +51,33 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
     for name_class in list_class:
         nclss = name_class
         dss.circuit_set_active_class(name_class)
+        if len([x for x in [name_class] if x in list_General_DSS]) == 1:
+            BBDD_OpenDSS, OpenDSS_element_list = General_DSS(BBDD_DSS=BBDD_OpenDSS,
+                                                             DSS_elem_list=OpenDSS_element_list,
+                                                             name_class=name_class)
         if len([x for x in [name_class] if x in list_Other_DSS]) == 1:
             BBDD_OpenDSS, OpenDSS_element_list = Other_DSS(BBDD_DSS=BBDD_OpenDSS,
                                                            DSS_elem_list=OpenDSS_element_list,
                                                            name_class=name_class)
             list_Other.append(name_class)
-        elif len([x for x in [name_class] if x in list_General_DSS]) == 1:
-            BBDD_OpenDSS, OpenDSS_element_list = General_DSS(BBDD_DSS=BBDD_OpenDSS,
-                                                             DSS_elem_list=OpenDSS_element_list,
-                                                             name_class=name_class)
+
             list_General.append(name_class)
-        elif len([x for x in [name_class] if x in list_PD_elements_DSS]) == 1:
+        if len([x for x in [name_class] if x in list_PD_elements_DSS]) == 1:
             BBDD_OpenDSS, OpenDSS_element_list = PD_elements_DSS(BBDD_DSS=BBDD_OpenDSS,
                                                                  DSS_elem_list=OpenDSS_element_list,
                                                                  name_class=name_class)
             list_PD_elements.append(name_class)
-        elif len([x for x in [name_class] if x in list_PC_elements_DSS]) == 1:
+        if len([x for x in [name_class] if x in list_PC_elements_DSS]) == 1:
             BBDD_OpenDSS, OpenDSS_element_list = PC_elements_DSS(BBDD_DSS=BBDD_OpenDSS,
                                                                  DSS_elem_list=OpenDSS_element_list,
                                                                  name_class=name_class)
             list_PC_elements.append(name_class)
-        elif len([x for x in [name_class] if x in list_Controls_DSS]) == 1:
+        if len([x for x in [name_class] if x in list_Controls_DSS]) == 1:
             BBDD_OpenDSS, OpenDSS_element_list = Controls_DSS(BBDD_DSS=BBDD_OpenDSS,
                                                               DSS_elem_list=OpenDSS_element_list,
                                                               name_class=name_class)
             list_Controls.append(name_class)
-        elif len([x for x in [name_class] if x in list_Meters_DSS]) == 1:
+        if len([x for x in [name_class] if x in list_Meters_DSS]) == 1:
             BBDD_OpenDSS, OpenDSS_element_list = Meters_DSS(BBDD_DSS=BBDD_OpenDSS,
                                                             DSS_elem_list=OpenDSS_element_list,
                                                             name_class=name_class)

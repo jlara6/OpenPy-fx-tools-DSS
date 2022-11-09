@@ -78,7 +78,7 @@ def readAllSheets(filename: str):
 
 def save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dict, out_path:str):
     """
-    Generates the .xlsx file, with data format for OpenDSS
+    Generates the .xlsx file, with xlsx_data format for OpenDSS
 
     :param workbook_DSS:
     :param elements_OpenDSS:
@@ -110,10 +110,10 @@ def check_if_element_exists(BBDD_DigS: dict, name_sheets: list):
 
     for name_sheet in list_DSS:
         if len([x for x in [name_sheet] if x in name_sheets]) == 1:
-            print(f'Loading {name_sheet} file: With data')
-            message = message + f'Loading {name_sheet} file: With data\n'
+            print(f'Loading {name_sheet} file: With xlsx_data')
+            message = message + f'Loading {name_sheet} file: With xlsx_data\n'
         else:
-            message = message + f'Loading {name_sheet} file: With data\n'
+            message = message + f'Loading {name_sheet} file: With xlsx_data\n'
             print(f'Loading {name_sheet} file: Empty')
             if name_sheet == 'General':
                 BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'Descr(a:40)', 'Val(a:40)'])

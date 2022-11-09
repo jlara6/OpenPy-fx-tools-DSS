@@ -60,16 +60,16 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
 
     #From functions_to_OpenDSS
     print('___________________________________________________________________________________________________________')
-    print('Third stage: OpenDSS Database creation and data filling')
-    text_aux = text_aux + 'OpenDSS Database creation and data filling: Ok\n'
+    print('Third stage: OpenDSS Database creation and xlsx_data filling')
+    text_aux = text_aux + 'OpenDSS Database creation and xlsx_data filling: Ok\n'
 
     OpenDSS_element_list, BBDD_OpenDSS = OpenDSS_database_generator(dict_df_DigS=BBDD_DigS_to_dic_and_DF)
 
     # From helper_functions
     print('___________________________________________________________________________________________________________')
-    print('Fourth stage: Export of the file with data for OpenDSS')
+    print('Fourth stage: Export of the file with xlsx_data for OpenDSS')
 
-    text_aux = text_aux + 'Export of the file with data for OpenDSS: Ok\n'
+    text_aux = text_aux + 'Export of the file with xlsx_data for OpenDSS: Ok\n'
 
     workbook_DSS = f'BBDD_DSS_{projects_name}.xlsx'
     save_BBDD_xlsx(workbook_DSS=workbook_DSS,
@@ -120,7 +120,7 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
 
 def OpenDSS_database_generator(dict_df_DigS: dict):
     """
-    Fill the dictionary and DataFrame with data that OpenDSS reads, use the functions:Other_elements_DSS, 
+    Fill the dictionary and DataFrame with xlsx_data that OpenDSS reads, use the functions:Other_elements_DSS,
     General_elements_DSS, PD_elements_DSS, PC_elements_DSS, Controls_elements_DSS, Meters_elements_DSS and 
     DIGS_Voltagebases_DSS
 
