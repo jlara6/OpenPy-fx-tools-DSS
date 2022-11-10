@@ -10,3 +10,12 @@ xlsx_DSS_xlsx:
 - Moduló lleva .DSS a xlsx [En proceso]:
 
     * recorre list_General_DSS [los 3 primeros despues revisar el resto] quedo hasta aquí
+
+
+General:
+    -review list_property
+Other:
+    -review list_property
+
+
+

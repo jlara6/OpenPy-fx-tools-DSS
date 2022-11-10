@@ -180,5 +180,5 @@ Solve
 !MakePosSeq
 !Save Circuit Dir=(C:\Program Files\OpenDSS\13 Nodos Sec Pos Equvi\)
 
-solve
-export cim100
+!solve
+!export cim100

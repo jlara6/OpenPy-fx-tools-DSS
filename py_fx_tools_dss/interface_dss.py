@@ -6,6 +6,7 @@
 # @Software: PyCharm
 
 import py_dss_interface
+import opendssdirect as drt
 
 
-dss_lib = py_dss_interface.DSSDLL()
+dss = py_dss_interface.DSSDLL()
