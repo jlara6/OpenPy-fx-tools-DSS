@@ -19,7 +19,7 @@ def _test_DSS_files(Opt: int):
     script_path = os.path.dirname(os.path.abspath(__file__))
     DSS_info = dict()
     if Opt == 1:
-        DSS_info['DSS_path'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "IEEE13Nodeckt.dss")
+        DSS_info['DSS_path'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "Empty.dss")
         DSS_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE")
         DSS_info['prj_name'] = '13nodeIEEE'
 

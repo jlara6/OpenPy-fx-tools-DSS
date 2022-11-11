@@ -39,7 +39,7 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
     print('First stage: Database verification')
     text_aux = text_aux + 'Database verification: Ok\n'
 
-    BBDD_DigS_to_dic_and_DF, message_elem_exist = check_if_element_exists(BBDD_DigS=BBDD_DigS_to_dic_and_DF,
+    BBDD_DigS_to_dic_and_DF, message_elem_exist = check_if_element_exists(BBDD_elem_DigS=BBDD_DigS_to_dic_and_DF,
                                                                           name_sheets=sheets)
     file_logging_info(logfilename='BBDD_Digsilent summary', message=message_elem_exist)
     name_folders_elements(dict_df_DigS=BBDD_DigS_to_dic_and_DF)

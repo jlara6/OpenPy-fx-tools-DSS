@@ -13,9 +13,23 @@ xlsx_DSS_xlsx:
 
 
 General:
-    -review list_property
+    -add list_property
 Other:
-    -review list_property
+    -add list_property
+PC_element:
+    - need add list_property
+PD_element:
+    - need add list_property
+Meters:
+    - need add list_property
+Controls:
+    - need add list_property
+
+Revisar que el string de opendssdirect.py trae '[' o ''. reemplazar
+La funcion que genera el archivo en blanco para ingresar la info
+Como ocultar hojas de excel desde python
+
+
 
 
 

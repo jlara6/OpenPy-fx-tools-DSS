@@ -6,14 +6,16 @@
 # @Software: PyCharm
 
 import pandas as pd
-from py_fx_tools_dss.interface_dss import dss, drt
+from py_fx_tools_dss.interface_dss import dss
+from py_fx_tools_dss.NameClass_columns import dict_General
 
-list_General_DSS = ['WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape',
-                    'LoadShape', 'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
+
 
 def General_DSS(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
 
-    list_property = dss.dsselement_all_property_names()
+    dss.circuit_set_active_class(name_class)
+    list_property_dss = dss.dsselement_all_property_names()
+    list_property = dict_General[name_class]
 
     if name_class == 'LineCode':
         list_aux = ['Id_LineCode']

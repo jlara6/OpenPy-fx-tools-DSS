@@ -94,11 +94,11 @@ def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dic
     writer.close()
 
 
-def check_if_element_exists(BBDD_DigS: dict, name_sheets: list):
+def check_if_element_exists(BBDD_elem_DigS: dict, name_sheets: list):
     """
     According to a list of elements, it checks if they are found in the DigSilent database
 
-    :param BBDD_DigS: DigSilent database file in xls format
+    :param BBDD_elem_DigS: DigSilent database file in xls format
     :param name_sheets: List of sheets from DigSilent
     :return: BBDD_DigS
     """
@@ -116,65 +116,65 @@ def check_if_element_exists(BBDD_DigS: dict, name_sheets: list):
             message = message + f'Loading {name_sheet} file: With xlsx_data\n'
             print(f'Loading {name_sheet} file: Empty')
             if name_sheet == 'General':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'Descr(a:40)', 'Val(a:40)'])
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'Descr(a:40)', 'Val(a:40)'])
                 
             elif name_sheet == 'BlkDef':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)'])
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)'])
                 
             elif name_sheet == 'ChaRef':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)'])
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)'])
                 
             elif name_sheet == 'ElmComp':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'outserv(i)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'outserv(i)',
                                                               'typ_id(p)'])
                 
             elif name_sheet == 'ElmCoup':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
                                                               'on_off(i)', 'aUsage(a:4)', 'chr_name(a:20)'])
                 
             elif name_sheet == 'ElmDsl':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)', 'outserv(i)'])
                 
             elif name_sheet == 'ElmFeeder':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'obj_id(p)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'obj_id(p)',
                                                               'iorient(i)', 'i_scale(i)', 'Iset(r)', 'icolor(i)',
                                                               'outserv(i)'])
                 
             elif name_sheet == 'ElmLne':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'bus1(p)', 'bus2(p)', 'fold_id(p)', 'typ_id(p)', 'dline(r)',
                              'chr_name(a:20)', 'Inom(r)', 'Inom_a(r)', 'outserv(i)', 'rearth(r)', 'c_pcond(p)',
                              'c_ptow(p)', 'c_pcoup(p)', 'cpBranch(p)', 'for_name(a:40)', 'Unom(r)', 'R1(r)', 'X1(r)',
                              'R0(r)', 'X0(r)', 'C1(r)', 'C0(r)', 'B1(r)', 'B0(r)', 'G1(r)', 'G0(r)'])
                 
             elif name_sheet == 'ElmLod':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)', 'chr_name(a:20)',
                              'plini(r)', 'qlini(r)', 'scale0(r)'])
                 
             elif name_sheet == 'ElmLod':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)', 'chr_name(a:20)',
                              'plini(r)', 'qlini(r)', 'scale0(r)'])
                 
             elif name_sheet == 'ElmNet':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'frnom(r)'])
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'frnom(r)'])
                 
             elif name_sheet == 'ElmShnt':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'chr_name(a:20)', 'shtype(i)', 'ushnm(r)',
                              'qcapn(r)', 'ncapx(i)', 'ncapa(i)','outserv(i)'])
                 
             elif name_sheet == 'ElmSym':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
                                                               'ngnum(i)', 'i_mot(i)', 'chr_name(a:20)', 'outserv(i)',
                                                               'pgini(r)', 'qgini(r)', 'usetp(r)', 'iv_mode(i)',
                                                               'q_min(r)',
                                                               'q_max(r)'])
                 
             elif name_sheet == 'ElmTerm':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)', 'iUsage(i)', 'uknom(r)',
                              'chr_name(a:20)', 'outserv(i)', 'GPSlat(r)', 'GPSlon(r)', 'cDisplayName(a)', 'NodeName(a)',
                              'cpBranch(p)', 'cpZone(p)', 'cpArea(p)', 'cpSubstat(p)', 'systype(i)', 'phtech(i)',
@@ -184,113 +184,113 @@ def check_if_element_exists(BBDD_DigS: dict, name_sheets: list):
                              'cpSupplyTrfStation(p)', 'cpSupplySubstation(p)'])
                 
             elif name_sheet == 'ElmTr2':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
                                                               'outserv(i)', 'nntap(i)', 'sernum(a:20)', 'constr(i)',
                                                               'chr_name(a:20)'])
                 
             elif name_sheet == 'ElmTr3':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)',
                                                               'outserv(i)', 'nntap(i)', 'sernum(a:20)', 'constr(i)',
                                                               'chr_name(a:20)'])
                 
             elif name_sheet == 'ElmXnet':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'outserv(i)', 'snss(r)', 'rntxn(r)',
                              'z2tz1(r)', 'snssmin(r)', 'rntxnmin(r)', 'z2tz1min(r)', 'chr_name(a:20)', 'bustp(a:2)',
                              'pgini(r)', 'qgini(r)', 'phiini(r)', 'usetp(r)'])
                 
             elif name_sheet == 'IntFolder':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)'])
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)'])
                 
             elif name_sheet == 'IntGrf':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'iCol(i)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'iCol(i)',
                                                               'iVis(i)', 'iLevel(i)', 'rCenterX(r)', 'rCenterY(r)',
                                                               'sSymNam(a:40)',
                                                               'pDataObj(p)', 'iRot(i)', 'rSizeX(r)', 'rSizeY(r)'])
                 
             elif name_sheet == 'IntGrfcon':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'rX:SIZEROW(i)', 'rX:0(r)', 'rX:1(r)',
                              'rX:2(r)', 'rY:SIZEROW(i)', 'rY:0(r)', 'rY:1(r)', 'rY:2(r)'])
                 
             elif name_sheet == 'IntGrfnet':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'snap_on(i)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'snap_on(i)',
                                                               'grid_on(i)', 'ortho_on(i)'])
                 
             elif name_sheet == 'StaCubic':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'chr_name(a:20)',
                              'obj_bus(i)', 'obj_id(p)', 'it2p1(i)', 'it2p2(i)', 'it2p3(i)',
                              'cPhInfo(a)', 'nphase(i)'])
                 
             elif name_sheet == 'StaSwitch':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'on_off(i)', 'typ_id(p)', 'iUse(i)'])
                 
             elif name_sheet == 'TypCon':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'uline(r)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'uline(r)',
                                                               'sline(r)', 'ncsub(i)', 'dsubc(r)', 'rpha(r)', 'diaco(r)',
                                                               'erpha(r)'])
                 
             elif name_sheet == 'TypLne':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'uline(r)', 'sline(r)', 'aohl_(a:3)',
                              'rline(r)', 'xline(r)', 'cline(r)', 'rline0(r)', 'xline0(r)', 'cline0(r)', 'rtemp(r)',
                              'Ithr(r)', 'chr_name(a:20)'])
                 
             elif name_sheet == 'TypLod':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'phtech(i)', 'kpu(r)', 'kqu(r)', 'systp(i)',
                              'aP(r)', 'bP(r)', 'cP(r)', 'aQ(r)', 'bQ(r)', 'cQ(r)', 'kpu0(r)', 'kpu1(r)', 'kqu0(r)',
                              'kqu1(r)',	'chr_name(a:20)'])
                 
             elif name_sheet == 'TypSym':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'sgn(r)', 'ugn(r)', 'cosn(r)', 'xd(r)',
                              'xq(r)', 'xdsss(r)', 'rstr(r)', 'xdsat(r)', 'satur(i)'])
                 
             elif name_sheet == 'TypTow':
-                BBDD_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'frnom(r)',
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'frnom(r)',
                                                               'nlear(i)', 'nlcir(i)', 'gearth(r)', 'i_mode(i)'])
                 
             elif name_sheet == 'TypTr2':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'strn(r)', 'frnom(r)', 'utrn_h(r)',
                              'utrn_l(r)', 'uktr(r)', 'pcutr(r)', 'uk0tr(r)', 'ur0tr(r)', 'tr2cn_h(a:2)', 'tr2cn_l(a:2)',
                              'nt2ag(r)', 'curmg(r)', 'pfe(r)', 'zx0hl_n(r)', 'tap_side(i)', 'dutap(r)', 'phitr(r)',
                              'nntap0(i)', 'ntpmn(i)', 'ntpmx(i)', 'manuf(a:20)', 'chr_name(a:20)'])
                 
             elif name_sheet == 'TypTr3':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'strn(r)', 'frnom(r)', 'utrn_h(r)',
                              'utrn_l(r)', 'uktr(r)', 'pcutr(r)', 'uk0tr(r)', 'ur0tr(r)', 'tr2cn_h(a:2)', 'tr2cn_l(a:2)',
                              'nt2ag(r)', 'curmg(r)', 'pfe(r)', 'zx0hl_n(r)', 'tap_side(i)', 'dutap(r)', 'phitr(r)',
                              'nntap0(i)', 'ntpmn(i)', 'ntpmx(i)', 'manuf(a:20)', 'chr_name(a:20)'])
                 
             elif name_sheet == 'RelFuse':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'typ_id(p)', 'on_off(i)', 'aUsage(a:4)',
                              'chr_name(a:20)', 'outserv(i)', 'bus1(p)',	'bus2(p)', 'nphase(i)',	'nneutral(i)',
                              'c_type(a)', 'cpOperator(p)', 'ciEnergized(i)'])
                 
 
             elif name_sheet == 'TypGeo':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'nlear(i)', 'nlcir(i)', 'xy_e:SIZEROW(i)',
                              'xy_e:SIZECOL(i)', 'xy_c:SIZEROW(i)', 'xy_c:SIZECOL(i)', 'xy_c:0:0(r)', 'xy_c:0:1(r)',
                              'xy_c:0:2(r)', 'xy_c:0:3(r)', 'xy_c:0:4(r)', 'xy_c:0:5(r)', 'xy_c:0:6(r)'])
                 
 
             elif name_sheet == 'ElmSubstat':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)', 'sShort(a:6)',	'Unom(r)', 'GPSlat(r)',
                              'GPSlon(r)'])
                 
             elif name_sheet == 'IntFolder':
-                BBDD_DigS[name_sheet] = pd.DataFrame(
+                BBDD_elem_DigS[name_sheet] = pd.DataFrame(
                     columns=['ID(a:40)', 'loc_name(a:40)', 'fold_id(p)'])
 
-    return BBDD_DigS, message
+    return BBDD_elem_DigS, message
 
 def merge_ElmTerm_StaCubic(DataFrame_ElmTerm: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
     """

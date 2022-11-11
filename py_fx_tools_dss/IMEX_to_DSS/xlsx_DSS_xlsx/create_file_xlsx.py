@@ -52,9 +52,7 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
     dss.text("ClearAll")
     dss.text(f"compile [{DSS_file}]")
 
-
     drt.run_command(f"compile [{DSS_file}]")
-    drt.ActiveClass.First()
 
     list_no = ['Solution']
     for ClassName in dss.dss_classes():
