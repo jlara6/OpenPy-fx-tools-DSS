@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 import pandas as pd
-from py_fx_tools_dss.interface_dss import dss, drt
+from py_fx_tools_dss.interface_dss import dss
 
 list_Other_DSS = ['Vsource', 'Fault', 'GICsource', 'Isource']
 

@@ -72,10 +72,10 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
     text_aux = text_aux + 'Export of the file with xlsx_data for OpenDSS: Ok\n'
 
     workbook_DSS = f'BBDD_DSS_{projects_name}.xlsx'
-    save_BBDD_xlsx(workbook_DSS=workbook_DSS,
-                   elements_OpenDSS=OpenDSS_element_list,
-                   BBDD_OpenDSS=BBDD_OpenDSS,
-                   out_path=out_path)
+    _save_BBDD_xlsx(workbook_DSS=workbook_DSS,
+                    elements_OpenDSS=OpenDSS_element_list,
+                    BBDD_OpenDSS=BBDD_OpenDSS,
+                    out_path=out_path)
     print('___________________________________________________________________________________________________________')
     print('Fifth stage: Export and creation of the geographic coordinate file')
 
@@ -121,7 +121,7 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
 def OpenDSS_database_generator(dict_df_DigS: dict):
     """
     Fill the dictionary and DataFrame with xlsx_data that OpenDSS reads, use the functions:Other_elements_DSS,
-    General_elements_DSS, PD_elements_DSS, PC_elements_DSS, Controls_elements_DSS, Meters_elements_DSS and 
+    General_elements_DSS, PD_elements_DSS, PC_elements_DSS, Controls_elements_DSS, Meters_elements_DSS and
     DIGS_Voltagebases_DSS
 
     :param dict_df_DigS: Dictionary that in each key contains a dataframe with the information exported from Digsilent in .xls format

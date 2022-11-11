@@ -5,7 +5,7 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from ...helper_functions import save_BBDD_xlsx
+from ...helper_functions import _save_BBDD_xlsx
 import pandas as pd
 from ...helper_functions import *
 
@@ -66,10 +66,10 @@ def column_selection_for_reliability(workbook:str, BBDD_OpenDSS:dict, dict_df_Di
     element_list.append('Load')
 
     workbook_aux = f'BBDD_reliability_{workbook}.xlsx'
-    save_BBDD_xlsx(workbook_DSS=workbook_aux, elements_OpenDSS=element_list, BBDD_OpenDSS=BBDD_reliability, out_path=out_path)
+    _save_BBDD_xlsx(workbook_DSS=workbook_aux, elements_OpenDSS=element_list, BBDD_OpenDSS=BBDD_reliability, out_path=out_path)
 
     '**********'
     #workbook_DSS = f'BBDD_DSS_{projects_name}.xlsx'
-    #save_BBDD_xlsx(workbook_DSS=workbook_DSS, elements_OpenDSS=OpenDSS_element_list, BBDD_OpenDSS=BBDD_OpenDSS, path_save=path_save)
+    #_save_BBDD_xlsx(workbook_DSS=workbook_DSS, elements_OpenDSS=OpenDSS_element_list, BBDD_OpenDSS=BBDD_OpenDSS, path_save=path_save)
 
     return BBDD_reliability, element_list
