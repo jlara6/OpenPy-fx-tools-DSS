@@ -1,0 +1,24 @@
+set Datapath=(G:\Mi unidad\GitHub\py-fx-tools-dss\py_fx_tools_dss\IMEX_to_DSS\xlsx_DSS_xlsx\Examples\13NodeIEEE\xlsx_files\)
+Clear
+
+New Circuit.13nodeIEEE
+~ basekv=115 pu=1.0001 phases=3 bus1=SourceBus  
+~ Angle=30                                                         ! advance angle 30 deg so result agree with published angle
+~ MVAsc3=20000 MVASC1=21000    ! stiffen the source to approximate inf source
+
+
+Redirect LineCode_13nodeIEEE.dss
+Redirect LoadShape_13nodeIEEE.dss
+Redirect GrowthShape_13nodeIEEE.dss
+Redirect TCC_Curve_13nodeIEEE.dss
+Redirect Spectrum_13nodeIEEE.dss
+Redirect Line_13nodeIEEE.dss
+!Redirect Vsource_13nodeIEEE.dss
+Redirect Load_13nodeIEEE.dss
+Redirect Transformer_13nodeIEEE.dss
+!Redirect RegControl_13nodeIEEE.dss
+Redirect Capacitor_13nodeIEEE.dss
+
+!LatLongCoords Buscoords_13nodeIEEE.csv
+
+solve

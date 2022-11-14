@@ -7,7 +7,7 @@
 
 import pandas as pd
 from collections import defaultdict
-from helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
 pd.options.mode.chained_assignment = None
 

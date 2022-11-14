@@ -14,7 +14,7 @@ from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.PD_Elements 
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.PC_Elements import PC_elements_DSS
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.Controls_DSS import Controls_elements_DSS
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.Meters_DSS import Meters_elements_DSS
-from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Voltagebases import DIGS_Voltagebases_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.DIGS_to_DSS_elem.Voltagebases import DIGS_Voltagebases_DSS
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elem_DIGS_to_DSS.Buscoords import Buscoords_DSS, file_Buscoords_DSS
 
 

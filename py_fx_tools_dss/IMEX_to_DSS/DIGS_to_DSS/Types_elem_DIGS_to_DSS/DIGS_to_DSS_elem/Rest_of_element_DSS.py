@@ -7,10 +7,10 @@
 
 import pandas as pd
 
-def DIGS_AutoTrans_DSS()->pd.DataFrame:
-    '''
+def DIGS_AutoTrans_DSS() -> pd.DataFrame:
+    """
     :return: df_AutoTrans_DSS
-    '''
+    """
     'DataFrame creation with OpenDSS keywords'
     df_AutoTrans_DSS = pd.DataFrame(
         columns=['Id_AutoTrans', 'phases', 'windings', 'wdg', 'bus', 'conn', 'kV', 'KVA', 'tap', '%R', 'Rdcohms',

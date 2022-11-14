@@ -89,7 +89,10 @@ def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dic
 
     writer = pd.ExcelWriter(f'{out_path}\{workbook_DSS}')
     for name in elements_OpenDSS:
-        BBDD_OpenDSS[name].to_excel(writer, sheet_name=name, index=False)
+        if BBDD_OpenDSS[name].empty:
+            pass
+        else:
+            BBDD_OpenDSS[name].to_excel(writer, sheet_name=name, index=False)
     writer.save()
     writer.close()
 

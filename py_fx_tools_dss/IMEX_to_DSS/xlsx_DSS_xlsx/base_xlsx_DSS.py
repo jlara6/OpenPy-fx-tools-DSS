@@ -21,6 +21,12 @@ def _test_DSS_files(Opt: int):
     if Opt == 1:
         DSS_info['DSS_path'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "Empty.dss")
         DSS_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE")
+        DSS_info['prj_name'] = 'default'
+
+    if Opt == 2:
+        DSS_info['DSS_path'] = pathlib.Path(script_path).joinpath(
+            "Examples", "13NodeIEEE", "DSS_files", "IEEE13Nodeckt.dss")
+        DSS_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "xlsx_files")
         DSS_info['prj_name'] = '13nodeIEEE'
 
     return DSS_info
@@ -30,8 +36,9 @@ def _test_xlsx_files(Opt: int) -> object:
     script_path = os.path.dirname(os.path.abspath(__file__))
     xlsx_info = dict()
     if Opt == 1:
-        xlsx_info['xlsx_path'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "13NodeIEEE.xlsx")
-        xlsx_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE")
+        xlsx_info['xlsx_path'] = pathlib.Path(script_path).joinpath(
+            "Examples", "13NodeIEEE", "xlsx_files", "BBDD_DSS_13nodeIEEE.xlsx")
+        xlsx_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "xlsx_files")
         xlsx_info['prj_name'] = '13nodeIEEE'
 
 

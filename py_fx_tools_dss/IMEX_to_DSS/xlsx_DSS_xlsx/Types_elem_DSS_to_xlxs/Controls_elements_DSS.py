@@ -7,12 +7,14 @@
 
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
+from py_fx_tools_dss.NameClass_columns import dict_Control
 
 list_Controls_DSS = ['CapControl', 'ESPVLControl', 'ExpControl', 'Fuse', 'GenDispatcher', 'InvControl', 'Recloser',
                      'RegControl', 'Relay', 'StorageController', 'SwtControl', 'UPFCControl']
 
 def Controls_DSS(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
-    list_property = dss.dsselement_all_property_names()
+    # list_property = dss.dsselement_all_property_names()
+    list_property = dict_Control[name_class]
 
     if name_class == 'CapControl':
         list_aux = ['Id_CapControl']

@@ -7,11 +7,13 @@
 
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
+from py_fx_tools_dss.NameClass_columns import dict_Other
 
 list_Other_DSS = ['Vsource', 'Fault', 'GICsource', 'Isource']
 
 def Other_DSS(BBDD_DSS: dict, DSS_elem_list: list, name_class: str):
-    list_property = dss.dsselement_all_property_names()
+    #list_property = dss.dsselement_all_property_names()
+    list_property = dict_Other[name_class]
 
     if name_class == 'Vsource':
         list_aux = ['Id_Vsource']

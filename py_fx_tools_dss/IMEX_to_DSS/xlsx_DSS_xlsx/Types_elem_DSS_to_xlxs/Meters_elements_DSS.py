@@ -7,11 +7,13 @@
 
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
+from py_fx_tools_dss.NameClass_columns import dict_Meters
 
 list_Meters_DSS = ['EnergyMeter', 'FMonitor', 'Monitor', 'Sensor']
 
 def Meters_DSS(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
-    list_property = dss.dsselement_all_property_names()
+    #list_property = dss.dsselement_all_property_names()
+    list_property = dict_Meters[name_class]
 
     if name_class == 'EnergyMeter':
         list_aux = ['Id_EnergyMeter']

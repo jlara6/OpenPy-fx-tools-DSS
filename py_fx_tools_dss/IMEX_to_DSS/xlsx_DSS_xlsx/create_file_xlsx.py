@@ -42,7 +42,6 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
         "General": len(list_General_DSS), "Other": len(list_Other_DSS), "PD_elem": len(list_PD_elements_DSS),
         "PC_elem": len(list_PC_elements_DSS), "Controls": len(list_Controls_DSS), "Meters": len(list_Meters_DSS)}
 
-
     n_elem_add = {"General": 0, "Other": 0, "PD_elem": 0, "PC_elem": 0, "Controls": 0, "Meters": 0}
 
     DSS_elem_list = list()
@@ -65,18 +64,16 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
         else:
             pass
 
-    workbook_DSS = f'BBDD_DSS_{prj_name}.xlsx'
-    _save_BBDD_xlsx(workbook_DSS=workbook_DSS,
+
+
+    xlsx_name_DSS = f'BBDD_DSS_{prj_name}.xlsx'
+    _save_BBDD_xlsx(workbook_DSS=xlsx_name_DSS,
                     elements_OpenDSS=DSS_elem_list,
                     BBDD_OpenDSS=BBDD_OpenDSS,
                     out_path=path_save)
 
 
-
-
-
-
-def _class_to_DataFrame(ClassName: str, transform_string=None, clean_data=None):
+def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=None):
 
     if transform_string is None:
         transform_string = _evaluate_expression
@@ -90,25 +87,46 @@ def _class_to_DataFrame(ClassName: str, transform_string=None, clean_data=None):
     for element in drt.ActiveClass.AllNames():
         name = "{element}".format(element=element)
         drt.ActiveClass.Name(element)
-
         data[name] = dict()
+
         for i, n in enumerate(drt.Element.AllPropertyNames()):
             # use 1-based index for compatibility with previous versions
-            string = drt.Properties.Value(str(i + 1))
+            PropertyName = drt.Element.AllPropertyNames()[i]
+            if PropertyName == 'WdgCurrents':
+                string = ''
+            else:
+                string = drt.Properties.Value(str(i + 1))
+            string = transform_string(string)
+            if type(string) == list:
+                string = str(string).replace("'", "")
+                if string == "[]":
+                    string = ""
 
-            data[name][n] = transform_string(string)
+                """
+                if "[" in string and "]" in string and " " in string:
+                    pass
+                else:
+                    string = str(string).replace("[", "")
+                    string = str(string).replace("]", "")
+                """
+            if type(string) == tuple:
+                string = str(list(string)).replace("'", "")
+                if string == "[]":
+                    string = ""
+
+
+            if PropertyName == 'bus1':
+                string = str(string)
+            if PropertyName == 'bus2':
+                string = str(string)
+
+            data[name][n] = string
 
     data = clean_data(data, ClassName)
     df_class = pd.DataFrame(pd.DataFrame(data).T).reset_index().rename(columns={'index': f'Id_{ClassName}'})
 
     return df_class
 
-    #df_class = drt.utils.class_to_dataframe(ClassName)
-
-    #BBDD_OpenDSS[ClassName] = df_class
-    #DSS_elem_list.append(ClassName)
-
-    #return BBDD_OpenDSS, DSS_elem_list
 
 
 def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, dict_class: dict):
@@ -133,7 +151,7 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
             dict_class['Meters'] += 1
 
     else:
-        df_class = _class_to_DataFrame(ClassName)
+        df_class = ClassName_to_DataFrame(ClassName)
         if len([x for x in [ClassName] if x in list_General_DSS]) == 1:
             if df_class.empty:
                 BBDD_OpenDSS, DSS_elem_list = General_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
@@ -210,22 +228,32 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
 
 def _evaluate_expression(string):
 
+    list_except = ['none', '----', 'No', 'oh', '', '0', "-1", "shell"]
+    list_units = ['mi', 'kft', 'km', 'm', 'Ft', 'in', 'cm']
+
     if "[" in string and "]" in string:
-        e = [
+        str_mdf = [
             _evaluate_expression(x.strip())
             for x in string.replace("[", "").replace("]", "").split(",")
             if x.strip() != ""
         ]
+        return str_mdf
 
-        return e
+    elif len([x for x in [string] if x in list_except]) == 1:
+        str_mdf = ''
+        return str_mdf
+
+    elif len([x for x in [string] if x in list_units]) == 1:
+        return string
+
 
     elif string.startswith("(") and string.endswith(")"):
-        e = tuple(
+        str_mdf = tuple(
             _evaluate_expression(x.strip())
             for x in string.replace("(", "").replace(")", "").split(",")
             if x.strip() != ""
         )
-        return e
+        return str_mdf
 
     elif string.lower() == "true":
         return True
@@ -233,8 +261,23 @@ def _evaluate_expression(string):
     elif string.lower() == "false":
         return False
 
-    else:
+    elif "|" in string:
         return string
+
+
+    elif string.startswith("'") and string.endswith("'"):
+        print('here')
+
+
+    elif type(string) == list:
+        return string
+
+    else:
+        try:
+            string = float(string)
+            return string
+        except ValueError:
+            return string
 
 def _clean_data(data, class_name):
     for element in drt.ActiveClass.AllNames():
