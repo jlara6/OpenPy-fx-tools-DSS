@@ -12,12 +12,12 @@ from py_fx_tools_dss.helper_functions import *
 pd.options.mode.chained_assignment = None
 
 def terminal_name_check(DataFrame_ElmTerm: pd.DataFrame):
-    '''
+    """
     check that there are no terminals with the same name
 
     :param DataFrame_ElmTerm:
     :return:
-    '''
+    """
 
     df_ElmTerm = DataFrame_ElmTerm
     df_duplicate_ElmTerm = DataFrame_ElmTerm[DataFrame_ElmTerm['loc_name(a:40)'].duplicated() == True]

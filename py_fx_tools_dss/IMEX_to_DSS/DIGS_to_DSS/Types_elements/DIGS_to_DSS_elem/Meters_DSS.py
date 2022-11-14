@@ -7,7 +7,7 @@
 
 import pandas as pd
 
-def DIGS_EnergyMeter_DSS()->pd.DataFrame:
+def DIGS_EnergyMeter_DSS() -> pd.DataFrame:
     '''
     :return: df_EnergyMeter_DSS
     '''
@@ -20,7 +20,7 @@ def DIGS_EnergyMeter_DSS()->pd.DataFrame:
 
     return df_EnergyMeter_DSS
 
-def DIGS_FMonitor_DSS()->pd.DataFrame:
+def DIGS_FMonitor_DSS() -> pd.DataFrame:
     '''
     :return: df_FMonitor_DSS
     '''
@@ -34,7 +34,7 @@ def DIGS_FMonitor_DSS()->pd.DataFrame:
 
     return df_FMonitor_DSS
 
-def DIGS_Monitor_DSS()->pd.DataFrame:
+def DIGS_Monitor_DSS() -> pd.DataFrame:
     '''
     :return: df_Monitor_DSS
     '''
@@ -45,7 +45,7 @@ def DIGS_Monitor_DSS()->pd.DataFrame:
 
     return df_Monitor_DSS
 
-def DIGS_Sensor_DSS()->pd.DataFrame:
+def DIGS_Sensor_DSS() -> pd.DataFrame:
     '''
     :return: df_Sensor_DSS
     '''

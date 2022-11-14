@@ -5,9 +5,9 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
-def DIGS_Shunt_DSS(DataFrame_ElmShnt:pd.DataFrame, DataFrame_StaCubic:pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame)->pd.DataFrame:
+def DIGS_Shunt_DSS(DataFrame_ElmShnt: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame) -> pd.DataFrame:
     '''
     :param DataFrame_ElmShnt:
     :param DataFrame_StaCubic:

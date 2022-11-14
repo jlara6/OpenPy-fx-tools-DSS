@@ -5,11 +5,11 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Line_DSS import DIGS_line_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Trafo_DSS import DIGS_trafo_DSS, DIGS_trafo_conn_group_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Switch_DSS import DIGS_switch_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Rest_of_element_DSS import DIGS_AutoTrans_DSS, DIGS_GICTransformer_DSS, DIGS_Reactor_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Shunt_DSS import DIGS_Shunt_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Line_DSS import DIGS_line_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Trafo_DSS import DIGS_trafo_DSS, DIGS_trafo_conn_group_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Switch_DSS import DIGS_switch_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Rest_of_element_DSS import DIGS_AutoTrans_DSS, DIGS_GICTransformer_DSS, DIGS_Reactor_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Shunt_DSS import DIGS_Shunt_DSS
 
 def PD_elements_DSS(dict_df_DigS:dict, BBDD_OpenDSS:dict, OpenDSS_element_list:list):
 

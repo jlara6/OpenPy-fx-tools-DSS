@@ -5,9 +5,9 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
-def DIGS_switch_DSS(DataFrame_ElmCoup:pd.DataFrame, DataFrame_RelFuse:pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame, DataFrame_StaCubic:pd.DataFrame )->pd.DataFrame:
+def DIGS_switch_DSS(DataFrame_ElmCoup: pd.DataFrame, DataFrame_RelFuse: pd.DataFrame, DataFrame_ElmTerm: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame ) -> pd.DataFrame:
     '''
     :param DataFrame_ElmCoup:
     :param DataFrame_RelFuse:

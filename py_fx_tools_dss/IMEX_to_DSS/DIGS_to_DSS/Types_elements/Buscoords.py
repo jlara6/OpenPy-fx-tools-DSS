@@ -11,7 +11,7 @@ from numpy import ndarray
 from pandas import Series, DataFrame
 from pandas.core.arrays import ExtensionArray
 
-from helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
 
 def Buscoords_DSS(name_proyect: str, DataFrame_ElmTerm: pd.DataFrame, DataFrame_ElmSubstat: pd.DataFrame, out_path: str):

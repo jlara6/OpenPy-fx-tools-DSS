@@ -5,8 +5,9 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Vsource_DSS import DIGS_Vsource_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Rest_of_element_DSS import DIGS_Fault_DSS, DIGS_GICsource_DSS, DIGS_Isource_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Vsource_DSS import DIGS_Vsource_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Rest_of_element_DSS import \
+    DIGS_Fault_DSS, DIGS_GICsource_DSS, DIGS_Isource_DSS
 
 def Other_elements_DSS(dict_df_DigS: dict, BBDD_OpenDSS: dict, OpenDSS_element_list: list):
 

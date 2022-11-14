@@ -5,10 +5,12 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Line_modeling_DSS import WireData_DSS, LineSpacing_DSS, LineGeometry_DSS, LineCode_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Trafo_DSS import xfmcode_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Rest_of_element_DSS import DIGS_CNData_DSS, DIGS_GrowthShape_DSS, DIGS_LoadShape_DSS, \
-    DIGS_PriceShape_DSS, DIGS_Spectrum_DSS, DIGS_TCC_Curve_DSS, DIGS_TSData_DSS, DIGS_TShape_DSS, DIGS_XYcurve_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Line_modeling_DSS import \
+    WireData_DSS, LineSpacing_DSS, LineGeometry_DSS, LineCode_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Trafo_DSS import xfmcode_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Rest_of_element_DSS import \
+    DIGS_CNData_DSS, DIGS_GrowthShape_DSS, DIGS_LoadShape_DSS, DIGS_PriceShape_DSS, DIGS_Spectrum_DSS, \
+    DIGS_TCC_Curve_DSS, DIGS_TSData_DSS, DIGS_TShape_DSS, DIGS_XYcurve_DSS
 
 def General_elements_DSS(dict_df_DigS:dict, BBDD_OpenDSS:dict, OpenDSS_element_list:list):
 

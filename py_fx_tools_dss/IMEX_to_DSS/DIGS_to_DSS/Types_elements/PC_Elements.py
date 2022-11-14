@@ -5,8 +5,8 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Load_DSS import DIGS_load_DSS
-from Types_elem_DIGS_to_DSS.DigS_to_OpenDSS_elem.Rest_of_element_DSS import DIGS_Generator_DSS, DIGS_Generic5_DSS, DIGS_GICLine_DSS, \
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Load_DSS import DIGS_load_DSS
+from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Rest_of_element_DSS import DIGS_Generator_DSS, DIGS_Generic5_DSS, DIGS_GICLine_DSS, \
     DIGS_IndMach012_DSS, DIGS_PVSystem_DSS, DIGS_Storage_DSS, DIGS_UPFC_DSS, DIGS_VCCS_DSS, DIGS_WindGen_DSS, DIGS_VSConverter_DSS
 
 

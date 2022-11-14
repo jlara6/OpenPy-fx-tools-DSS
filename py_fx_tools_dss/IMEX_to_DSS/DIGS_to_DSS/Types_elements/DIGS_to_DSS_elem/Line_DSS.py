@@ -7,7 +7,7 @@
 import pandas as pd
 import numpy as np
 
-from helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
 def DIGS_line_DSS(DataFrame_ElmLne:pd.DataFrame, DataFrame_TypTow:pd.DataFrame, DataFrame_TypLne:pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame, DataFrame_StaCubic:pd.DataFrame,
                   DataFrame_TypGeo: pd.DataFrame, DataFrame_TypCon: pd.DataFrame )->pd.DataFrame:

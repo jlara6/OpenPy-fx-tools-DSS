@@ -4,9 +4,9 @@
 # @Email   : jlara@iee.unsj.edu.ar
 # @File    : ------------
 # @Software: PyCharm
-import numpy as np
 
-from helper_functions import *
+import numpy as np
+from py_fx_tools_dss.helper_functions import *
 
 def LineCode_DSS(DataFrame_TypLne: pd.DataFrame):
     '''

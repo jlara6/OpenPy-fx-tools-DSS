@@ -6,11 +6,11 @@
 # @Software: PyCharm
 
 import pandas as pd
-from helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
-def DIGS_trafo_DSS(DataFrame_ElmTr2:pd.DataFrame, DataFrame_TypTr2:pd.DataFrame, DataFrame_ElmTr3:pd.DataFrame,
-                   DataFrame_TypTr3:pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame,
-                   DataFrame_StaCubic:pd.DataFrame ) -> pd.DataFrame:
+def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFrame, DataFrame_ElmTr3: pd.DataFrame,
+                   DataFrame_TypTr3: pd.DataFrame, DataFrame_ElmTerm: pd.DataFrame,
+                   DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
 
     df_trafo_DSS = pd.DataFrame(
         columns=['Id_Transformer', 'Phases', 'Windings', 'Wdg', 'Bus', 'Conn', 'Kv', 'Kva', 'Tap', '%R', 'rneut',

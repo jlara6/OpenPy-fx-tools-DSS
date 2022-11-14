@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 import pandas as pd
-from .....helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
 def DIGS_load_DSS(DataFrame_ElmLod: pd.DataFrame, DataFrame_TypLod: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame, DataFrame_ElmTerm: pd.DataFrame)->pd.DataFrame:
     df_Load_DSS = pd.DataFrame(columns=['Id_Load', 'bus1', 'phases', 'conn', 'model', 'kV', 'Kw', 'kvar', 'pf',

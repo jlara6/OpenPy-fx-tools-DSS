@@ -5,9 +5,11 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 
-def DIGS_Vsource_DSS(DataFrame_ElmXnet:pd.DataFrame, DataFrame_ElmTerm:pd.DataFrame, DataFrame_StaCubic:pd.DataFrame)->pd.DataFrame:
+def DIGS_Vsource_DSS(DataFrame_ElmXnet: pd.DataFrame,
+                     DataFrame_ElmTerm: pd.DataFrame,
+                     DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
 
     df_Vsource_DSS = pd.DataFrame(
         columns=['Id_Vsource', 'bus1', 'basekv', 'pu', 'angle', 'frequency', 'phases', 'MVAsc3', 'MVAsc1', 'x1r1',
