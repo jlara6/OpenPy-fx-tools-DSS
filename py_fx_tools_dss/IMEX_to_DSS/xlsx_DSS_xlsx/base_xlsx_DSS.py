@@ -57,7 +57,7 @@ class class_xlsx_to_DSS:
 
         :return: xlsx file
         """
-        print('The function that creates the xlsx template is under development.')
+        logg_alert.update_logg_file('The function that creates the xlsx template is under development', 3, log_py)
 
     def _create_DSS_from_xlsx(self, xlsx_path: str, path_save: str, prj_name: str, path: bool):
         """

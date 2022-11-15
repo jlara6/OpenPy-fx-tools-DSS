@@ -8,12 +8,12 @@ import pandas as pd
 
 from ...interface_dss import dss, drt
 from ...helper_functions import _save_BBDD_xlsx
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_DSS
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elements_DSS import General_DSS
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_DSS
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elements_DSS import PC_elements_DSS
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_DSS
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_DSS
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_MTY, Other_DV, Other_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elements_DSS import General_MTY, General_DV, General_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_MTY, PD_elements_DV, PD_elements_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elements_DSS import PC_elements_MTY, PC_elements_DV, PC_elements_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_MTY, Controls_DV, Controls_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_MTY, Meters_DV, Meters_ORD
 
 list_General_DSS = ['WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape',
                     'LoadShape', 'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
@@ -64,13 +64,40 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
         else:
             pass
 
-
+    BBDD_OpenDSS = _check_DSS_default_values(BBDD_OpenDSS=BBDD_OpenDSS)
 
     xlsx_name_DSS = f'BBDD_DSS_{prj_name}.xlsx'
     _save_BBDD_xlsx(workbook_DSS=xlsx_name_DSS,
                     elements_OpenDSS=DSS_elem_list,
                     BBDD_OpenDSS=BBDD_OpenDSS,
                     out_path=path_save)
+
+
+def _check_DSS_default_values(BBDD_OpenDSS: dict):
+
+    for ClassName in BBDD_OpenDSS.keys():
+
+        if len([x for x in [ClassName] if x in list_General_DSS]) == 1:
+            BBDD_OpenDSS[ClassName] = General_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+
+        if len([x for x in [ClassName] if x in list_Other_DSS]) == 1:
+            BBDD_OpenDSS[ClassName] = Other_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+
+        if len([x for x in [ClassName] if x in list_PD_elements_DSS]) == 1:
+            BBDD_OpenDSS[ClassName] = PD_elements_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+
+        if len([x for x in [ClassName] if x in list_PC_elements_DSS]) == 1:
+            BBDD_OpenDSS[ClassName] = PC_elements_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+
+        if len([x for x in [ClassName] if x in list_Controls_DSS]) == 1:
+            BBDD_OpenDSS[ClassName] = Controls_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+
+        if len([x for x in [ClassName] if x in list_Meters_DSS]) == 1:
+            BBDD_OpenDSS[ClassName] = Meters_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+
+    return BBDD_OpenDSS
+
+
 
 
 def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=None):
@@ -137,14 +164,14 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
     if len([x for x in [ClassName] if x in elem_no_drt]) == 1:
         dss.circuit_set_active_class(ClassName)
         if len([x for x in [ClassName] if x in PC_elem_no_drt]) == 1:
-            BBDD_OpenDSS, DSS_elem_list = PC_elements_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
+            BBDD_OpenDSS, DSS_elem_list = PC_elements_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                           DSS_elem_list=DSS_elem_list,
                                                           name_class=ClassName)
             list_PC_elements.append(ClassName)
             dict_class['PC_elem'] += 1
 
         if ClassName == 'FMonitor':
-            BBDD_OpenDSS, DSS_elem_list = Meters_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
+            BBDD_OpenDSS, DSS_elem_list = Meters_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                      DSS_elem_list=DSS_elem_list,
                                                      name_class=ClassName)
             list_Meters.append(ClassName)
@@ -154,11 +181,11 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
         df_class = ClassName_to_DataFrame(ClassName)
         if len([x for x in [ClassName] if x in list_General_DSS]) == 1:
             if df_class.empty:
-                BBDD_OpenDSS, DSS_elem_list = General_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
+                BBDD_OpenDSS, DSS_elem_list = General_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                           DSS_elem_list=DSS_elem_list,
                                                           name_class=ClassName)
             else:
-                BBDD_OpenDSS[ClassName] = df_class
+                BBDD_OpenDSS[ClassName] = General_ORD(DF_elem_DSS=df_class, name_class=ClassName)
                 DSS_elem_list.append(ClassName)
 
             list_General.append(ClassName)
@@ -166,11 +193,11 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
 
         if len([x for x in [ClassName] if x in list_Other_DSS]) == 1:
             if df_class.empty:
-                BBDD_OpenDSS, DSS_elem_list = Other_DSS(BBDD_DSS=BBDD_OpenDSS,
+                BBDD_OpenDSS, DSS_elem_list = Other_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                         DSS_elem_list=DSS_elem_list,
                                                         name_class=ClassName)
             else:
-                BBDD_OpenDSS[ClassName] = df_class
+                BBDD_OpenDSS[ClassName] = Other_ORD(DF_elem_DSS=df_class, name_class=ClassName)
                 DSS_elem_list.append(ClassName)
 
             list_Other.append(ClassName)
@@ -178,11 +205,11 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
 
         if len([x for x in [ClassName] if x in list_PD_elements_DSS]) == 1:
             if df_class.empty:
-                BBDD_OpenDSS, DSS_elem_list = PD_elements_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
+                BBDD_OpenDSS, DSS_elem_list = PD_elements_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                               DSS_elem_list=DSS_elem_list,
                                                               name_class=ClassName)
             else:
-                BBDD_OpenDSS[ClassName] = df_class
+                BBDD_OpenDSS[ClassName] = PD_elements_ORD(DF_elem_DSS=df_class, name_class=ClassName)
                 DSS_elem_list.append(ClassName)
 
             list_PD_elements.append(ClassName)
@@ -190,11 +217,11 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
 
         if len([x for x in [ClassName] if x in list_PC_elements_DSS]) == 1:
             if df_class.empty:
-                BBDD_OpenDSS, DSS_elem_list = PC_elements_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
+                BBDD_OpenDSS, DSS_elem_list = PC_elements_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                               DSS_elem_list=DSS_elem_list,
                                                               name_class=ClassName)
             else:
-                BBDD_OpenDSS[ClassName] = df_class
+                BBDD_OpenDSS[ClassName] = PC_elements_ORD(DF_elem_DSS=df_class, name_class=ClassName)
                 DSS_elem_list.append(ClassName)
 
             list_PC_elements.append(ClassName)
@@ -202,11 +229,11 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
 
         if len([x for x in [ClassName] if x in list_Controls_DSS]) == 1:
             if df_class.empty:
-                BBDD_OpenDSS, DSS_elem_list = Controls_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
+                BBDD_OpenDSS, DSS_elem_list = Controls_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                            DSS_elem_list=DSS_elem_list,
                                                            name_class=ClassName)
             else:
-                BBDD_OpenDSS[ClassName] = df_class
+                BBDD_OpenDSS[ClassName] = Controls_ORD(DF_elem_DSS=df_class, name_class=ClassName)
                 DSS_elem_list.append(ClassName)
 
             list_Controls.append(ClassName)
@@ -214,11 +241,11 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
 
         if len([x for x in [ClassName] if x in list_Meters_DSS]) == 1:
             if df_class.empty:
-                BBDD_OpenDSS, DSS_elem_list = Meters_DSS(BBDD_elem_DSS=BBDD_OpenDSS,
+                BBDD_OpenDSS, DSS_elem_list = Meters_MTY(BBDD_elem_DSS=BBDD_OpenDSS,
                                                          DSS_elem_list=DSS_elem_list,
                                                          name_class=ClassName)
             else:
-                BBDD_OpenDSS[ClassName] = df_class
+                BBDD_OpenDSS[ClassName] = Meters_ORD(DF_elem_DSS=df_class, name_class=ClassName)
                 DSS_elem_list.append(ClassName)
 
             list_Meters.append(ClassName)

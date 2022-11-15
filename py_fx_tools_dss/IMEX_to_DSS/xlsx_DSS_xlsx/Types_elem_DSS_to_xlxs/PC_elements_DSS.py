@@ -2,121 +2,142 @@
 # @Time    : 25/09/2022
 # @Author  : Jorge Lara
 # @Email   : jlara@iee.unsj.edu.ar
-# @File    : PC_elements_DSS.py
+# @File    : PC_elements_MTY.py
 # @Software: PyCharm
 
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
 from py_fx_tools_dss.NameClass_columns import dict_PC_elem
+from .fx_objects import _COL_ORD, _COL_MTY
 
 
 list_PC_elements_DSS = ['Load', 'Generator', 'Generic5', 'GICLine', 'IndMach012', 'PVSystem', 'UPFC', 'VCCS', 'Storage',
                         'VSConverter', 'WindGen']
 
-def PC_elements_DSS(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
+def PC_elements_DV(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
+    if name_class == 'Load':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'Generator':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'Generic5':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'GICLine':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'IndMach012':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'PVSystem':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'UPFC':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'VCCS':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'Storage':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'VSConverter':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'WindGen':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    else:
+        return DF_elem_DSS
+
+
+
+def PC_elements_ORD(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
+
+    if name_class == 'Load':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'Generator':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'Generic5':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'GICLine':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'IndMach012':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'PVSystem':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'UPFC':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'VCCS':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'Storage':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'VSConverter':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+
+    elif name_class == 'WindGen':
+        return _COL_ORD(dict_PC_elem, DF_elem_DSS, name_class)
+    else:
+        return DF_elem_DSS
+
+def PC_elements_MTY(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
 
     #list_property = dss.dsselement_all_property_names()
     list_property = dict_PC_elem[name_class]
 
     if name_class == 'Load':
-        list_aux = ['Id_Load']
-        list_aux = list_aux + list_property
-        df_Load = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Load'] = df_Load
-        DSS_elem_list.append('Load')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'Generator':
-        list_aux = ['Id_Generator']
-        list_aux = list_aux + list_property
-        df_Generator = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Generator'] = df_Generator
-        DSS_elem_list.append('Generator')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'Generic5':
-        list_aux = ['Id_Generic5']
-        list_aux = list_aux + list_property
-        df_Generic5 = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Generic5'] = df_Generic5
-        DSS_elem_list.append('Generic5')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'GICLine':
-        list_aux = ['Id_GICLine']
-        list_aux = list_aux + list_property
-        df_GICLine = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['GICLine'] = df_GICLine
-        DSS_elem_list.append('GICLine')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'IndMach012':
-        list_aux = ['Id_IndMach012']
-        list_aux = list_aux + list_property
-        df_IndMach012 = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['IndMach012'] = df_IndMach012
-        DSS_elem_list.append('IndMach012')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'PVSystem':
-        list_aux = ['Id_PVSystem']
-        list_aux = list_aux + list_property
-        df_PVSystem = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['PVSystem'] = df_PVSystem
-        DSS_elem_list.append('PVSystem')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'UPFC':
-        list_aux = ['Id_UPFC']
-        list_aux = list_aux + list_property
-        df_UPFC = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['UPFC'] = df_UPFC
-        DSS_elem_list.append('UPFC')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'VCCS':
-        list_aux = ['Id_VCCS']
-        list_aux = list_aux + list_property
-        df_VCCS = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['VCCS'] = df_VCCS
-        DSS_elem_list.append('VCCS')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'Storage':
-        list_aux = ['Id_Storage']
-        list_aux = list_aux + list_property
-        df_Storage = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Storage'] = df_Storage
-        DSS_elem_list.append('Storage')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'VSConverter':
-        list_aux = ['Id_VSConverter']
-        list_aux = list_aux + list_property
-        df_VSConverter = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['VSConverter'] = df_VSConverter
-        DSS_elem_list.append('VSConverter')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'WindGen':
-        list_aux = ['Id_WindGen']
-        list_aux = list_aux + list_property
-        df_WindGen = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['WindGen'] = df_WindGen
-        DSS_elem_list.append('WindGen')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     else:
-
         return BBDD_elem_DSS, DSS_elem_list

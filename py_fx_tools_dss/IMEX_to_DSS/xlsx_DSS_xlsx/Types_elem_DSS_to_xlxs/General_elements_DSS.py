@@ -8,140 +8,165 @@
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
 from py_fx_tools_dss.NameClass_columns import dict_General
+from .fx_objects import _COL_ORD, _COL_MTY
 
 
+def General_ORD(DF_elem_DSS: pd.DataFrame, name_class: str):
 
-def General_DSS(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
+    if name_class == 'LineCode':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'LoadShape':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'TShape':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'PriceShape':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'XYcurve':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'GrowthShape':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'TCC_Curve':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'Spectrum':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'WireData':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'CNData':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'TSData':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'LineGeometry':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'LineSpacing':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    elif name_class == 'XfmrCode':
+        return _COL_ORD(dict_General, DF_elem_DSS, name_class)
+    else:
+        return DF_elem_DSS
+
+def General_DV(DF_elem_DSS: pd.DataFrame, name_class: str):
+    if name_class == 'LineCode':
+        if not DF_elem_DSS.empty:
+            for index, row in DF_elem_DSS.iterrows():
+                row_aux = ['units', 'Kron', 'Rg', 'Xg', 'rho', 'neutral', 'LineType']
+                value_aux = ['none', 'No', 0.01805, 0.155081, 100, 'nphases', 'value', 'OH']
+                for x in zip(row_aux, value_aux):
+                    if DF_elem_DSS[x[0]][index] == x[1]:
+                        DF_elem_DSS[x[0]][index] = ''
+                    if x[1] == 'nphases':
+                        if DF_elem_DSS[x[0]][index] == DF_elem_DSS[x[1]][index]:
+                            DF_elem_DSS[x[0]][index] = ''
+
+        return DF_elem_DSS
+
+    elif name_class == 'LoadShape':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'TShape':
+        if not DF_elem_DSS.empty:
+            pass
+
+        return DF_elem_DSS
+
+    elif name_class == 'PriceShape':
+        if not DF_elem_DSS.empty:
+            pass
+
+        return DF_elem_DSS
+
+    elif name_class == 'XYcurve':
+        if not DF_elem_DSS.empty:
+            pass
+
+        return DF_elem_DSS
+
+    elif name_class == 'GrowthShape':
+        if not DF_elem_DSS.empty:
+            pass
+
+        return DF_elem_DSS
+
+    elif name_class == 'TCC_Curve':
+        if not DF_elem_DSS.empty:
+            pass
+
+        return DF_elem_DSS
+
+    elif name_class == 'Spectrum':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'WireData':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'CNData':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'TSData':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'LineGeometry':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'LineSpacing':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    elif name_class == 'XfmrCode':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+
+    else:
+        return DF_elem_DSS
+
+
+def General_MTY(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
 
     #dss.circuit_set_active_class(name_class)
     #list_property_dss = dss.dsselement_all_property_names()
     list_property = dict_General[name_class]
 
     if name_class == 'LineCode':
-        list_aux = ['Id_LineCode']
-        list_aux = list_aux + list_property
-        df_LineCode = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['LineCode'] = df_LineCode
-        DSS_elem_list.append('LineCode')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'LoadShape':
-        list_aux = ['Id_LoadShape']
-        list_aux = list_aux + list_property
-        df_LoadShape = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['LoadShape'] = df_LoadShape
-        DSS_elem_list.append('LoadShape')
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'TShape':
-        list_aux = ['Id_TShape']
-        list_aux = list_aux + list_property
-        df_TShape = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['TShape'] = df_TShape
-        DSS_elem_list.append('TShape')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'PriceShape':
-        list_aux = ['Id_PriceShape']
-        list_aux = list_aux + list_property
-        df_PriceShape = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['PriceShape'] = df_PriceShape
-        DSS_elem_list.append('PriceShape')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'XYcurve':
-        list_aux = ['Id_XYcurve']
-        list_aux = list_aux + list_property
-        df_XYcurve = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['XYcurve'] = df_XYcurve
-        DSS_elem_list.append('XYcurve')
-
-        return BBDD_elem_DSS, DSS_elem_list
-    
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'GrowthShape':
-        list_aux = ['Id_GrowthShape']
-        list_aux = list_aux + list_property
-        df_GrowthShape = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['GrowthShape'] = df_GrowthShape
-        DSS_elem_list.append('GrowthShape')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'TCC_Curve':
-        list_aux = ['Id_TCC_Curve']
-        list_aux = list_aux + list_property
-        df_TCC_Curve = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['TCC_Curve'] = df_TCC_Curve
-        DSS_elem_list.append('TCC_Curve')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'Spectrum':
-        list_aux = ['Id_Spectrum']
-        list_aux = list_aux + list_property
-        df_Spectrum = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Spectrum'] = df_Spectrum
-        DSS_elem_list.append('Spectrum')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'WireData':
-        list_aux = ['Id_WireData']
-        list_aux = list_aux + list_property
-        df_WireData = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['WireData'] = df_WireData
-        DSS_elem_list.append('WireData')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'CNData':
-        list_aux = ['Id_CNData']
-        list_aux = list_aux + list_property
-        df_CNData = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['CNData'] = df_CNData
-        DSS_elem_list.append('CNData')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'TSData':
-        list_aux = ['Id_TSData']
-        list_aux = list_aux + list_property
-        df_TSData = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['TSData'] = df_TSData
-        DSS_elem_list.append('TSData')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'LineGeometry':
-        list_aux = ['Id_LineGeometry']
-        list_aux = list_aux + list_property
-        df_LineGeometry = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['LineGeometry'] = df_LineGeometry
-        DSS_elem_list.append('LineGeometry')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'LineSpacing':
-        list_aux = ['Id_LineSpacing']
-        list_aux = list_aux + list_property
-        df_LineSpacing = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['LineSpacing'] = df_LineSpacing
-        DSS_elem_list.append('LineSpacing')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'XfmrCode':
-        list_aux = ['Id_XfmrCode']
-        list_aux = list_aux + list_property
-        df_XfmrCode = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['XfmrCode'] = df_XfmrCode
-        DSS_elem_list.append('XfmrCode')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     else:
         return BBDD_elem_DSS, DSS_elem_list
 

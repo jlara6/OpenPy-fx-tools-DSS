@@ -2,130 +2,127 @@
 # @Time    : 25/09/2022
 # @Author  : Jorge Lara
 # @Email   : jlara@iee.unsj.edu.ar
-# @File    : PC_elements_DSS.py
+# @File    : PC_elements_MTY.py
 # @Software: PyCharm
 
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
 from py_fx_tools_dss.NameClass_columns import dict_Control
+from .fx_objects import _COL_ORD, _COL_MTY
 
 list_Controls_DSS = ['CapControl', 'ESPVLControl', 'ExpControl', 'Fuse', 'GenDispatcher', 'InvControl', 'Recloser',
                      'RegControl', 'Relay', 'StorageController', 'SwtControl', 'UPFCControl']
 
-def Controls_DSS(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
+def Controls_ORD(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
+    if name_class == 'CapControl':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'ESPVLControl':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'ExpControl':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'Fuse':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'GenDispatcher':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'InvControl':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'Recloser':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'RegControl':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'Relay':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'StorageController':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'SwtControl':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    elif name_class == 'UPFCControl':
+        return _COL_ORD(dict_Control, DF_elem_DSS, name_class)
+    else:
+        return DF_elem_DSS
+
+
+def Controls_DV(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
+    if name_class == 'CapControl':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'ESPVLControl':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'ExpControl':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'Fuse':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'GenDispatcher':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'InvControl':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'Recloser':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'RegControl':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'Relay':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'StorageController':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'SwtControl':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    elif name_class == 'UPFCControl':
+        if not DF_elem_DSS.empty:
+            pass
+        return DF_elem_DSS
+    else:
+        return DF_elem_DSS
+
+def Controls_MTY(BBDD_elem_DSS: dict, DSS_elem_list: list, name_class: str):
     # list_property = dss.dsselement_all_property_names()
     list_property = dict_Control[name_class]
 
     if name_class == 'CapControl':
-        list_aux = ['Id_CapControl']
-        list_aux = list_aux + list_property
-        df_CapControl = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['CapControl'] = df_CapControl
-        DSS_elem_list.append('CapControl')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'ESPVLControl':
-        list_aux = ['Id_ESPVLControl']
-        list_aux = list_aux + list_property
-        df_ESPVLControl = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['ESPVLControl'] = df_ESPVLControl
-        DSS_elem_list.append('ESPVLControl')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'ExpControl':
-        list_aux = ['Id_ExpControl']
-        list_aux = list_aux + list_property
-        df_ExpControl = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['ExpControl'] = df_ExpControl
-        DSS_elem_list.append('ExpControl')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'Fuse':
-        list_aux = ['Id_Fuse']
-        list_aux = list_aux + list_property
-        df_Fuse = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Fuse'] = df_Fuse
-        DSS_elem_list.append('Fuse')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'GenDispatcher':
-        list_aux = ['Id_GenDispatcher']
-        list_aux = list_aux + list_property
-        df_GenDispatcher = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['GenDispatcher'] = df_GenDispatcher
-        DSS_elem_list.append('GenDispatcher')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'InvControl':
-        list_aux = ['Id_InvControl']
-        list_aux = list_aux + list_property
-        df_InvControl = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['InvControl'] = df_InvControl
-        DSS_elem_list.append('InvControl')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'Recloser':
-        list_aux = ['Id_Recloser']
-        list_aux = list_aux + list_property
-        df_Recloser = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Recloser'] = df_Recloser
-        DSS_elem_list.append('Recloser')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'RegControl':
-        list_aux = ['Id_RegControl']
-        list_aux = list_aux + list_property
-        df_RegControl = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['RegControl'] = df_RegControl
-        DSS_elem_list.append('RegControl')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'Relay':
-        list_aux = ['Id_Relay']
-        list_aux = list_aux + list_property
-        df_Relay = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['Relay'] = df_Relay
-        DSS_elem_list.append('Relay')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'StorageController':
-        list_aux = ['Id_StorageController']
-        list_aux = list_aux + list_property
-        df_StorageController = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['StorageController'] = df_StorageController
-        DSS_elem_list.append('StorageController')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'SwtControl':
-        list_aux = ['Id_SwtControl']
-        list_aux = list_aux + list_property
-        df_SwtControl = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['SwtControl'] = df_SwtControl
-        DSS_elem_list.append('SwtControl')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     elif name_class == 'UPFCControl':
-        list_aux = ['Id_UPFCControl']
-        list_aux = list_aux + list_property
-        df_UPFCControl = pd.DataFrame(columns=list_aux)
-        BBDD_elem_DSS['UPFCControl'] = df_UPFCControl
-        DSS_elem_list.append('UPFCControl')
-
-        return BBDD_elem_DSS, DSS_elem_list
-
+        return _COL_MTY(BBDD_elem_DSS, DSS_elem_list, name_class, list_property)
     else:
-
         return BBDD_elem_DSS, DSS_elem_list
 
 

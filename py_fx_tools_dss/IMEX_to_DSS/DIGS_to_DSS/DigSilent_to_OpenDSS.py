@@ -5,7 +5,7 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from ...helper_functions import *
+from py_fx_tools_dss.helper_functions import *
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Bus_Phases_DSS import *
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.file_for_reliability import column_selection_for_reliability
 from py_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.Other_DSS import Other_elements_DSS
@@ -121,7 +121,7 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
 def OpenDSS_database_generator(dict_df_DigS: dict):
     """
     Fill the dictionary and DataFrame with xlsx_data that OpenDSS reads, use the functions:Other_elements_DSS,
-    General_elements_DSS, PD_elements_DSS, PC_elements_DSS, Controls_elements_DSS, Meters_elements_DSS and
+    General_elements_DSS, PD_elements_MTY, PC_elements_MTY, Controls_elements_DSS, Meters_elements_DSS and
     DIGS_Voltagebases_DSS
 
     :param dict_df_DigS: Dictionary that in each key contains a dataframe with the information exported from Digsilent in .xls format
