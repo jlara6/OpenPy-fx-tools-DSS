@@ -66,4 +66,4 @@ class xlsx_DSS_xlsx:
         :param prj_name:
         :return:
         """
-        aux_xlsx._create_xlsx_from_DSS(DSS_path, path_save, prj_name)
+        aux_xlsx._create_from_DSS_scripts_to_xlsx(DSS_path, path_save, prj_name)

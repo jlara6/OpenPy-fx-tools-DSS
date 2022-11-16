@@ -88,7 +88,24 @@ def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dic
     :param out_path:
     :return:
     """
+    try:
+        with pd.ExcelWriter(f'{out_path}\{workbook_DSS}') as writer:
+            for sheetname, dfname in BBDD_OpenDSS.items():
+                if add_empty:
+                    dfname.to_excel(writer, sheet_name=sheetname, index=False)
+                else:
+                    if dfname.empty:
+                        pass
+                    else:
+                        dfname.to_excel(writer, sheet_name=sheetname, index=False)
+    except PermissionError:
 
+        writer = pd.ExcelWriter(f'{out_path}\{workbook_DSS}')
+        writer.close()
+
+
+
+    '''    
     writer = pd.ExcelWriter(f'{out_path}\{workbook_DSS}')
     for name in elements_OpenDSS:
         if add_empty:
@@ -101,6 +118,7 @@ def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dic
 
     writer.save()
     writer.close()
+    '''
 
 
 def check_if_element_exists(BBDD_elem_DigS: dict, name_sheets: list):

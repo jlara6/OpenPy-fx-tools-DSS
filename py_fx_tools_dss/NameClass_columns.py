@@ -118,9 +118,9 @@ dict_PC_elem['IndMach012'] = [
     'phases', 'bus1', 'kv', 'kW', 'pf', 'conn', 'kVA', 'H', 'D', 'puRs', 'puXs', 'puRr', 'puXr', 'puXm', 'Slip',
     'MaxSlip', 'SlipOption', 'Yearly', 'Daily', 'Duty', 'Debugtrace', 'spectrum', 'basefreq', 'enabled', 'like']
 dict_PC_elem['Load'] = [
-    'phases', 'bus1', 'kV', 'kW', 'pf', 'model', 'yearly', 'daily', 'duty', 'growth', 'conn', 'kvar', 'Rneut', 'Xneut',
-    'status', 'class', 'Vminpu', 'Vmaxpu', 'Vminnorm', 'Vminemerg', 'xfkVA', 'allocationfactor', 'kVA', '%mean',
-    '%stddev', 'CVRwatts', 'CVRvars', 'kwh', 'kwhdays', 'Cfactor', 'CVRcurve', 'NumCust', 'ZIPV', '%SeriesRL',
+    'phases', 'bus1', 'kV', 'kW', 'kvar', 'kVA', 'pf', 'model', 'yearly', 'daily', 'duty', 'growth', 'conn',
+    'Rneut', 'Xneut', 'status', 'class', 'Vminpu', 'Vmaxpu', 'Vminnorm', 'Vminemerg', 'xfkVA', 'allocationfactor',
+    '%mean', '%stddev', 'CVRwatts', 'CVRvars', 'kwh', 'kwhdays', 'Cfactor', 'CVRcurve', 'NumCust', 'ZIPV', '%SeriesRL',
     'RelWeight', 'Vlowpu', 'puXharm', 'XRharm', 'spectrum', 'basefreq', 'enabled', 'like']
 dict_PC_elem['PVSystem'] = [
     'phases', 'bus1', 'kv', 'irradiance', 'Pmpp', '%Pmpp', 'Temperature', 'pf', 'conn', 'kvar', 'kVA', '%Cutin',

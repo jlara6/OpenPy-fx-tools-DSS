@@ -73,7 +73,7 @@ class class_xlsx_to_DSS:
         logg_alert.update_logg_file(f'The .DSS files are saved in:\n {path_save}')
 
 
-    def _create_xlsx_from_DSS(self, DSS_path: str, path_save: str, prj_name: str):
+    def _create_from_DSS_scripts_to_xlsx(self, DSS_path: str, path_save: str, prj_name: str):
 
         aux_save = path_save is None
         aux_DSS = DSS_path is None

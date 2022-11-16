@@ -4,16 +4,23 @@
 # @Email   : jlara@iee.unsj.edu.ar
 # @File    : create_file_xlsx.py
 # @Software: PyCharm
+
+import logging
 import pandas as pd
 
 from ...interface_dss import dss, drt
 from ...helper_functions import _save_BBDD_xlsx
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_MTY, Other_DV, Other_ORD
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elements_DSS import General_MTY, General_DV, General_ORD
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_MTY, PD_elements_DV, PD_elements_ORD
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elements_DSS import PC_elements_MTY, PC_elements_DV, PC_elements_ORD
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_MTY, Controls_DV, Controls_ORD
-from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_MTY, Meters_DV, Meters_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_MTY, Other_Def_Value, Other_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elements_DSS import General_MTY, General_Def_Value, General_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_MTY, PD_elem_Def_Value, PD_elements_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elements_DSS import PC_elements_MTY, PC_elem_Def_Value, PC_elements_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_MTY, Controls_Def_Value, Controls_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_MTY, Meters_Def_Value, Meters_ORD
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Voltagebases_DSS import Voltagebases_DSS
+
+from py_fx_tools_dss.logg_print_alert import logg_alert
+
+log_py = logging.getLogger(__name__)
 
 list_General_DSS = ['WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape',
                     'LoadShape', 'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
@@ -72,28 +79,30 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
                     BBDD_OpenDSS=BBDD_OpenDSS,
                     out_path=path_save)
 
+    logg_alert.update_logg_file(f'Created and saved the {xlsx_name_DSS} file in the path:\n{path_save}', 2, log_py)
+
 
 def _check_DSS_default_values(BBDD_OpenDSS: dict):
 
     for ClassName in BBDD_OpenDSS.keys():
 
         if len([x for x in [ClassName] if x in list_General_DSS]) == 1:
-            BBDD_OpenDSS[ClassName] = General_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+            BBDD_OpenDSS[ClassName] = General_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
 
         if len([x for x in [ClassName] if x in list_Other_DSS]) == 1:
-            BBDD_OpenDSS[ClassName] = Other_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+            BBDD_OpenDSS[ClassName] = Other_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
 
         if len([x for x in [ClassName] if x in list_PD_elements_DSS]) == 1:
-            BBDD_OpenDSS[ClassName] = PD_elements_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+            BBDD_OpenDSS[ClassName] = PD_elem_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
 
         if len([x for x in [ClassName] if x in list_PC_elements_DSS]) == 1:
-            BBDD_OpenDSS[ClassName] = PC_elements_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+            BBDD_OpenDSS[ClassName] = PC_elem_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
 
         if len([x for x in [ClassName] if x in list_Controls_DSS]) == 1:
-            BBDD_OpenDSS[ClassName] = Controls_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+            BBDD_OpenDSS[ClassName] = Controls_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
 
         if len([x for x in [ClassName] if x in list_Meters_DSS]) == 1:
-            BBDD_OpenDSS[ClassName] = Meters_DV(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+            BBDD_OpenDSS[ClassName] = Meters_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
 
     return BBDD_OpenDSS
 
@@ -250,6 +259,9 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
 
             list_Meters.append(ClassName)
             dict_class['Meters'] += 1
+
+        BBDD_OpenDSS['Voltagebases'] = Voltagebases_DSS()
+        DSS_elem_list.append('Voltagebases')
 
     return BBDD_OpenDSS, DSS_elem_list, dict_class
 

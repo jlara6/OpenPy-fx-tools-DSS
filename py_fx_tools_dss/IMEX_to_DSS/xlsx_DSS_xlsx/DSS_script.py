@@ -18,14 +18,14 @@ from py_fx_tools_dss.logg_print_alert import logg_alert
 log_py = logging.getLogger(__name__)
 
 def create_scrips_base_dss(name_dss: str, xlsx_file: str, path_save: str, path: bool):
-    '''
+    """
     :param name_dss:
     :param xlsx_file:
     :param path_save:
     :return OpenDSS scripts in the specified path
 
     function that creates the OpenDSS scripts with the information from the database
-    '''
+    """
 
     delete_all_files(path_save)
     create_master_base_dss(name_dss, xlsx_file, path_save, path)
@@ -88,10 +88,10 @@ def read_direction():
     return file_path
 
 def move_files_DSS(source_address, destination_address):
-    '''
+    """
     :return:
     Delete existing .DSS files in the specified path
-    '''
+    """
     direction = read_direction()
     dss_files = glob.glob(direction+'/*.dss')
     dss_files2 = glob.glob('/*.dss')
@@ -114,10 +114,10 @@ def delete_all_files(path_save):
             print(f"Error:{e.strerror}")
 
 def delete_files_DSS():
-    '''
+    """
     :return:
     Delete existing .DSS files in the specified path
-    '''
+    """
     path_save = read_direction()
     dss_files = glob.glob(f'{path_save}/*.dss')
     for dss_file in dss_files:
@@ -127,11 +127,11 @@ def delete_files_DSS():
             print(f"Error:{e.strerror}")
 
 def master_content_dir(name_dss: str, list_elements: list, path: str):
-    '''
+    """
     :param name_dss:
     :param list_elements:
     :return:
-    '''
+    """
     content = f'set Datapath=({path}\)\n'\
               'Clear\n'\
               '\n'\
@@ -155,11 +155,11 @@ def master_content_dir(name_dss: str, list_elements: list, path: str):
     return aux
 
 def master_content(name_dss: str, list_elements: list):
-    '''
+    """
     :param name_dss:
     :param list_elements:
     :return:
-    '''
+    """
     content = 'Clear\n'\
               '\n'\
               f'New Circuit.{name_dss}\n'\
@@ -213,10 +213,10 @@ def create_master_dss(name_dss: str, xlsx_file: str):
 
 #4
 def check_BBDD(xlsx_file: str):
-    '''
+    """
     :param xlsx_file:
     :return:
-    '''
+    """
     workbook = openpyxl.load_workbook(xlsx_file, read_only=True)
     name_sheets = workbook.sheetnames
     list_elements = []
@@ -230,12 +230,12 @@ def check_BBDD(xlsx_file: str):
 
 #5
 def create_element_base_dss(name_dss: str, element: str, direction: str):
-    '''
+    """
     :param name_dss:
     :param element:
     :param direction:
     :return:
-    '''
+    """
     df_element = pd.read_excel(direction, sheet_name='{}'.format(element))
     dict_element = df_element.to_dict()
     keys = [*dict_element]
@@ -274,12 +274,12 @@ def create_element_base_dss(name_dss: str, element: str, direction: str):
     element_dss.close()
 
 def create_element_dss(name_dss: str, element: str, direction: str):
-    '''
+    """
     :param name_dss:
     :param element:
     :param direction:
     :return:
-    '''
+    """
     df_element = pd.read_excel(direction, sheet_name='{}'.format(element))
     dict_element = df_element.to_dict()
     keys = [*dict_element]
@@ -318,14 +318,14 @@ def create_element_dss(name_dss: str, element: str, direction: str):
     element_dss.close()
 
 def create_scrips_dss(name_dss:str, workbook:str, ruta_archivo:str):
-    '''
+    """
     :param name_dss:
     :param workbook:
     :param ruta_archivo:
     :return OpenDSS scripts in the specified path
 
     function that creates the OpenDSS scripts with the information from the database
-    '''
+    """
     delete_files_DSS()
     create_master_dss(name_dss, workbook)
     for element in check_BBDD(workbook):

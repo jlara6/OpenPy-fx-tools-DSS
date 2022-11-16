@@ -8,7 +8,7 @@
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
 from py_fx_tools_dss.NameClass_columns import dict_Control
-from .fx_objects import _COL_ORD, _COL_MTY
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.fx_objects import _COL_ORD, _COL_MTY
 
 list_Controls_DSS = ['CapControl', 'ESPVLControl', 'ExpControl', 'Fuse', 'GenDispatcher', 'InvControl', 'Recloser',
                      'RegControl', 'Relay', 'StorageController', 'SwtControl', 'UPFCControl']
@@ -42,7 +42,7 @@ def Controls_ORD(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
         return DF_elem_DSS
 
 
-def Controls_DV(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
+def Controls_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
     if name_class == 'CapControl':
         if not DF_elem_DSS.empty:
             pass

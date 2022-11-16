@@ -5,9 +5,10 @@
 # @File    : ------------
 # @Software: PyCharm
 
+
 import pandas as pd
 
-def DIGS_Voltagebases_DSS(DataFrame_ElmTerm:pd.DataFrame)->pd.DataFrame:
+def DIGS_Voltagebases_DSS(DataFrame_ElmTerm:pd.DataFrame) -> pd.DataFrame:
     df_Voltagebases_DSS = pd.DataFrame(columns=['Id_Voltagebases'])
 
     DataFrame_ElmTerm = DataFrame_ElmTerm.loc[:, ['ID(a:40)', 'loc_name(a:40)', 'uknom(r)', 'ciEnergized(i)']]

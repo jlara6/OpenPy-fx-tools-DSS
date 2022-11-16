@@ -8,7 +8,7 @@
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
 from py_fx_tools_dss.NameClass_columns import dict_General
-from .fx_objects import _COL_ORD, _COL_MTY
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.fx_objects import _COL_ORD, _COL_MTY
 
 
 def General_ORD(DF_elem_DSS: pd.DataFrame, name_class: str):
@@ -44,7 +44,7 @@ def General_ORD(DF_elem_DSS: pd.DataFrame, name_class: str):
     else:
         return DF_elem_DSS
 
-def General_DV(DF_elem_DSS: pd.DataFrame, name_class: str):
+def General_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str):
     if name_class == 'LineCode':
         if not DF_elem_DSS.empty:
             for index, row in DF_elem_DSS.iterrows():
@@ -56,12 +56,20 @@ def General_DV(DF_elem_DSS: pd.DataFrame, name_class: str):
                     if x[1] == 'nphases':
                         if DF_elem_DSS[x[0]][index] == DF_elem_DSS[x[1]][index]:
                             DF_elem_DSS[x[0]][index] = ''
-
         return DF_elem_DSS
 
     elif name_class == 'LoadShape':
         if not DF_elem_DSS.empty:
-            pass
+            for index, row in DF_elem_DSS.iterrows():
+                if DF_elem_DSS['mult'][index] == DF_elem_DSS['Pmult'][index]:
+                    DF_elem_DSS['Pmult'][index] = ''
+
+                if DF_elem_DSS['Pmax'][index] == 1:
+                    DF_elem_DSS['Pmax'][index] = ''
+                if DF_elem_DSS['sinterval'][index] == 3600:
+                    DF_elem_DSS['sinterval'][index] = ''
+                if DF_elem_DSS['minterval'][index] == 60:
+                    DF_elem_DSS['minterval'][index] = ''
         return DF_elem_DSS
 
     elif name_class == 'TShape':

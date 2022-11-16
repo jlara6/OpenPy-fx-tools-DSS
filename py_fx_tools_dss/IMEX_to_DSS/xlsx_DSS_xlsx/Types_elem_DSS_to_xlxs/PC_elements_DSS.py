@@ -8,16 +8,42 @@
 import pandas as pd
 from py_fx_tools_dss.interface_dss import dss
 from py_fx_tools_dss.NameClass_columns import dict_PC_elem
-from .fx_objects import _COL_ORD, _COL_MTY
+from py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.fx_objects import _COL_ORD, _COL_MTY
 
 
 list_PC_elements_DSS = ['Load', 'Generator', 'Generic5', 'GICLine', 'IndMach012', 'PVSystem', 'UPFC', 'VCCS', 'Storage',
                         'VSConverter', 'WindGen']
 
-def PC_elements_DV(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
+def PC_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
+    """
+
+    :param DF_elem_DSS:
+    :param name_class:
+    :return:
+    """
     if name_class == 'Load':
         if not DF_elem_DSS.empty:
-            pass
+            for index, row in DF_elem_DSS.iterrows():
+                if DF_elem_DSS['kW'][index] != '' and DF_elem_DSS['kvar'][index] != '':
+                        list_Vs = ['pf', 'kVA']
+
+                        for m in list_Vs:
+                            DF_elem_DSS[m][index] = ''
+
+                row_aux = ['model', 'yearly', 'daily', 'conn', 'Rneut', 'status', 'class', 'Vminpu', 'Vmaxpu',
+                           'Vminnorm', 'Vminemerg', 'xfkVA', 'allocationfactor', '%mean', '%stddev', 'CVRwatts',
+                           'CVRvars', 'kwh', 'kwhdays', 'Cfactor', 'CVRcurve', 'NumCust', '%SeriesRL', 'RelWeight',
+                           'Vlowpu', 'puXharm', 'XRharm', 'spectrum', 'enabled', 'ZIPV', 'basefreq']
+
+                value_aux = [2, 'no variation', 'no variation', 'wye', -1, 'Variable', 1, 0.95, 1.05, 0, 0, 0, 0.5, 50,
+                             10, 1, 2, 0, 30, 4, 'none', 1, 50, 1, 0.5, 0, 6, 'defaultload', 'Yes', '[0 0 0 0 0 0 0]', 'basefreq']
+                for x in zip(row_aux, value_aux):
+                    if DF_elem_DSS[x[0]][index] == dss.solution_read_frequency():
+                        DF_elem_DSS[x[0]][index] = ''
+
+                    if DF_elem_DSS[x[0]][index] == x[1]:
+                        DF_elem_DSS[x[0]][index] = ''
+
         return DF_elem_DSS
 
     elif name_class == 'Generator':
