@@ -3,7 +3,7 @@ import openpy_fx_tools_dss as fx_dss
 xlsx = fx_dss.xlsx_DSS_xlsx()
 
 run_DSS_to_xlxs = 1
-run_xlsx_to_DSS = 0
+run_xlsx_to_DSS = 1
 
 
 

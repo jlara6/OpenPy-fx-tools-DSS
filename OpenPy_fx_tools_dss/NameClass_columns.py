@@ -69,11 +69,11 @@ list_PD_elements_DSS = ['Transformer', 'Line', 'Capacitor', 'AutoTrans', 'GICTra
 dict_PD_elem = dict()
 
 dict_PD_elem['Transformer'] = [
-    'phases', 'windings', 'wdg', 'bus', 'conn', 'kV', 'kVA', 'tap', '%R', 'Rneut', 'Xneut', 'buses', 'conns', 'kVs',
-    'kVAs', 'taps', 'XHL', 'XHT', 'XLT', 'Xscarray', 'thermal', 'n', 'm', 'flrise', 'hsrise', '%loadloss',
-    '%noloadloss', 'normhkVA', 'emerghkVA', 'sub', 'MaxTap', 'MinTap', 'NumTaps', 'subname', '%imag', 'ppm_antifloat',
-    '%Rs', 'bank', 'XfmrCode', 'XRConst', 'X12', 'X13', 'X23', 'LeadLag', 'WdgCurrents', 'Core', 'RdcOhms', 'Seasons',
-    'Ratings', 'normamps', 'emergamps', 'faultrate', 'pctperm', 'repair', 'basefreq', 'enabled', 'like']
+    'phases', 'windings', 'XfmrCode', 'buses', 'conns', 'kVs', 'kVAs', 'taps', '%Rs', 'MaxTap', 'MinTap',
+    'NumTaps',  'normamps', 'emergamps', 'normhkVA', 'emerghkVA', 'wdg', 'bus', 'conn', 'kV', 'kVA', 'tap', '%R',
+    'Rneut', 'Xneut', 'RdcOhms', 'XHL', 'XHT', 'XLT', 'X12', 'X13', 'X23', '%loadloss', '%noloadloss', 'Xscarray',
+    'thermal', 'n', 'm', 'flrise', 'hsrise', 'sub', 'subname', '%imag', 'ppm_antifloat', 'bank', 'XRConst', 'LeadLag',
+    'WdgCurrents', 'Core', 'Seasons', 'Ratings', 'faultrate', 'pctperm', 'repair', 'basefreq', 'enabled', 'like']
 dict_PD_elem['Line'] = [
     'bus1', 'bus2', 'linecode', 'length', 'phases', 'r1', 'x1', 'r0', 'x0', 'C1', 'C0', 'rmatrix', 'xmatrix', 'cmatrix',
     'Switch', 'Rg', 'Xg', 'rho', 'geometry', 'units', 'spacing', 'wires', 'EarthModel', 'cncables', 'tscables', 'B1',

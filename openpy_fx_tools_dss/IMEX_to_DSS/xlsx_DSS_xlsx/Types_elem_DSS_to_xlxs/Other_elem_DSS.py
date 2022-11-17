@@ -2,7 +2,7 @@
 # @Time    : 25/09/2022
 # @Author  : Jorge Lara
 # @Email   : jlara@iee.unsj.edu.ar
-# @File    : Other_elements_DSS.py
+# @File    : Other_elem_DSS.py
 # @Software: PyCharm
 
 import pandas as pd
@@ -70,6 +70,9 @@ def Other_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
                         DF_elem_DSS[x[0]][index] = ''
 
                     if DF_elem_DSS[x[0]][index] == x[1]:
+                        DF_elem_DSS[x[0]][index] = ''
+
+                    if DF_elem_DSS[x[0]][index] == f'{DF_elem_DSS["bus1"][index]}.0.0.0':
                         DF_elem_DSS[x[0]][index] = ''
 
             return DF_elem_DSS

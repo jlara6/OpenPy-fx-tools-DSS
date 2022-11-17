@@ -8,9 +8,9 @@
 import pandas as pd
 from openpy_fx_tools_dss.helper_functions import *
 
-def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFrame, DataFrame_ElmTr3: pd.DataFrame,
-                   DataFrame_TypTr3: pd.DataFrame, DataFrame_ElmTerm: pd.DataFrame,
-                   DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
+def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFrame,
+                   DataFrame_ElmTr3: pd.DataFrame, DataFrame_TypTr3: pd.DataFrame,
+                   DataFrame_ElmTerm: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
 
     df_trafo_DSS = pd.DataFrame(
         columns=['Id_Transformer', 'Phases', 'Windings', 'Wdg', 'Bus', 'Conn', 'Kv', 'Kva', 'Tap', '%R', 'rneut',
@@ -19,7 +19,7 @@ def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFram
                  'EmergHKVA', 'Sub', 'MaxTap', 'MinTap', 'NumTaps', 'SubName', 'Bank', 'XfmrCode', 'XRConst',
                  'LeadLag', 'Seasons', 'Ratings', 'Inherited Properties', 'Faultrate', 'Basefreq', 'Like'])
 
-    '********************************************************** 2 winding transformer **********************************************************'
+    '********************************* 2 winding transformer **********************************************************'
     if DataFrame_ElmTr2.empty == True and DataFrame_TypTr2.empty == True:
         pass
     else:
@@ -27,7 +27,8 @@ def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFram
         characters_delete(DataFrame_ElmTr2, 'loc_name(a:40)')
         characters_delete(DataFrame_TypTr2, 'loc_name(a:40)')
 
-        df_StaCubic_ElmTerm = merge_ElmTerm_StaCubic(DataFrame_StaCubic=DataFrame_StaCubic, DataFrame_ElmTerm=DataFrame_ElmTerm)
+        df_StaCubic_ElmTerm = merge_ElmTerm_StaCubic(DataFrame_StaCubic=DataFrame_StaCubic,
+                                                     DataFrame_ElmTerm=DataFrame_ElmTerm)
         'Part 1: Identify bus and node connection in DigSilent to OpenDSS '
         'Result -> df_bushv_buslv_conn'
         df_bushv = DataFrame_ElmTr2[['ID(a:40)', 'bushv(p)']]
@@ -47,10 +48,14 @@ def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFram
         'Part 2: Identify the type of transformer (TypTr2)'
         df_TypTr2_name = DataFrame_TypTr2[['ID(a:40)', 'loc_name(a:40)']]
         merge_Elm_Typ = pd.merge(DataFrame_ElmTr2, df_TypTr2_name,
-                                 how='left', left_on='typ_id(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
+                                 how='left',
+                                 left_on='typ_id(p)', right_on='ID(a:40)',
+                                 suffixes=('_x', '_y'))
 
         merge_Elm_Typ_buses_HV_LV = pd.merge(merge_Elm_Typ, df_bushv_buslv_conn,
-                                             how='inner', left_on='ID(a:40)_x', right_on='ID(a:40)', suffixes=('_x', '_y') )
+                                             how='inner',
+                                             left_on='ID(a:40)_x', right_on='ID(a:40)',
+                                             suffixes=('_x', '_y') )
 
         merge_Elm_Typ_buses_HV_LV = merge_Elm_Typ_buses_HV_LV[['loc_name(a:40)_x', 'loc_name(a:40)_y',
                                                                'bushv_dss', 'buslv_dss', 'nntap(i)']]
@@ -63,16 +68,18 @@ def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFram
             buses = f'[{bushv}, {buslv}]'
             tap = merge_Elm_Typ_buses_HV_LV['nntap(i)'][index]
 
-            df_trafo_DSS = df_trafo_DSS.append({'Id_Transformer':id_trafo, 'Phases':'', 'Windings':'', 'Wdg':'', 'Bus':'', 'Conn':'', 'Kv':'', 'Kva':'', 'Tap':tap,
-                                                '%R':'', 'rneut':'', 'xneut':'', 'Buses':buses, 'Conns':'', 'KVs':'', 'KVAs':'', 'Taps':'', '%Rs':'',
-                                                'XHL':'', 'XLT':'', 'XHT':'', 'XscArray':'', 'Thermal':'', 'n':'', 'm':'', 'flrise':'', 'hsrise':'',
-                                                '%Loadloss':'', '%Noloadloss':'', '%imag':'', 'Ppm_Antifloat':'', 'NormHKVA':'', 'EmergHKVA':'',
-                                                'Sub':'', 'MaxTap':'', 'MinTap':'', 'NumTaps':'', 'SubName':'', 'Bank':'', 'XfmrCode':xfmrcode, 'XRConst':'',
-                                                'LeadLag':'', 'Seasons':'', 'Ratings':'', 'Inherited Properties':'', 'Faultrate':'', 'Basefreq':'',
-                                                'Like':''}, ignore_index=True)
+            df_trafo_DSS = df_trafo_DSS.append({
+                'Id_Transformer': id_trafo, 'Phases': '', 'Windings': '', 'Wdg': '', 'Bus': '', 'Conn': '', 'Kv': '',
+                'Kva': '', 'Tap': tap, '%R': '', 'rneut': '', 'xneut': '', 'Buses': buses, 'Conns': '', 'KVs': '',
+                'KVAs': '', 'Taps': '', '%Rs': '', 'XHL': '', 'XLT': '', 'XHT': '', 'XscArray': '', 'Thermal': '',
+                'n': '', 'm': '', 'flrise': '', 'hsrise': '', '%Loadloss': '', '%Noloadloss': '', '%imag': '',
+                'Ppm_Antifloat': '', 'NormHKVA': '', 'EmergHKVA': '', 'Sub': '', 'MaxTap': '', 'MinTap': '',
+                'NumTaps': '', 'SubName': '', 'Bank': '', 'XfmrCode':xfmrcode, 'XRConst': '', 'LeadLag': '',
+                'Seasons': '', 'Ratings': '', 'Inherited Properties': '', 'Faultrate': '', 'Basefreq': '', 'Like': ''},
+                ignore_index=True)
 
 
-    '********************************************************** 3 winding transformer **********************************************************'
+    '********************************* 3 winding transformer **********************************************************'
     if DataFrame_ElmTr3.empty == True and DataFrame_TypTr3.empty == True:
         pass
     else:
@@ -138,7 +145,7 @@ def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFram
 
 def DIGS_trafo_conn_group_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFrame,
                               DataFrame_ElmTr3: pd.DataFrame, DataFrame_TypTr3: pd.DataFrame,
-                              DataFrame_ElmTerm: pd.DataFrame,DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
+                              DataFrame_ElmTerm: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
 
 
     df_trafo_DSS = pd.DataFrame(
@@ -187,11 +194,16 @@ def DIGS_trafo_conn_group_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: 
         'Part 2: Identify the type of transformer (TypTr2)'
         df_TypTr2_name = DataFrame_TypTr2[
             ['ID(a:40)', 'loc_name(a:40)', 'nt2ph(i)', 'tr2cn_h(a:2)', 'tr2cn_l(a:2)', 'nt2ag(r)', 'dutap(r)']]
-        merge_Elm_Typ = pd.merge(DataFrame_ElmTr2, df_TypTr2_name, how='left', left_on='typ_id(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
+        merge_Elm_Typ = pd.merge(DataFrame_ElmTr2, df_TypTr2_name,
+                                 how='left',
+                                 left_on='typ_id(p)', right_on='ID(a:40)',
+                                 suffixes=('_x', '_y'))
 
 
-        merge_ElmTr2_TypTr2 = pd.merge(merge_Elm_Typ, df_bushv_buslv_conn, how='inner',
-                                             left_on='ID(a:40)_x', right_on='ID(a:40)', suffixes=('_x', '_y'))
+        merge_ElmTr2_TypTr2 = pd.merge(merge_Elm_Typ, df_bushv_buslv_conn,
+                                       how='inner',
+                                       left_on='ID(a:40)_x', right_on='ID(a:40)',
+                                       suffixes=('_x', '_y'))
 
         merge_ElmTr2_TypTr2 = merge_ElmTr2_TypTr2[['loc_name(a:40)_x', 'loc_name(a:40)_y', 'nt2ph(i)',
                                                    'name_hv', 'tr2cn_h(a:2)', 'nphase_hv', 'bushv_dss', 'DSS_hv',
@@ -251,13 +263,15 @@ def DIGS_trafo_conn_group_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: 
             buses = f'[{bushv}, {buslv}]'
             tap = 1 + ((merge_ElmTr2_TypTr2['nntap(i)'][index] * merge_ElmTr2_TypTr2['dutap(r)'][index]) / 100)
 
-            df_trafo_DSS = df_trafo_DSS.append({'Id_Transformer':id_trafo, 'Phases':'', 'Windings':'', 'Wdg':'', 'Bus':'', 'Conn':'', 'Kv':'', 'Kva':'', 'Tap':tap,
-                                                '%R':'', 'rneut':'', 'xneut':'', 'Buses':buses, 'Conns':'', 'KVs':'', 'KVAs':'', 'Taps':'', '%Rs':'',
-                                                'XHL':'', 'XLT':'', 'XHT':'', 'XscArray':'', 'Thermal':'', 'n':'', 'm':'', 'flrise':'', 'hsrise':'',
-                                                '%Loadloss':'', '%Noloadloss':'', '%imag':'', 'Ppm_Antifloat':'', 'NormHKVA':'', 'EmergHKVA':'',
-                                                'Sub':'', 'MaxTap':'', 'MinTap':'', 'NumTaps':'', 'SubName':'', 'Bank':'', 'XfmrCode':xfmrcode, 'XRConst':'',
-                                                'LeadLag':'', 'Seasons':'', 'Ratings':'', 'Inherited Properties':'', 'Faultrate':'', 'Basefreq':'',
-                                                'Like':''}, ignore_index=True)
+            df_trafo_DSS = df_trafo_DSS.append({
+                'Id_Transformer': id_trafo, 'Phases': '', 'Windings': '', 'Wdg': '', 'Bus': '', 'Conn': '', 'Kv': '',
+                'Kva': '', 'Tap': tap, '%R': '', 'rneut': '', 'xneut': '', 'Buses':buses, 'Conns': '', 'KVs': '',
+                'KVAs': '', 'Taps': '', '%Rs': '', 'XHL': '', 'XLT': '', 'XHT': '', 'XscArray': '', 'Thermal': '',
+                'n': '', 'm': '', 'flrise': '', 'hsrise': '', '%Loadloss': '', '%Noloadloss': '', '%imag': '',
+                'Ppm_Antifloat': '', 'NormHKVA': '', 'EmergHKVA': '', 'Sub': '', 'MaxTap': '', 'MinTap': '',
+                'NumTaps': '', 'SubName': '', 'Bank': '', 'XfmrCode': xfmrcode, 'XRConst': '', 'LeadLag': '',
+                'Seasons': '', 'Ratings': '', 'Inherited Properties': '', 'Faultrate': '', 'Basefreq': '', 'Like': ''},
+                ignore_index=True)
 
     if DataFrame_ElmTr3.empty == True and DataFrame_TypTr3.empty == True:
         pass
@@ -371,10 +385,10 @@ def DIGS_trafo_conn_group_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: 
 
 def DIGS_trafo_conn_group_DSS_2(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFrame,
                                 DataFrame_ElmTr3: pd.DataFrame, DataFrame_TypTr3: pd.DataFrame,
-                                DataFrame_ElmTerm: pd.DataFrame,DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
+                                DataFrame_ElmTerm: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
 
 
-    df_trafo_DSS = pd.DataFrame(
+    df_Trafo_DSS = pd.DataFrame(
         columns=['Id_Transformer', 'Phases', 'Windings', 'Wdg', 'Bus', 'Conn', 'Kv', 'Kva', 'Tap', '%R', 'rneut',
                  'xneut', 'Buses', 'Conns', 'KVs', 'KVAs', 'Taps', '%Rs', 'XHL', 'XLT', 'XHT', 'XscArray',
                  'Thermal', 'n', 'm', 'flrise', 'hsrise', '%Loadloss', '%Noloadloss', '%imag', 'Ppm_Antifloat',
@@ -415,12 +429,14 @@ def DIGS_trafo_conn_group_DSS_2(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2
                      'phase_DSS_x': 'DSS_hv', 'phase_DSS_y': 'DSS_lv'})
 
         'Part 2: Identify the type of transformer (TypTr2)'
-        df_TypTr2_name = DataFrame_TypTr2[['ID(a:40)', 'loc_name(a:40)', 'nt2ph(i)', 'tr2cn_h(a:2)', 'tr2cn_l(a:2)', 'nt2ag(r)']]
-        merge_Elm_Typ = pd.merge(DataFrame_ElmTr2, df_TypTr2_name, how='left', left_on='typ_id(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
+        df_TypTr2_name = DataFrame_TypTr2[
+            ['ID(a:40)', 'loc_name(a:40)', 'nt2ph(i)', 'tr2cn_h(a:2)', 'tr2cn_l(a:2)', 'nt2ag(r)']]
+        merge_Elm_Typ = pd.merge(DataFrame_ElmTr2, df_TypTr2_name,
+                                 how='left', left_on='typ_id(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
 
 
-        merge_ElmTr2_TypTr2 = pd.merge(merge_Elm_Typ, df_bushv_buslv_conn, how='inner',
-                                             left_on='ID(a:40)_x', right_on='ID(a:40)', suffixes=('_x', '_y'))
+        merge_ElmTr2_TypTr2 = pd.merge(merge_Elm_Typ, df_bushv_buslv_conn,
+                                       how='inner', left_on='ID(a:40)_x', right_on='ID(a:40)', suffixes=('_x', '_y'))
 
         merge_ElmTr2_TypTr2 = merge_ElmTr2_TypTr2[['loc_name(a:40)_x', 'loc_name(a:40)_y', 'nt2ph(i)',
                                                    'name_hv', 'tr2cn_h(a:2)', 'nphase_hv', 'bushv_dss', 'DSS_hv',
@@ -450,20 +466,22 @@ def DIGS_trafo_conn_group_DSS_2(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2
                 buses = f'[{bushv}, {buslv}]'
                 tap = merge_ElmTr2_TypTr2['nntap(i)'][index]
 
-                df_trafo_DSS = df_trafo_DSS.append({'Id_Transformer':id_trafo, 'Phases':'', 'Windings':'', 'Wdg':'', 'Bus':'', 'Conn':'', 'Kv':'', 'Kva':'', 'Tap':tap,
-                                                    '%R':'', 'rneut':'', 'xneut':'', 'Buses':buses, 'Conns':'', 'KVs':'', 'KVAs':'', 'Taps':'', '%Rs':'',
-                                                    'XHL':'', 'XLT':'', 'XHT':'', 'XscArray':'', 'Thermal':'', 'n':'', 'm':'', 'flrise':'', 'hsrise':'',
-                                                    '%Loadloss':'', '%Noloadloss':'', '%imag':'', 'Ppm_Antifloat':'', 'NormHKVA':'', 'EmergHKVA':'',
-                                                    'Sub':'', 'MaxTap':'', 'MinTap':'', 'NumTaps':'', 'SubName':'', 'Bank':'', 'XfmrCode':xfmrcode, 'XRConst':'',
-                                                    'LeadLag':LeadLag, 'Seasons':'', 'Ratings':'', 'Inherited Properties':'', 'Faultrate':'', 'Basefreq':'',
-                                                    'Like':''}, ignore_index=True)
+                df_Trafo_DSS = df_Trafo_DSS.append({
+                    'Id_Transformer': id_trafo, 'Phases': '', 'Windings': '', 'Wdg': '', 'Bus': '', 'Conn': '',
+                    'Kv': '', 'Kva': '', 'Tap': tap, '%R': '', 'rneut': '', 'xneut': '', 'Buses': buses, 'Conns': '',
+                    'KVs': '', 'KVAs': '', 'Taps': '', '%Rs': '', 'XHL': '', 'XLT': '', 'XHT': '', 'XscArray': '',
+                    'Thermal': '', 'n': '', 'm': '', 'flrise': '', 'hsrise': '', '%Loadloss': '', '%Noloadloss': '',
+                    '%imag': '', 'Ppm_Antifloat': '', 'NormHKVA': '', 'EmergHKVA': '', 'Sub': '', 'MaxTap': '',
+                    'MinTap': '', 'NumTaps': '', 'SubName': '', 'Bank': '', 'XfmrCode': xfmrcode, 'XRConst': '',
+                    'LeadLag': LeadLag, 'Seasons': '', 'Ratings': '', 'Inherited Properties': '', 'Faultrate': '',
+                    'Basefreq': '', 'Like': ''}, ignore_index=True)
 
         print('here')
 
-    return df_trafo_DSS
+    return df_Trafo_DSS
 
 
-def xfmcode_DSS(DataFrame_TypTr2:pd.DataFrame, DataFrame_TypTr3:pd.DataFrame )->pd.DataFrame:
+def xfmcode_DSS(DataFrame_TypTr2: pd.DataFrame, DataFrame_TypTr3: pd.DataFrame) -> pd.DataFrame:
 
     '''
     new Xfmrcode.ct10 windings=3 phases=1 xhl=2.040000 xht=2.040000 xlt=1.360000 %imag=0.500 %noloadloss=0.000
@@ -473,13 +491,12 @@ def xfmcode_DSS(DataFrame_TypTr2:pd.DataFrame, DataFrame_TypTr3:pd.DataFrame )->
 
     :return:
     '''
-    df_xfmcode_DSS= pd.DataFrame(columns= ['Id_XfmrCode', 'phases', 'windings', 'wdg', 'conn', 'kV', 'kVA', 'tap', '%R', 'XHL',
-                                           'Rneut', 'Xneut', 'conns', 'kVs', 'kVAs', '%Rs', 'taps', 'XHT', 'XLT', 'Xscarray',
-                                           'thermal', 'n', 'm', 'flrise', 'hsrise', '%loadloss', '%noloadloss', 'normhkVA',
-                                           'emerghkVA', 'MaxTap', 'MinTap', 'NumTaps', '%imag', 'ppm_antifloat',
-                                           'X12', 'X13', 'X23', 'RdcOhms', 'Seasons', 'Ratings', 'like'])
+    df_xfmcode_DSS = pd.DataFrame(columns=[
+        'Id_XfmrCode', 'phases', 'windings', 'wdg', 'conn', 'kV', 'kVA', 'tap', '%R', 'XHL', 'Rneut', 'Xneut', 'conns',
+        'thermal', 'n', 'm', 'flrise', 'hsrise', '%loadloss', '%noloadloss', 'normhkVA', 'emerghkVA', 'MaxTap',
+        'MinTap', 'NumTaps', '%imag', 'ppm_antifloat', 'X12', 'X13', 'X23', 'RdcOhms', 'Seasons', 'Ratings', 'like'])
 
-    '********************************************************** 2 winding transformer **********************************************************'
+    '******************************************** 2 winding transformer ***********************************************'
     if DataFrame_TypTr2.empty == True:
         pass
     else:
@@ -533,11 +550,14 @@ def xfmcode_DSS(DataFrame_TypTr2:pd.DataFrame, DataFrame_TypTr3:pd.DataFrame )->
                 per_Rs = f'[{loadloss_2 }, {loadloss_2 }]'
             #'%R': loadloss_2,
 
-            df_xfmcode_DSS = df_xfmcode_DSS.append({'Id_XfmrCode':id_xfmrCode, 'phases':num_phases, 'windings':'2', 'wdg':'', 'conn':'', 'kV':'', 'kVA':'', 'tap':'', '%R':'',
-                                                            'Rneut':'', 'Xneut':'', 'conns':conns, 'kVs':Kvs, 'kVAs':KVAs, 'taps':'', 'XHL':XHL, 'XHT': XHT, 'XLT': XLT, 'Xscarray':'',
-                                                            'thermal':'', 'n':'', 'm':'', 'flrise':'', 'hsrise':'', '%loadloss':loadloss, '%noloadloss':'', 'normhkVA':'',
-                                                            'emerghkVA':'', 'MaxTap':MaxTap, 'MinTap':MinTap, 'NumTaps':'', '%imag':'', 'ppm_antifloat':'', '%Rs':per_Rs,
-                                                            'X12':'', 'X13':'', 'X23':'', 'RdcOhms':'', 'Seasons':'', 'Ratings':'', 'like':''}, ignore_index=True)
+            df_xfmcode_DSS = df_xfmcode_DSS.append({
+                'Id_XfmrCode': id_xfmrCode, 'phases': num_phases, 'windings': '2', 'wdg': '', 'conn': '', 'kV': '', 
+                'kVA': '', 'tap': '', '%R': '', 'Rneut': '', 'Xneut': '', 'conns': conns, 'kVs': Kvs, 'kVAs': KVAs,
+                'taps': '', 'XHL': XHL, 'XHT': XHT, 'XLT': XLT, 'Xscarray': '', 'thermal': '', 'n': '', 'm': '',
+                'flrise': '', 'hsrise': '', '%loadloss': loadloss, '%noloadloss': '', 'normhkVA': '', 'emerghkVA': '',
+                'MaxTap': MaxTap, 'MinTap': MinTap, 'NumTaps': '', '%imag': '', 'ppm_antifloat': '', '%Rs': per_Rs,
+                'X12': '', 'X13': '', 'X23': '', 'RdcOhms': '', 'Seasons': '', 'Ratings': '', 'like': ''},
+                ignore_index=True)
 
 
     '********************************************************** 3 winding transformer **********************************************************'
@@ -573,16 +593,17 @@ def xfmcode_DSS(DataFrame_TypTr2:pd.DataFrame, DataFrame_TypTr3:pd.DataFrame )->
             conns = f'[{conn_hv}, {conn_mv}, {conn_lv}]'
 
             df_xfmcode_DSS = df_xfmcode_DSS.append(
-                {'Id_XfmrCode': id_xfmrCode, 'phases': num_phases, 'windings': '3', 'wdg': '', 'conn': '', 'kV': '', 'kVA': '',
-                 'tap': '', '%R': '', 'Rneut': '', 'Xneut': '', 'conns': conns, 'kVs': Kvs, 'kVAs': KVAs, 'taps': '', 'Xhl': XHL, 'Xht': XHT,
-                 'Xlt': XLT, 'Xscarray': '', 'thermal': '', 'n': '', 'm': '', 'flrise': '', 'hsrise': '', '%loadloss': '', '%noloadloss': '',
-                 'normhkVA': '', 'emerghkVA': '', 'MaxTap':  '', 'MinTap':  '', 'NumTaps': '', '%imag': '', 'ppm_antifloat': '',
-                 '%Rs':  '', 'X12': '', 'X13': '', 'X23': '', 'RdcOhms': '', 'Seasons': '', 'Ratings': '', 'like': ''}, ignore_index=True)
+                {'Id_XfmrCode': id_xfmrCode, 'phases': num_phases, 'windings': '3', 'wdg': '', 'conn': '', 'kV': '',
+                 'kVA': '', 'tap': '', '%R': '', 'Rneut': '', 'Xneut': '', 'conns': conns, 'kVs': Kvs, 'kVAs': KVAs,
+                 'taps': '', 'Xhl': XHL, 'Xht': XHT, 'Xlt': XLT, 'Xscarray': '', 'thermal': '', 'n': '', 'm': '',
+                 'flrise': '', 'hsrise': '', '%loadloss': '', '%noloadloss': '', 'normhkVA': '', 'emerghkVA': '',
+                 'MaxTap':  '', 'MinTap':  '', 'NumTaps': '', '%imag': '', 'ppm_antifloat': '', '%Rs':  '', 'X12': '',
+                 'X13': '', 'X23': '', 'RdcOhms': '', 'Seasons': '', 'Ratings': '', 'like': ''}, ignore_index=True)
 
 
     return df_xfmcode_DSS
 
-def identify_transformer_connection(conn_trafo:str)->str:
+def identify_transformer_connection(conn_trafo: str) -> str:
     #Connection of this winding {wye*, Delta, LN, LL}. Default is "wye" with the neutral solidly grounded.
     if conn_trafo == 'Y':
         conn_dss = 'wye'
@@ -597,13 +618,13 @@ def identify_transformer_connection(conn_trafo:str)->str:
 
     return conn_dss
 
-def identify_number_phases(tecnology:str):
+def identify_number_phases(technology: str):
 
-    if tecnology == 1:
+    if technology == 1:
         num_phases = 1
-    elif tecnology == 2:
+    elif technology == 2:
         num_phases = 1
-    elif tecnology == 3:
+    elif technology == 3:
         num_phases = 3
 
     return num_phases

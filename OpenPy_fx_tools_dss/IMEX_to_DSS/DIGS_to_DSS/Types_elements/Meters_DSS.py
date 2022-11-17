@@ -5,7 +5,7 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Meters_DSS import *
+from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.fx_for_elem.Meters_DSS import *
 
 def Meters_elements_DSS(dict_df_DigS: dict, BBDD_OpenDSS: dict, OpenDSS_element_list: list):
 

@@ -5,12 +5,12 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Load_DSS import DIGS_load_DSS
-from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Rest_of_element_DSS import DIGS_Generator_DSS, DIGS_Generic5_DSS, DIGS_GICLine_DSS, \
+from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.fx_for_elem.Load_DSS import DIGS_load_DSS
+from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.fx_for_elem.Rest_of_element_DSS import DIGS_Generator_DSS, DIGS_Generic5_DSS, DIGS_GICLine_DSS, \
     DIGS_IndMach012_DSS, DIGS_PVSystem_DSS, DIGS_Storage_DSS, DIGS_UPFC_DSS, DIGS_VCCS_DSS, DIGS_WindGen_DSS, DIGS_VSConverter_DSS
 
 
-def PC_elements_DSS(dict_df_DigS:dict, BBDD_OpenDSS:dict, OpenDSS_element_list:list):
+def PC_elements_DSS(dict_df_DigS: dict, BBDD_OpenDSS: dict, OpenDSS_element_list: list):
 
     # from Load_DSS.py
     BBDD_OpenDSS['Load'] = DIGS_load_DSS(DataFrame_ElmLod=dict_df_DigS['ElmLod'],

@@ -5,7 +5,7 @@
 # @File    : ------------
 # @Software: PyCharm
 
-from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.DIGS_to_DSS_elem.Rest_of_element_DSS import \
+from openpy_fx_tools_dss.IMEX_to_DSS.DIGS_to_DSS.Types_elements.fx_for_elem.Rest_of_element_DSS import \
     DIGS_CapControl_DSS, DIGS_ESPVLControl_DSS, DIGS_ExpControl_DSS, DIGS_Fuse_DSS, DIGS_GenDispatcher_DSS, \
     DIGS_InvControl_DSS, DIGS_Recloser_DSS, DIGS_RegControl_DSS, DIGS_Relay_DSS, DIGS_StorageController_DSS, \
     DIGS_UPFCControl_DSS, DIGS_SwtControl_DSS

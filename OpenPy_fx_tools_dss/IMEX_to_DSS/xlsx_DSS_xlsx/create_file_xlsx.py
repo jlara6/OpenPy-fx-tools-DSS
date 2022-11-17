@@ -10,12 +10,12 @@ import pandas as pd
 
 from ...interface_dss import dss, drt
 from ...helper_functions import _save_BBDD_xlsx
-from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elements_DSS import Other_MTY, Other_Def_Value, Other_ORD
-from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elements_DSS import General_MTY, General_Def_Value, General_ORD
-from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elements_DSS import PD_elements_MTY, PD_elem_Def_Value, PD_elements_ORD
-from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elements_DSS import PC_elements_MTY, PC_elem_Def_Value, PC_elements_ORD
-from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elements_DSS import Controls_MTY, Controls_Def_Value, Controls_ORD
-from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elements_DSS import Meters_MTY, Meters_Def_Value, Meters_ORD
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elem_DSS import Other_MTY, Other_Def_Value, Other_ORD
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elem_DSS import General_MTY, General_Def_Value, General_ORD
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elem_DSS import PD_elements_MTY, PD_elem_Def_Value, PD_elements_ORD
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elem_DSS import PC_elements_MTY, PC_elem_Def_Value, PC_elements_ORD
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elem_DSS import Controls_MTY, Controls_Def_Value, Controls_ORD
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elem_DSS import Meters_MTY, Meters_Def_Value, Meters_ORD
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Voltagebases_DSS import Voltagebases_DSS
 
 from openpy_fx_tools_dss.logg_print_alert import logg_alert
@@ -108,6 +108,54 @@ def _check_DSS_default_values(BBDD_OpenDSS: dict):
 
 
 
+def ClassName_to_DataFrame_inter(ClassName: str, transform_string=None, clean_data=None):
+    data = dict()
+
+    if transform_string is None:
+        transform_string = _evaluate_expression
+
+    if clean_data is None:
+        clean_data = _clean_data
+
+    dss.circuit_set_active_class(ClassName)
+    for element in dss.active_class_all_names():
+        name = "{element}".format(element=element)
+        name_elem = ClassName+'.'+element
+        dss.circuit_set_active_element(name_elem)
+
+        data[name] = dict()
+
+        for i, n in enumerate(dss.cktelement_all_property_names()):
+            # use 1-based index for compatibility with previous versions
+            PropertyName = dss.cktelement_all_property_names()[i]
+            if PropertyName == 'WdgCurrents':
+                string = ''
+            else:
+                string = dss.dssproperties_read_value(str(i + 1))
+            string = transform_string(string)
+            if type(string) == list:
+                string = str(string).replace("'", "")
+                if string == "[]":
+                    string = ""
+
+            if type(string) == tuple:
+                string = str(list(string)).replace("'", "")
+                if string == "[]":
+                    string = ""
+
+
+            if PropertyName == 'bus1':
+                string = str(string)
+            if PropertyName == 'bus2':
+                string = str(string)
+
+            data[name][n] = string
+
+    data = clean_data(data, ClassName)
+    df_class = pd.DataFrame(pd.DataFrame(data).T).reset_index().rename(columns={'index': f'Id_{ClassName}'})
+
+    return df_class
+
 
 def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=None):
 
@@ -125,9 +173,13 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
         drt.ActiveClass.Name(element)
         data[name] = dict()
 
+        if ClassName == 'Transformer':
+            print('here')
+
         for i, n in enumerate(drt.Element.AllPropertyNames()):
             # use 1-based index for compatibility with previous versions
             PropertyName = drt.Element.AllPropertyNames()[i]
+
             if PropertyName == 'WdgCurrents':
                 string = ''
             else:
@@ -150,13 +202,14 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
                 if string == "[]":
                     string = ""
 
-
             if PropertyName == 'bus1':
                 string = str(string)
             if PropertyName == 'bus2':
                 string = str(string)
 
             data[name][n] = string
+
+
 
     data = clean_data(data, ClassName)
     df_class = pd.DataFrame(pd.DataFrame(data).T).reset_index().rename(columns={'index': f'Id_{ClassName}'})
@@ -187,6 +240,7 @@ def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, 
             dict_class['Meters'] += 1
 
     else:
+        #df_class_2 = ClassName_to_DataFrame_inter(ClassName)
         df_class = ClassName_to_DataFrame(ClassName)
         if len([x for x in [ClassName] if x in list_General_DSS]) == 1:
             if df_class.empty:
@@ -320,7 +374,7 @@ def _evaluate_expression(string):
 
 def _clean_data(data, class_name):
     for element in drt.ActiveClass.AllNames():
-        name = "{class_name}.{element}".format(class_name=class_name, element=element)
+        name = "{element}".format(element=element)
         drt.ActiveClass.Name(element)
 
         if "nconds" in drt.Element.AllPropertyNames():
@@ -338,5 +392,56 @@ def _clean_data(data, class_name):
             data[name]["x"] = x
             data[name]["h"] = h
             data[name]["units"] = units
+
+        if class_name == 'Vsource':
+            pass
+        else:
+            list_AllPropertyNames = drt.Element.AllPropertyNames()
+            ph_aux = ['nphases', 'phases']
+
+            for k in ph_aux:
+                if len([x for x in [k] if x in list_AllPropertyNames]) == 1:
+                    if 'bus1' in drt.Element.AllPropertyNames():
+                        pos = data[name]['bus1'].find('.')
+                        ph_1 = data[name]['bus1'][pos:]
+                        if ph_1.find('0') == -1:
+                            pass
+                        else:
+                            if int(data[name][k]) == 3:
+                                data[name]["bus1"] = data[name]["bus1"][:pos] + '.1.2.3' + ph_1
+
+
+                    if 'bus2' in drt.Element.AllPropertyNames():
+                        pos = data[name]['bus2'].find('.')
+                        ph_2 = data[name]['bus2'][pos:]
+                        if ph_2.find('0') == -1:
+                            pass
+                        else:
+                            if int(data[name][k]) == 3:
+                                data[name]["bus2"] = data[name]["bus2"][:pos] + '.1.2.3' + ph_2
+
+                    if 'conns' in drt.Element.AllPropertyNames():
+                        pos = data[name]['buses']
+                        aux1 = pos.find('[')
+                        aux2 = pos.find(',')
+                        aux3 = pos.find(']')
+
+                        list_buses = [pos[aux1 + 1:aux2], pos[aux2 + 1:aux3]]
+
+                        list_nbus = list()
+
+                        for bus in list_buses:
+                            pos = bus.find('.')
+                            ph_1 = bus[pos:]
+                            if ph_1.find('0') == -1:
+                                list_nbus.append(bus)
+                            else:
+                                if int(data[name]['phases']) == 3:
+                                    list_nbus.append(bus[:pos] + '.1.2.3' + ph_1)
+
+                        data[name]['buses'] = f'[{list_nbus[0]}, {list_nbus[1]}]'
+
+
+
 
     return data

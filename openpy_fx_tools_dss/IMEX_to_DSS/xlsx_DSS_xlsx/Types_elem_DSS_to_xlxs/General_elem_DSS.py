@@ -2,7 +2,7 @@
 # @Time    : 25/09/2022
 # @Author  : Jorge Lara
 # @Email   : jlara@iee.unsj.edu.ar
-# @File    : General_elements_DSS.py
+# @File    : General_elem_DSS.py
 # @Software: PyCharm
 
 import pandas as pd
