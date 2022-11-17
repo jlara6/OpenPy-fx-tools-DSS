@@ -45,7 +45,7 @@ class xlsx_DSS_xlsx:
         """
         aux_xlsx._template_xlsx()
 
-    def xlsx_to_DSS_scripts(self, xlsx_path: str = None, path_save: str = None, prj_name: str = 'default', path: bool = True):
+    def xlsx_to_OpenDSS(self, xlsx_path: str = None, path_save: str = None, prj_name: str = 'default', path: bool = True):
         """
         Generate OpenDSS files, according to the information found in the xlsx template.
 
@@ -57,7 +57,7 @@ class xlsx_DSS_xlsx:
         """
         aux_xlsx._create_DSS_from_xlsx(xlsx_path, path_save, prj_name, path)
 
-    def DSS_scripts_to_xlsx(self, DSS_path: str = None, path_save: str = None, prj_name: str = 'default'):
+    def OpenDSS_to_xlsx(self, DSS_path: str = None, path_save: str = None, prj_name: str = 'default'):
         """
         Generates .xlsx template with xlsx_data from OpenDSS scripts
 
