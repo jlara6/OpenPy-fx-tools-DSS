@@ -15,6 +15,8 @@
       <option name="ignoredErrors">
         <list>
           <option value="E302" />
+          <option value="W292" />
+          <option value="E303" />
         </list>
       </option>
     </inspection_tool>
@@ -24,6 +26,14 @@
           <option value="N803" />
           <option value="N806" />
           <option value="N801" />
+          <option value="N802" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="py_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.create_file_xlsx.Other_elements_DSS" />
         </list>
       </option>
     </inspection_tool>
