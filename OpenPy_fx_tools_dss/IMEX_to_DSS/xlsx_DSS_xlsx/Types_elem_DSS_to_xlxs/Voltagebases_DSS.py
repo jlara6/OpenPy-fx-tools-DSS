@@ -7,9 +7,10 @@
 
 
 import warnings
-warnings.simplefilter(action='ignore', category=Warning)
 import pandas as pd
 from openpy_fx_tools_dss.interface_dss import dss
+
+warnings.simplefilter(action='ignore', category=Warning)
 
 def Voltagebases_DSS() -> pd.DataFrame:
     list_aux = dss.settings_read_voltage_bases()
