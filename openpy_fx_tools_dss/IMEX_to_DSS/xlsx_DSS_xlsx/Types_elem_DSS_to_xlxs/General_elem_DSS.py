@@ -10,6 +10,8 @@ from openpy_fx_tools_dss.interface_dss import dss
 from openpy_fx_tools_dss.NameClass_columns import dict_General
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.fx_objects import _COL_ORD, _COL_MTY
 
+list_General_DSS = ['WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape',
+                    'LoadShape', 'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
 
 def General_ORD(DF_elem_DSS: pd.DataFrame, name_class: str):
 

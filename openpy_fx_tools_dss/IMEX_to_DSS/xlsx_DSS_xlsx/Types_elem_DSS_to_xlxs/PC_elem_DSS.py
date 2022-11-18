@@ -30,12 +30,12 @@ def PC_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
                         for m in list_Vs:
                             DF_elem_DSS[m][index] = ''
 
-                row_aux = ['model', 'yearly', 'daily', 'conn', 'Rneut', 'status', 'class', 'Vminpu', 'Vmaxpu',
+                row_aux = ['yearly', 'daily', 'Rneut', 'status', 'class', 'Vminpu', 'Vmaxpu',
                            'Vminnorm', 'Vminemerg', 'xfkVA', 'allocationfactor', '%mean', '%stddev', 'CVRwatts',
                            'CVRvars', 'kwh', 'kwhdays', 'Cfactor', 'CVRcurve', 'NumCust', '%SeriesRL', 'RelWeight',
                            'Vlowpu', 'puXharm', 'XRharm', 'spectrum', 'enabled', 'ZIPV', 'basefreq']
 
-                value_aux = [2, 'no variation', 'no variation', 'wye', -1, 'Variable', 1, 0.95, 1.05, 0, 0, 0, 0.5, 50,
+                value_aux = ['no variation', 'no variation', -1, 'Variable', 1, 0.95, 1.05, 0, 0, 0, 0.5, 50,
                              10, 1, 2, 0, 30, 4, 'none', 1, 50, 1, 0.5, 0, 6, 'defaultload', 'Yes', '[0 0 0 0 0 0 0]', 'basefreq']
                 for x in zip(row_aux, value_aux):
                     if DF_elem_DSS[x[0]][index] == dss.solution_read_frequency():

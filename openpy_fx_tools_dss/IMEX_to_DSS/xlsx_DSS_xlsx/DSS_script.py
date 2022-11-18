@@ -17,20 +17,21 @@ from openpy_fx_tools_dss.logg_print_alert import logg_alert
 
 log_py = logging.getLogger(__name__)
 
-def create_scrips_base_dss(name_dss: str, xlsx_file: str, path_save: str, path: bool):
+def create_scrips_base_dss(name_dss: str, xlsx_file: str, path_save: str, add_path: bool):
     """
     :param name_dss:
     :param xlsx_file:
     :param path_save:
-    :return OpenDSS scripts in the specified path
+    :return OpenDSS scripts in the specified path_save
 
     function that creates the OpenDSS scripts with the information from the database
     """
 
     delete_all_files(path_save)
-    create_master_base_dss(name_dss, xlsx_file, path_save, path)
+    create_master_base_dss(name_dss, xlsx_file, path_save, add_path)
     for element in check_BBDD(xlsx_file):
         create_element_base_dss(name_dss, element, xlsx_file)
+    logg_alert.update_logg_file('_' * 64, 1)
     logg_alert.update_logg_file('Data loaded and .DSS files created', 2, log_py)
 
 
@@ -90,7 +91,7 @@ def read_direction():
 def move_files_DSS(source_address, destination_address):
     """
     :return:
-    Delete existing .DSS files in the specified path
+    Delete existing .DSS files in the specified path_save
     """
     direction = read_direction()
     dss_files = glob.glob(direction+'/*.dss')
@@ -101,7 +102,7 @@ def move_files_DSS(source_address, destination_address):
 #1
 def delete_all_files(path_save):
     """
-    Delete existing .DSS files in the specified path
+    Delete existing .DSS files in the specified path_save
     
     :param path_save:
     :return: 
@@ -116,7 +117,7 @@ def delete_all_files(path_save):
 def delete_files_DSS():
     """
     :return:
-    Delete existing .DSS files in the specified path
+    Delete existing .DSS files in the specified path_save
     """
     path_save = read_direction()
     dss_files = glob.glob(f'{path_save}/*.dss')
@@ -126,23 +127,38 @@ def delete_files_DSS():
         except OSError as e:
             print(f"Error:{e.strerror}")
 
-def master_content_dir(name_dss: str, list_elements: list, path: str):
+
+
+
+def master_content_dir(name_dss: str, list_elements: list, path_save: str, add_path: bool):
     """
     :param name_dss:
     :param list_elements:
     :return:
     """
-    content = f'set Datapath=({path}\)\n'\
-              'Clear\n'\
-              '\n'\
-              f'New Circuit.{name_dss}\n'\
-              '\n'
+    if add_path:
+        content = f'set Datapath=({path_save}\)\n'\
+                  'Clear\n'\
+                  '\n'\
+                  f'New Circuit.{name_dss}\n'\
+                  '\n'
+    else:
+        content = 'Clear\n' \
+                  '\n' \
+                  f'New Circuit.{name_dss}\n' \
+                  '\n'
+
     aux = ''
     content_aux = ''
+
     for element in list_elements:
-        content_aux = f'Redirect {element}_{name_dss}.dss\n'
-        aux = aux + content_aux
+        if element != 'Voltagebases':
+            content_aux = f'Redirect {element}_{name_dss}.dss\n'
+            aux = aux + content_aux
     aux = content + aux
+
+    aux_0 = '\n' \
+            f'Redirect Voltagebases_{name_dss}.dss\n'
 
     aux_1 = '\n'\
             f'LatLongCoords Buscoords_{name_dss}.csv'\
@@ -151,55 +167,29 @@ def master_content_dir(name_dss: str, list_elements: list, path: str):
     aux_2 = '\n'\
             'solve'
 
-    aux = aux + aux_1 + aux_2
+    aux = aux + aux_0 + aux_1 + aux_2
+
     return aux
 
-def master_content(name_dss: str, list_elements: list):
-    """
-    :param name_dss:
-    :param list_elements:
-    :return:
-    """
-    content = 'Clear\n'\
-              '\n'\
-              f'New Circuit.{name_dss}\n'\
-              '\n'
-    aux = ''
-    content_aux = ''
-    for element in list_elements:
-        content_aux = f'Redirect {element}_{name_dss}.dss\n'
-        aux = aux + content_aux
-    aux = content + aux
-
-    aux_1 = '\n'\
-            f'LatLongCoords Buscoords_{name_dss}.csv'\
-            '\n'
-
-    aux_2 = '\n'\
-            'solve'
-
-    aux = aux + aux_1 + aux_2
-    return aux
 
 #2
-def create_master_base_dss(name_dss: str, xlsx_file: str, path_save: str, path: bool):
+def create_master_base_dss(name_dss: str, xlsx_file: str, path_save: str, add_path: bool):
     """
 
 
     :param name_dss:
     :param xlsx_file:
     :param path_save:
-    :param path:
+    :param add_path:
     :return:
     """
     os.chdir(path_save)
     os.getcwd()
     list_elements = check_BBDD(xlsx_file)
     master_dss = open(f'Master_{name_dss}.dss', 'w')
-    if path:
-        content = master_content_dir(name_dss, list_elements, path_save)
-    else:
-        content = master_content(name_dss, list_elements)
+
+    content = master_content_dir(name_dss, list_elements, path_save, add_path)
+
     master_dss.write(content)
     master_dss.close()
 
@@ -322,7 +312,7 @@ def create_scrips_dss(name_dss:str, workbook:str, ruta_archivo:str):
     :param name_dss:
     :param workbook:
     :param ruta_archivo:
-    :return OpenDSS scripts in the specified path
+    :return OpenDSS scripts in the specified path_save
 
     function that creates the OpenDSS scripts with the information from the database
     """

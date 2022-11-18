@@ -44,7 +44,7 @@ def create_scrips_base_dss(name_dss: str, workbook: str, ruta_archivo: str):
     :param name_dss:
     :param workbook:
     :param ruta_archivo:
-    :return OpenDSS scripts in the specified path
+    :return OpenDSS scripts in the specified path_save
 
     function that creates the OpenDSS scripts with the information from the database
     '''
@@ -105,7 +105,7 @@ def read_direction():
 def move_files_DSS(source_address, destination_address):
     '''
     :return:
-    Delete existing .DSS files in the specified path
+    Delete existing .DSS files in the specified path_save
     '''
     direction = read_direction()
     dss_files = glob.glob(direction+'/*.dss')
@@ -117,7 +117,7 @@ def move_files_DSS(source_address, destination_address):
 def delete_all_files(address):
     '''
     :return:
-    Delete existing .DSS files in the specified path
+    Delete existing .DSS files in the specified path_save
     '''
     direction = address
     #dss
@@ -131,7 +131,7 @@ def delete_all_files(address):
 def delete_files_DSS():
     '''
     :return:
-    Delete existing .DSS files in the specified path
+    Delete existing .DSS files in the specified path_save
     '''
     direction = read_direction()
     dss_files = glob.glob(direction+'/*.dss')
@@ -337,7 +337,7 @@ def create_scrips_dss(name_dss:str, workbook:str, ruta_archivo:str):
     :param name_dss:
     :param workbook:
     :param ruta_archivo:
-    :return OpenDSS scripts in the specified path
+    :return OpenDSS scripts in the specified path_save
 
     function that creates the OpenDSS scripts with the information from the database
     '''

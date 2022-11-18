@@ -73,8 +73,26 @@ def Controls_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFra
         return DF_elem_DSS
     elif name_class == 'RegControl':
         if not DF_elem_DSS.empty:
-            pass
-        return DF_elem_DSS
+            for index, row in DF_elem_DSS.iterrows():
+                row_aux = [
+                    'revvreg', 'band', 'ptratio', 'CTprim', 'delay', 'reversible', 'tapdelay', 'debugtrace',
+                    'maxtapchange', 'inversetime', 'vlimit', 'PTphase', 'revThreshold', 'revDelay', 'revNeutral',
+                    'EventLog', 'TapNum', 'Cogen', 'basefreq', 'enabled', 'revband']
+
+                value_aux = [
+                    120, 3, 60, 0.2, 15, 'No', 2, 'No', 16, 'No', 0, 1, 100, 60, 'No', 'Yes', 0, 'No', 'basefreq',
+                    'Yes', 3]
+
+                for x in zip(row_aux, value_aux):
+
+                    if DF_elem_DSS[x[0]][index] == dss.solution_read_frequency():
+                        DF_elem_DSS[x[0]][index] = ''
+
+                    if DF_elem_DSS[x[0]][index] == x[1]:
+                        DF_elem_DSS[x[0]][index] = ''
+
+            return DF_elem_DSS
+
     elif name_class == 'Relay':
         if not DF_elem_DSS.empty:
             pass

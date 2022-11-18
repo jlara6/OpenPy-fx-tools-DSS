@@ -98,8 +98,23 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
 
     elif name_class == 'Capacitor':
         if not DF_elem_DSS.empty:
-            pass
-        return DF_elem_DSS
+            for index, row in DF_elem_DSS.iterrows():
+                row_aux = [
+                    'bus2', 'R', 'Harm', 'Numsteps', 'states', 'faultrate', 'pctperm', 'repair', 'basefreq', 'enabled']
+
+                value_aux = [
+                    'bus1.0', 0, 0, 1, '[1.0]', 0.0005, 100, 3, 'BaseFreq', 'Yes']
+
+                for x in zip(row_aux, value_aux):
+
+                    if DF_elem_DSS[x[0]][index] == dss.solution_read_frequency():
+                        DF_elem_DSS[x[0]][index] = ''
+
+                    if DF_elem_DSS[x[0]][index] == x[1]:
+                        DF_elem_DSS[x[0]][index] = ''
+
+            return DF_elem_DSS
+
     elif name_class == 'AutoTrans':
         if not DF_elem_DSS.empty:
             pass

@@ -4,7 +4,6 @@ Clear
 New Circuit.13nodeIEEE
 
 Redirect LineCode_13nodeIEEE.dss
-Redirect Voltagebases_13nodeIEEE.dss
 Redirect LoadShape_13nodeIEEE.dss
 Redirect GrowthShape_13nodeIEEE.dss
 Redirect TCC_Curve_13nodeIEEE.dss
@@ -16,6 +15,8 @@ Redirect Transformer_13nodeIEEE.dss
 Redirect RegControl_13nodeIEEE.dss
 Redirect Capacitor_13nodeIEEE.dss
 
-LatLongCoords Buscoords_13nodeIEEE.csv
+Redirect Voltagebases_13nodeIEEE.dss
+
+!LatLongCoords Buscoords_13nodeIEEE.csv
 
 solve

@@ -53,7 +53,7 @@ class class_xlsx_to_DSS:
 
     def _template_xlsx(self) -> object:
         """
-        creates xlsx template in the path entered
+        creates xlsx template in the path_save entered
 
         :return: xlsx file
         """
@@ -69,7 +69,7 @@ class class_xlsx_to_DSS:
             prj_name = 'default'
             logg_alert.alert_messages('OpenDSS scripts are called Script_default.DSS', 3)
 
-        create_scrips_base_dss(name_dss=prj_name, xlsx_file=xlsx_path, path_save=path_save, path=path)
+        create_scrips_base_dss(name_dss=prj_name, xlsx_file=xlsx_path, path_save=path_save, add_path=path)
         logg_alert.update_logg_file(f'The .DSS files are saved in:\n {path_save}')
 
 
@@ -77,15 +77,16 @@ class class_xlsx_to_DSS:
 
         aux_save = path_save is None
         aux_DSS = DSS_path is None
-        if aux_save == True and aux_DSS == True:
+
+        if aux_save and aux_DSS:
             logg_alert.update_logg_file(
-                'You must indicate the path to save the .xlsx file and path to OpenDSS files.', 4, log_py)
+                'You must indicate the path_save to save the .xlsx file and path_save to OpenDSS files.', 4, log_py)
             exit()
         elif aux_save:
-            logg_alert.update_logg_file('You must indicate the path to save the .xlsx file.', 4, log_py)
+            logg_alert.update_logg_file('You must indicate the path_save to save the .xlsx file.', 4, log_py)
             exit()
         elif aux_DSS:
-            logg_alert.update_logg_file('You must indicate the path to OpenDSS files', 4, log_py)
+            logg_alert.update_logg_file('You must indicate the path_save to OpenDSS files', 4, log_py)
             exit()
         else:
             _Create_DSS_to_xlsx_files(DSS_path, path_save, prj_name)
