@@ -1,4 +1,4 @@
-import openpy_fx_tools_dss as fx_dss
+import py_fx_tools_dss as fx_dss
 
 xlsx = fx_dss.xlsx_DSS_xlsx()
 
