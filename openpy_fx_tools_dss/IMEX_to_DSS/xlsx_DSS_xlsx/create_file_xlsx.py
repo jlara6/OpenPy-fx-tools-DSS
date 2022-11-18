@@ -9,7 +9,7 @@ import logging
 import pandas as pd
 
 from ...interface_dss import dss, drt
-from ...helper_functions import _save_BBDD_xlsx
+from ...helper_functions import _save_BBDD_xlsx, is_float
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elem_DSS import Other_MTY, Other_Def_Value, Other_ORD, list_Other_DSS
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elem_DSS import General_MTY, General_Def_Value, General_ORD, list_General_DSS
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elem_DSS import PD_elements_MTY, PD_elem_Def_Value, PD_elements_ORD, list_PD_elements_DSS
@@ -17,11 +17,10 @@ from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_ele
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elem_DSS import Controls_MTY, Controls_Def_Value, Controls_ORD, list_Controls_DSS
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elem_DSS import Meters_MTY, Meters_Def_Value, Meters_ORD, list_Meters_DSS
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Voltagebases_DSS import Voltagebases_DSS
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Buscoords import Buscoords_DSS
 
 from openpy_fx_tools_dss.logg_print_alert import logg_alert
-
 log_py = logging.getLogger(__name__)
-
 
 list_General = list()
 list_Other = list()
@@ -31,6 +30,7 @@ list_Controls = list()
 list_Meters = list()
 
 def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
+
     n_elem_dss = {
         "General": len(list_General_DSS), "Other": len(list_Other_DSS), "PD_elem": len(list_PD_elements_DSS),
         "PC_elem": len(list_PC_elements_DSS), "Controls": len(list_Controls_DSS), "Meters": len(list_Meters_DSS)}
@@ -45,6 +45,7 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
     dss.text(f"compile [{DSS_file}]")
 
     drt.run_command(f"compile [{DSS_file}]")
+
 
     list_no = ['Solution']
     for ClassName in dss.dss_classes():
@@ -64,6 +65,8 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
                     elements_OpenDSS=DSS_elem_list,
                     BBDD_OpenDSS=BBDD_OpenDSS,
                     out_path=path_save)
+
+    Buscoords_DSS(prj_name, path_save)
 
     logg_alert.update_logg_file('_' * 64, 1)
     logg_alert.update_logg_file(f'Created and saved the {xlsx_name_DSS} file in the path:\n{path_save}', 2, log_py)
@@ -133,6 +136,12 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
                 string = str(string)
             if PropertyName == 'bus2':
                 string = str(string)
+            if PropertyName == 'linecode':
+                print(__name__)
+                if is_float(string):
+                    string = str(int(string))
+                else:
+                    string = str(string)
 
             data[name][n] = string
 

@@ -54,7 +54,7 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
                     if DF_elem_DSS[x[0]][index] == x[1]:
                         DF_elem_DSS[x[0]][index] = ''
 
-            return DF_elem_DSS
+        return DF_elem_DSS
     elif name_class == 'Line':
         if not DF_elem_DSS.empty:
             for index, row in DF_elem_DSS.iterrows():
@@ -94,7 +94,7 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
                     if DF_elem_DSS[x[0]][index] == x[1]:
                         DF_elem_DSS[x[0]][index] = ''
 
-            return DF_elem_DSS
+        return DF_elem_DSS
 
     elif name_class == 'Capacitor':
         if not DF_elem_DSS.empty:
@@ -113,7 +113,8 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
                     if DF_elem_DSS[x[0]][index] == x[1]:
                         DF_elem_DSS[x[0]][index] = ''
 
-            return DF_elem_DSS
+
+        return DF_elem_DSS
 
     elif name_class == 'AutoTrans':
         if not DF_elem_DSS.empty:

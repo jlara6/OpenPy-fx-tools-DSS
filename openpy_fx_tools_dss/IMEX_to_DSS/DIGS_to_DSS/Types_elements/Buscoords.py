@@ -295,7 +295,7 @@ def Buscoords_trafo_Tr2_Bus1_Bus2(df_trafo_Tr2_Buscoords: pd.DataFrame, df_Busco
     return df_trafo_Tr2_Buscoords
 
 
-def file_Buscoords_DSS_orig(workbook:str, BBDD_OpenDSS:dict, dict_df_DigS:dict, out_path:str):
+def file_Buscoords_DSS_orig(workbook: str, BBDD_OpenDSS: dict, dict_df_DigS:dict, out_path:str):
 
     element_list = list()
     BBDD_Buscoords = dict()
@@ -366,7 +366,7 @@ def file_Buscoords_DSS_orig(workbook:str, BBDD_OpenDSS:dict, dict_df_DigS:dict, 
     return BBDD_Buscoords, element_list
 
 
-def file_Buscoords_DSS(workbook: str, BBDD_OpenDSS:dict, dict_df_DigS:dict, out_path:str):
+def file_Buscoords_DSS(workbook: str, BBDD_OpenDSS: dict, dict_df_DigS: dict, out_path: str):
 
     element_list = list()
     BBDD_Buscoords = dict()

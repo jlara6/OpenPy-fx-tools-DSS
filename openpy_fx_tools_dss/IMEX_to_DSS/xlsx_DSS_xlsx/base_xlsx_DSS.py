@@ -29,17 +29,29 @@ def _test_DSS_files(Opt: int):
         DSS_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "xlsx_files")
         DSS_info['prj_name'] = '13nodeIEEE'
 
+    if Opt == 3:
+        DSS_info['DSS_path'] = pathlib.Path(script_path).joinpath(
+            "Examples", "37Bus", "DSS_files", "ieee37.dss")
+        DSS_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "37Bus", "xlsx_files")
+        DSS_info['prj_name'] = '37BusIEEE'
+
     return DSS_info
 
 
 def _test_xlsx_files(Opt: int) -> object:
     script_path = os.path.dirname(os.path.abspath(__file__))
     xlsx_info = dict()
-    if Opt == 1:
+    if Opt == 2:
         xlsx_info['xlsx_path'] = pathlib.Path(script_path).joinpath(
             "Examples", "13NodeIEEE", "xlsx_files", "BBDD_DSS_13nodeIEEE.xlsx")
         xlsx_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "13NodeIEEE", "xlsx_files")
         xlsx_info['prj_name'] = '13nodeIEEE'
+
+    if Opt == 3:
+        xlsx_info['xlsx_path'] = pathlib.Path(script_path).joinpath(
+            "Examples", "37Bus", "xlsx_files", "BBDD_DSS_37BusIEEE.xlsx")
+        xlsx_info['path_save'] = pathlib.Path(script_path).joinpath("Examples", "37Bus", "xlsx_files")
+        xlsx_info['prj_name'] = '37BusIEEE'
 
 
     res = not xlsx_info
@@ -67,7 +79,7 @@ class class_xlsx_to_DSS:
         """
         if prj_name is None:
             prj_name = 'default'
-            logg_alert.alert_messages('OpenDSS scripts are called Script_default.DSS', 3)
+            logg_alert.alert_messages('OpenDSS scripts are called ClassName_default.DSS', 3)
 
         create_scrips_base_dss(name_dss=prj_name, xlsx_file=xlsx_path, path_save=path_save, add_path=path)
         logg_alert.update_logg_file(f'The .DSS files are saved in:\n {path_save}')

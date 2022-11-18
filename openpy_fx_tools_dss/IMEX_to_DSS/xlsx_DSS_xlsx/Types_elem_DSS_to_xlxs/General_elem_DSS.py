@@ -58,6 +58,7 @@ def General_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str):
                     if x[1] == 'nphases':
                         if DF_elem_DSS[x[0]][index] == DF_elem_DSS[x[1]][index]:
                             DF_elem_DSS[x[0]][index] = ''
+
         return DF_elem_DSS
 
     elif name_class == 'LoadShape':

@@ -13,10 +13,10 @@ import os
 import glob
 import shutil
 
-def create_folder(name_folder:str):
+def create_folder(name_folder: str):
     os.mkdir(name_folder)
 
-def copy_file(file:str, root_file_path:str, name_folder:str):
+def copy_file(file: str, root_file_path: str, name_folder: str):
     '''
     :param file:
     :param root_file_path:
@@ -30,13 +30,12 @@ def copy_file(file:str, root_file_path:str, name_folder:str):
 #create_DSS(name_dss=export_name, file_BBDD=f'{address_saves_DSS_files}\BBDD_DSS_{export_name}.xlsx', path_save=address_saves_DSS_files)
 
 def create_DSS(name_dss: str, address_saves: str):
-    '''
+    """
+
     :param name_dss:
-    :param file:
-    :param root_path:
-    :param name_folder:
+    :param address_saves:
     :return:
-    '''
+    """
     file_BBDD = f'{address_saves}\BBDD_DSS_{name_dss}.xlsx'
     directory = os.chdir(address_saves)
     create_scrips_base_dss(name_dss=name_dss, workbook=file_BBDD, ruta_archivo=address_saves)

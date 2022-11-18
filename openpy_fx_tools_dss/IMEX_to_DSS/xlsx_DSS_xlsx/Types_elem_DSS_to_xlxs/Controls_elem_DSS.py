@@ -91,7 +91,7 @@ def Controls_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFra
                     if DF_elem_DSS[x[0]][index] == x[1]:
                         DF_elem_DSS[x[0]][index] = ''
 
-            return DF_elem_DSS
+        return DF_elem_DSS
 
     elif name_class == 'Relay':
         if not DF_elem_DSS.empty:

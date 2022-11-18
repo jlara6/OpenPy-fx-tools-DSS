@@ -76,6 +76,13 @@ def readAllSheets(filename: str):
     xls.close()
     return results, sheets
 
+def is_float(variable):
+	try:
+		float(variable)
+		return True
+	except:
+		return False
+
 
 def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dict, out_path: str,
                     add_empty: bool = False):

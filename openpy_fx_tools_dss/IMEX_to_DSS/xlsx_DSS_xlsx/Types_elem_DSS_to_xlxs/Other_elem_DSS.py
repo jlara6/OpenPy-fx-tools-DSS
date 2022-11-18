@@ -75,7 +75,7 @@ def Other_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
                     if DF_elem_DSS[x[0]][index] == f'{DF_elem_DSS["bus1"][index]}.0.0.0':
                         DF_elem_DSS[x[0]][index] = ''
 
-            return DF_elem_DSS
+        return DF_elem_DSS
 
     elif name_class == 'Fault':
         if not DF_elem_DSS.empty:

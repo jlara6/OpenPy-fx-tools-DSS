@@ -17,6 +17,6 @@ Redirect Capacitor_13nodeIEEE.dss
 
 Redirect Voltagebases_13nodeIEEE.dss
 
-!LatLongCoords Buscoords_13nodeIEEE.csv
+LatLongCoords Buscoords_13nodeIEEE.csv
 
 solve

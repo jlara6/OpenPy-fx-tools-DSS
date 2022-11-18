@@ -16,8 +16,8 @@ def Voltagebases_DSS() -> pd.DataFrame:
     list_aux = dss.settings_read_voltage_bases()
     data = str(list_aux).replace("[", "").replace("]", "")
     dic = {'Id_Voltagebases': data}
-    df_Voltagebases_DSS = pd.DataFrame(columns=['Id_Voltagebases'])
-    df_Voltagebases_DSS = df_Voltagebases_DSS.append({'Id_Voltagebases': list_aux}, ignore_index=True)
+    df_VoltBase_DSS = pd.DataFrame(columns=['Id_Voltagebases'])
+    df_VoltBase_DSS = df_VoltBase_DSS.append({'Id_Voltagebases': list_aux}, ignore_index=True)
 
-    return df_Voltagebases_DSS
+    return df_VoltBase_DSS
 

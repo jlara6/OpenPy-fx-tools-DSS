@@ -14,6 +14,7 @@ import os
 import glob
 import shutil
 from openpy_fx_tools_dss.logg_print_alert import logg_alert
+from ...helper_functions import is_float
 
 log_py = logging.getLogger(__name__)
 
@@ -250,8 +251,15 @@ def create_element_base_dss(name_dss: str, element: str, direction: str):
                 list_aux.append(script)
             else:
                 if aux <= len(dict_element[key]):
-                    if str(dict_element[key][aux]) != 'nan':
-                        script = '{}={} '.format(key, dict_element[key][aux])
+                    value_DSS = dict_element[key][aux]
+
+                    if str(value_DSS) != 'nan':
+                        list_str = ['linecode']
+                        if len([x for x in [key] if x in list_str]) == 1:
+                            if is_float(dict_element[key][aux]):
+                                value_DSS = str(int(value_DSS))
+
+                        script = '{}={} '.format(key, value_DSS)
                         list_aux.append(script)
                     else:
                         pass
