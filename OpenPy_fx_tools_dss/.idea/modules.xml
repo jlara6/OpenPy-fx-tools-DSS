@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DigSilent_to_openDSS.iml" filepath="$PROJECT_DIR$/.idea/DigSilent_to_openDSS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/OpenPy-fx-tools-dss.iml" filepath="$PROJECT_DIR$/.idea/OpenPy-fx-tools-dss.iml" />
     </modules>
   </component>
 </project>
