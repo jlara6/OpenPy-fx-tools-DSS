@@ -25,6 +25,10 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+openpy_fx_tools_dss/data_from_DSS/
+openpy_fx_tools_dss/IMEX_to_DSS/DIGS_to_DSS
+main_openpy_fx_tools_dss.py
+Notes.txt
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
