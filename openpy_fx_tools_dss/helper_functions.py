@@ -83,8 +83,35 @@ def is_float(variable):
 	except:
 		return False
 
+def _save_BBDD_temp_xlsx(workbook_DSS: str, elem_select: list, BBDD_OpenDSS: dict, out_path: str, all_elem_DSS: bool):
+    """
+    Generates the .xlsx file, with xlsx_data format for OpenDSS
 
-def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dict, out_path: str, add_empty: bool = False):
+    :param workbook_DSS:
+    :param elem_select:
+    :param BBDD_OpenDSS:
+    :param out_path:
+    :return:
+    """
+    if len(elem_select) != 0:
+        all_elem_DSS = False
+        elem_select.append('Buscoords')
+
+    with pd.ExcelWriter(f'{out_path}\{workbook_DSS}') as writer:
+        for elem_name, DF_elem_DSS in BBDD_OpenDSS.items():
+            if all_elem_DSS:
+                DF_elem_DSS.to_excel(writer, sheet_name=elem_name, index=False)
+            else:
+                for elem_aux in elem_select:
+                    if elem_aux == elem_name:
+                        DF_elem_DSS.to_excel(writer, sheet_name=elem_name, index=False)
+                if DF_elem_DSS.empty:
+                    pass
+                else:
+                    DF_elem_DSS.to_excel(writer, sheet_name=elem_name, index=False)
+
+
+def _save_BBDD_xlsx(workbook_DSS: str, BBDD_OpenDSS: dict, out_path: str, add_empty: bool):
     """
     Generates the .xlsx file, with xlsx_data format for OpenDSS
 
@@ -96,35 +123,18 @@ def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dic
     """
     try:
         with pd.ExcelWriter(f'{out_path}\{workbook_DSS}') as writer:
-            for sheetname, dfname in BBDD_OpenDSS.items():
+            for elem_name, DF_elem_DSS in BBDD_OpenDSS.items():
                 if add_empty:
-                    dfname.to_excel(writer, sheet_name=sheetname, index=False)
+                    DF_elem_DSS.to_excel(writer, sheet_name=elem_name, index=False)
                 else:
-                    if dfname.empty:
+                    if DF_elem_DSS.empty:
                         pass
                     else:
-                        dfname.to_excel(writer, sheet_name=sheetname, index=False)
+                        DF_elem_DSS.to_excel(writer, sheet_name=elem_name, index=False)
     except PermissionError:
 
         writer = pd.ExcelWriter(f'{out_path}\{workbook_DSS}')
         writer.close()
-
-
-
-    '''    
-    writer = pd.ExcelWriter(f'{out_path}\{workbook_DSS}')
-    for name in elements_OpenDSS:
-        if add_empty:
-            BBDD_OpenDSS[name].to_excel(writer, sheet_name=name, index=False)
-        else:
-            if BBDD_OpenDSS[name].empty:
-                 pass
-            else:
-                BBDD_OpenDSS[name].to_excel(writer, sheet_name=name, index=False)
-
-    writer.save()
-    writer.close()
-    '''
 
 
 def check_if_element_exists(BBDD_elem_DigS: dict, name_sheets: list):

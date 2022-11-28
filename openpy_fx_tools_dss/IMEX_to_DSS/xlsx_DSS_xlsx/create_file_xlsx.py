@@ -9,7 +9,7 @@ import logging
 import pandas as pd
 
 from ...interface_dss import dss, drt
-from ...helper_functions import _save_BBDD_xlsx, is_float
+from ...helper_functions import _save_BBDD_xlsx, _save_BBDD_temp_xlsx, is_float
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elem_DSS import Other_MTY, Other_Def_Value, Other_ORD, list_Other_DSS
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elem_DSS import General_MTY, General_Def_Value, General_ORD, list_General_DSS
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elem_DSS import PD_elements_MTY, PD_elem_Def_Value, PD_elements_ORD, list_PD_elements_DSS
@@ -29,7 +29,43 @@ list_PC_elements = list()
 list_Controls = list()
 list_Meters = list()
 
-def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
+def _Create_template_xlsx(path_save: str, prj_name: str, elem: list, all_elem: bool):
+    n_elem_add = {"General": 0, "Other": 0, "PD_elem": 0, "PC_elem": 0, "Controls": 0, "Meters": 0}
+
+    DSS_elem_list = list()
+    BBDD_OpenDSS = dict()
+    list_no_class = list()
+
+    drt.run_command('ClearAll')
+    drt.run_command(f'new circuit.{prj_name}')
+
+    list_no = ['Solution']
+    for ClassName in dss.dss_classes():
+        if len([x for x in [ClassName] if x in list_no]) != 1:
+            BBDD_OpenDSS, DSS_elem_list, n_elem_add = _Add_BBDD_list_DSS(
+                BBDD_OpenDSS=BBDD_OpenDSS,
+                DSS_elem_list=DSS_elem_list,
+                ClassName=ClassName,
+                dict_class=n_elem_add
+            )
+    BBDD_OpenDSS, DSS_elem_list = Buscoords_DSS(
+        BBDD_OpenDSS=BBDD_OpenDSS,
+        DSS_elem_list=DSS_elem_list
+    )
+
+    BBDD_OpenDSS = _check_DSS_default_values(BBDD_OpenDSS=BBDD_OpenDSS)
+
+    xlsx_name_DSS = f'BBDD_DSS_{prj_name}.xlsx'
+    _save_BBDD_temp_xlsx(
+        workbook_DSS=xlsx_name_DSS,
+        elem_select=elem,
+        BBDD_OpenDSS=BBDD_OpenDSS,
+        out_path=path_save,
+        all_elem_DSS=all_elem
+    )
+
+
+def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str, add_empty: bool):
 
     n_elem_dss = {
         "General": len(list_General_DSS), "Other": len(list_Other_DSS), "PD_elem": len(list_PD_elements_DSS),
@@ -54,22 +90,25 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
                 BBDD_OpenDSS=BBDD_OpenDSS,
                 DSS_elem_list=DSS_elem_list,
                 ClassName=ClassName,
-                dict_class=n_elem_add)
+                dict_class=n_elem_add
+            )
         else:
             pass
 
-    BBDD_OpenDSS, DSS_elem_list = Buscoords_DSS(BBDD_OpenDSS=BBDD_OpenDSS,
-                                                DSS_elem_list=DSS_elem_list)
+    BBDD_OpenDSS, DSS_elem_list = Buscoords_DSS(
+        BBDD_OpenDSS=BBDD_OpenDSS,
+        DSS_elem_list=DSS_elem_list
+    )
 
     BBDD_OpenDSS = _check_DSS_default_values(BBDD_OpenDSS=BBDD_OpenDSS)
 
     xlsx_name_DSS = f'BBDD_DSS_{prj_name}.xlsx'
-    _save_BBDD_xlsx(workbook_DSS=xlsx_name_DSS,
-                    elements_OpenDSS=DSS_elem_list,
-                    BBDD_OpenDSS=BBDD_OpenDSS,
-                    out_path=path_save)
-
-
+    _save_BBDD_xlsx(
+        workbook_DSS=xlsx_name_DSS,
+        BBDD_OpenDSS=BBDD_OpenDSS,
+        out_path=path_save,
+        add_empty=add_empty
+    )
 
     logg_alert.update_logg_file('_' * 64, 1)
     logg_alert.update_logg_file(f'Created and saved the {xlsx_name_DSS} file in the path:', 2, log_py)

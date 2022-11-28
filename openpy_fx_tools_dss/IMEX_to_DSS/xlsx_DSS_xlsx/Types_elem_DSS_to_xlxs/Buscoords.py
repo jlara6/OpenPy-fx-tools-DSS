@@ -29,6 +29,8 @@ def Buscoords_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list):
         coord[name]['Lat'] = dss.bus_read_latitude()
 
     df_Buscoords_DSS = pd.DataFrame(pd.DataFrame(coord).T).reset_index().rename(columns={'index': f'Bus name'})
+    if df_Buscoords_DSS.empty:
+        df_Buscoords_DSS = pd.DataFrame(columns=['Bus name', 'Y', 'X', 'Long', 'Lat'])
 
     BBDD_OpenDSS['Buscoords'] = df_Buscoords_DSS
     DSS_elem_list.append('Buscoords')

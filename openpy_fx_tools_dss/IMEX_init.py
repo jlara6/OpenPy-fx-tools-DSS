@@ -12,13 +12,18 @@ aux_xlsx = class_xlsx_to_DSS()
 
 class xlsx_DSS_xlsx:
 
-    def create_template_xlsx(self):
+    def create_template_xlsx(
+            self, path_save: str = None, prj_name: str = 'default', elem_list: list = [], all_elem: bool = True):
         """
         Generate .xlsx template for OpenDSS xlsx_data entry
 
-        :return: .xlsx files
+        :param path_save:
+        :param prj_name:
+        :param elem_list:
+        :param all_elem:
+        :return: xlsx file
         """
-        aux_xlsx._template_xlsx()
+        aux_xlsx._template_xlsx(path_save, prj_name, elem_list, all_elem)
 
     def xlsx_to_OpenDSS(
             self, xlsx_path: str = None, path_save: str = None, prj_name: str = 'default', add_path: bool = True,
@@ -35,13 +40,15 @@ class xlsx_DSS_xlsx:
         """
         aux_xlsx._create_DSS_from_xlsx(xlsx_path, path_save, prj_name, add_path, coords)
 
-    def OpenDSS_to_xlsx(self, DSS_path: str = None, path_save: str = None, prj_name: str = 'default'):
+    def OpenDSS_to_xlsx(
+            self, DSS_path: str = None, path_save: str = None, prj_name: str = 'default', add_empty: bool = False):
         """
         Generates .xlsx template with xlsx_data from OpenDSS scripts
 
         :param DSS_path:
         :param path_save:
         :param prj_name:
+        :param add_empty:
         :return:
         """
-        aux_xlsx._create_from_DSS_scripts_to_xlsx(DSS_path, path_save, prj_name)
+        aux_xlsx._create_from_DSS_scripts_to_xlsx(DSS_path, path_save, prj_name, add_empty)
