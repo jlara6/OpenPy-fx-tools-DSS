@@ -1,0 +1,5 @@
+colorama==0.4.6
+numpy==1.23.5
+openpyxl==3.0.10
+pandas==1.5.2
+py_dss_interface==1.0.2
