@@ -1,4 +1,3 @@
-set Datapath=(G:\Mi unidad\GitHub\OpenPy-fx-tools-DSS\openpy_fx_tools_dss\Examples\37Bus\xlsx_files\DSS_files_from_xlsx\)
 Clear
 
 New Circuit.37BusIEEE
