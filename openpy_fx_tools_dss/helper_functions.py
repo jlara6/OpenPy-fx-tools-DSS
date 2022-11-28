@@ -84,8 +84,7 @@ def is_float(variable):
 		return False
 
 
-def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dict, out_path: str,
-                    add_empty: bool = False):
+def _save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dict, out_path: str, add_empty: bool = False):
     """
     Generates the .xlsx file, with xlsx_data format for OpenDSS
 

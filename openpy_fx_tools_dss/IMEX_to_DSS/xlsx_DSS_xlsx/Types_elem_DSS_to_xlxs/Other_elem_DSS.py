@@ -58,11 +58,11 @@ def Other_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
 
 
                 row_aux = [
-                    'frequency', 'phases', 'MVAsc3', 'MVAsc1', 'x1r1', 'x0r0', 'Isc3', 'Isc1', 'R1', 'X1', 'R0', 'X0',
+                    'frequency', 'MVAsc3', 'MVAsc1', 'x1r1', 'x0r0', 'Isc3', 'Isc1', 'R1', 'X1', 'R0', 'X0',
                     'ScanType', 'Sequence', 'bus2', 'baseMVA', 'Model', 'puZideal', 'spectrum', 'enabled', 'basefreq']
                 
                 value_aux = [
-                    'base frequency', 3, 2000, 2100, 4, 3, 1000, 10500, 1.65, 6.6, 1.9, 5.7, 'Positive', 'Positive',
+                    'base frequency', 2000, 2100, 4, 3, 1000, 10500, 1.65, 6.6, 1.9, 5.7, 'Positive', 'Positive',
                     'Bus1.0.0.0', 100, 'Thevenin', '[1e-06, 0.001]', 'defaultvsource', 'Yes', 'base frequency']
 
                 for x in zip(row_aux, value_aux):
@@ -74,6 +74,10 @@ def Other_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFrame:
 
                     if DF_elem_DSS[x[0]][index] == f'{DF_elem_DSS["bus1"][index]}.0.0.0':
                         DF_elem_DSS[x[0]][index] = ''
+
+                    if DF_elem_DSS[x[0]][index] == f'{DF_elem_DSS["bus1"][index]}.0.0':
+                        DF_elem_DSS[x[0]][index] = ''
+
 
         return DF_elem_DSS
 

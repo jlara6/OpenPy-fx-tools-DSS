@@ -1,0 +1,22 @@
+set Datapath=(G:\Mi unidad\GitHub\OpenPy-fx-tools-DSS\openpy_fx_tools_dss\Examples\13Bus\xlsx_files\DSS_files_from_xlsx\)
+Clear
+
+New Circuit.13BusIEEE
+
+Redirect LineCode_13BusIEEE.dss
+Redirect LoadShape_13BusIEEE.dss
+Redirect GrowthShape_13BusIEEE.dss
+Redirect TCC_Curve_13BusIEEE.dss
+Redirect Spectrum_13BusIEEE.dss
+Redirect Line_13BusIEEE.dss
+Redirect Vsource_13BusIEEE.dss
+Redirect Load_13BusIEEE.dss
+Redirect Transformer_13BusIEEE.dss
+Redirect RegControl_13BusIEEE.dss
+Redirect Capacitor_13BusIEEE.dss
+
+Redirect Voltagebases_13BusIEEE.dss
+
+Buscoords Buscoords_13BusIEEE.dss
+
+solve

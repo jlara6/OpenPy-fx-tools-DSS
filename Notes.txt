@@ -30,6 +30,8 @@ La funcion que genera el archivo en blanco para ingresar la info
 Como ocultar hojas de excel desde python
 
 
+Esta Buscoord coomo data frame, incluir la excepción de xlsx a OpenDSS
+
 
 
 

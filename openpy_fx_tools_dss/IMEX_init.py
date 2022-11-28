@@ -6,36 +6,11 @@
 # @Software: PyCharm
 
 from .lib_py_base import DSS_xlsx_save
-from .IMEX_to_DSS.xlsx_DSS_xlsx.base_xlsx_DSS import _test_xlsx_files, _test_DSS_files ,class_xlsx_to_DSS
+from .IMEX_to_DSS.xlsx_DSS_xlsx.base_xlsx_DSS import class_xlsx_to_DSS
 
 aux_xlsx = class_xlsx_to_DSS()
 
 class xlsx_DSS_xlsx:
-
-    def load_examples_xlsx(self, Option: int = None) -> dict:
-        """
-        Within the module, look for the selected option in the examples tab. Return a dictionary with the keys
-        ['xlsx_path'], ['path_save'] and ['prj_name'].
-
-        :param Option: Option select. Default is None.
-        :return: dict_xlsx
-        """
-        dict_xlsx = _test_xlsx_files(Opt=Option)
-
-        return dict_xlsx
-
-    def load_examples_DSS(self, Option: int = None) -> dict:
-        """
-        Within the module, look for the selected option in the examples tab. Return a dictionary with the keys
-        ['DSS_path'], ['path_save'] and ['prj_name'].
-
-        :param Option: Option select. Default is None.
-        :return: dict_DSS
-        """
-        dict_DSS = _test_DSS_files(Opt=Option)
-
-        return dict_DSS
-
 
     def create_template_xlsx(self):
         """
@@ -45,7 +20,9 @@ class xlsx_DSS_xlsx:
         """
         aux_xlsx._template_xlsx()
 
-    def xlsx_to_OpenDSS(self, xlsx_path: str = None, path_save: str = None, prj_name: str = 'default', add_path: bool = True):
+    def xlsx_to_OpenDSS(
+            self, xlsx_path: str = None, path_save: str = None, prj_name: str = 'default', add_path: bool = True,
+            coords: str = 'XY'):
         """
         Generate OpenDSS files, according to the information found in the xlsx template.
 
@@ -53,9 +30,10 @@ class xlsx_DSS_xlsx:
         :param path_save:
         :param prj_name:
         :param add_path:
+        :param coords:
         :return:
         """
-        aux_xlsx._create_DSS_from_xlsx(xlsx_path, path_save, prj_name, add_path)
+        aux_xlsx._create_DSS_from_xlsx(xlsx_path, path_save, prj_name, add_path, coords)
 
     def OpenDSS_to_xlsx(self, DSS_path: str = None, path_save: str = None, prj_name: str = 'default'):
         """

@@ -14,18 +14,25 @@ from pandas.core.arrays import ExtensionArray
 from openpy_fx_tools_dss.helper_functions import *
 from openpy_fx_tools_dss.interface_dss import dss, drt
 
-def Buscoords_DSS(name_proyect: str, path_save: str):
+def Buscoords_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list):
 
     coord = dict()
     all_bus_names = dss.circuit_all_bus_names()
 
     for name in all_bus_names:
         coord[name] = dict()
-
         dss.circuit_set_active_bus(name)
         coord[name]['Y'] = dss.bus_read_y()
         coord[name]['X'] = dss.bus_read_x()
 
+        coord[name]['Long'] = dss.bus_read_longitude()
+        coord[name]['Lat'] = dss.bus_read_latitude()
+
     df_Buscoords_DSS = pd.DataFrame(pd.DataFrame(coord).T).reset_index().rename(columns={'index': f'Bus name'})
-    df_Buscoords_DSS.to_csv(f'{path_save}\Buscoords_{name_proyect}.csv', index=False, header=False)
+
+    BBDD_OpenDSS['Buscoords'] = df_Buscoords_DSS
+    DSS_elem_list.append('Buscoords')
+
+    return BBDD_OpenDSS, DSS_elem_list
+
 

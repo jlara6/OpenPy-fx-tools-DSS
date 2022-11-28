@@ -58,6 +58,9 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
         else:
             pass
 
+    BBDD_OpenDSS, DSS_elem_list = Buscoords_DSS(BBDD_OpenDSS=BBDD_OpenDSS,
+                                                DSS_elem_list=DSS_elem_list)
+
     BBDD_OpenDSS = _check_DSS_default_values(BBDD_OpenDSS=BBDD_OpenDSS)
 
     xlsx_name_DSS = f'BBDD_DSS_{prj_name}.xlsx'
@@ -66,10 +69,11 @@ def _Create_DSS_to_xlsx_files(DSS_file: str, path_save: str, prj_name: str):
                     BBDD_OpenDSS=BBDD_OpenDSS,
                     out_path=path_save)
 
-    Buscoords_DSS(prj_name, path_save)
+
 
     logg_alert.update_logg_file('_' * 64, 1)
-    logg_alert.update_logg_file(f'Created and saved the {xlsx_name_DSS} file in the path:\n{path_save}', 2, log_py)
+    logg_alert.update_logg_file(f'Created and saved the {xlsx_name_DSS} file in the path:', 2, log_py)
+    logg_alert.update_logg_file(f'{path_save}', 0, log_py)
 
 
 def _check_DSS_default_values(BBDD_OpenDSS: dict):
@@ -137,7 +141,6 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
             if PropertyName == 'bus2':
                 string = str(string)
             if PropertyName == 'linecode':
-                print(__name__)
                 if is_float(string):
                     string = str(int(string))
                 else:
@@ -331,7 +334,15 @@ def _clean_data(data, class_name):
             data[name]["units"] = units
 
         if class_name == 'Vsource':
-            pass
+            list_AllPropertyNames = drt.Element.AllPropertyNames()
+            pos = data[name]['bus1'].find('.')
+            ph_1 = data[name]['bus1'][pos:]
+            if ph_1.find('0') == -1:
+                pass
+            else:
+                if int(data[name]['phases']) == 3:
+                    data[name]["bus1"] = data[name]["bus1"][:pos]
+
         else:
             list_AllPropertyNames = drt.Element.AllPropertyNames()
             ph_aux = ['nphases', 'phases']
@@ -346,8 +357,6 @@ def _clean_data(data, class_name):
                         else:
                             if int(data[name][k]) == 3:
                                 data[name]["bus1"] = data[name]["bus1"][:pos] + '.1.2.3' + ph_1
-
-
 
                     if 'bus2' in drt.Element.AllPropertyNames():
                         if class_name != 'Capacitor':
@@ -379,8 +388,6 @@ def _clean_data(data, class_name):
                                     list_nbus.append(bus[:pos] + '.1.2.3' + ph_1)
 
                         data[name]['buses'] = f'[{list_nbus[0]}, {list_nbus[1]}]'
-
-
 
 
     return data
