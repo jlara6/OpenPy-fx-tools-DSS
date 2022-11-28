@@ -15,9 +15,7 @@ if __name__ == '__main__':
 
     if run_temp_xlsx == 1:
         # Generates the xlsx template for xlsx_data entry. In development
-        xlsx.create_template_xlsx(
-            path_save=r'G:\Mi unidad\GitHub\OpenPy-fx-tools-DSS\openpy_fx_tools_dss\Examples\Base_Empty',
-        )
+        xlsx.create_template_xlsx()
 
     if run_DSS_to_xlsx == 1:
         # Generate xlsx file.
