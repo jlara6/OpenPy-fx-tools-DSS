@@ -7,6 +7,7 @@
 
 from .lib_py_base import DSS_xlsx_save
 from .IMEX_to_DSS.xlsx_DSS_xlsx.base_xlsx_DSS import class_xlsx_to_DSS
+from .logg_print_alert.logg_alert import add_DSS_empty
 
 aux_xlsx = class_xlsx_to_DSS()
 
@@ -27,7 +28,7 @@ class xlsx_DSS_xlsx:
 
     def xlsx_to_OpenDSS(
             self, xlsx_path: str = None, path_save: str = None, prj_name: str = 'default', add_path: bool = False,
-            coords: str = 'XY'):
+            coords: str = 'LatLong'):
         """
         Generate OpenDSS files, according to the information found in the xlsx template.
 
@@ -41,7 +42,8 @@ class xlsx_DSS_xlsx:
         aux_xlsx._create_DSS_from_xlsx(xlsx_path, path_save, prj_name, add_path, coords)
 
     def OpenDSS_to_xlsx(
-            self, DSS_path: str = None, path_save: str = None, prj_name: str = 'default', add_empty: bool = False):
+            self, DSS_path: str = None, path_save: str = None, prj_name: str = 'default',
+            add_empty: bool = add_DSS_empty, coords: str = 'LatLong'):
         """
         Generates .xlsx template with xlsx_data from OpenDSS scripts
 
@@ -51,4 +53,4 @@ class xlsx_DSS_xlsx:
         :param add_empty: All OpenDSS elements in the xlsx template. Default is 'True'
         :return:
         """
-        aux_xlsx._create_from_DSS_scripts_to_xlsx(DSS_path, path_save, prj_name, add_empty)
+        aux_xlsx._create_from_DSS_scripts_to_xlsx(DSS_path, path_save, prj_name, add_empty, coords)

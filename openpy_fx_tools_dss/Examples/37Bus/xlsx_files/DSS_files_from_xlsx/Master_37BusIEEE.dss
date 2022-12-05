@@ -15,6 +15,6 @@ Redirect RegControl_37BusIEEE.dss
 
 Redirect Voltagebases_37BusIEEE.dss
 
-Buscoords Buscoords_37BusIEEE.dss
+LatLongCoords Buscoords_37BusIEEE.csv
 
 solve

@@ -6,8 +6,7 @@
 # @Software: PyCharm
 
 import pandas as pd
-import py_dss_interface
-
+from openpy_fx_tools_dss.interface_dss import dss
 
 def from_to_bus(type_element, num_cond, node_order, bus1, bus2):
     if type_element == True:
@@ -121,12 +120,12 @@ def save_BBDD_xlsx(workbook_DSS: str, elements_OpenDSS: list, BBDD_OpenDSS: dict
     writer.save()
     writer.close()
 
-def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str):
+def Update_coordinates_for_GIS(prj_name: str, DSS_file: str, save_path: str):
     '''
     Function that generates a .xlsx file with the coordinates for GIS of a circuit modeled in OpenDSS
 
-    :param workbook: Name of the new .xlsx file
-    :param dss_file_3ph: path_save where the OpenDSS file is located
+    :param prj_name: Name of the new .xlsx file
+    :param DSS_file: path_save where the OpenDSS file is located
     :param save_path: path_save where it is going to save
     :return:
     '''
@@ -134,8 +133,8 @@ def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str)
     element_list = list()
     BBDD_Buscoords = dict()
 
-    dss = py_dss_interface.DSSDLL()
-    dss.text("compile [{}]".format(dss_file_3ph))
+    dss.text("ClearAll")
+    dss.text(f"compile [{DSS_file}]")
     dss.solution_solve()
 
     df_Buscoords = pd.DataFrame(columns=['Id_node', 'GPSlat(r)', 'GPSlon(r)'])
@@ -150,13 +149,11 @@ def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str)
     list_bus_names = dss.circuit_all_bus_names()
     for bus in list_bus_names:
         dss.circuit_set_active_bus(bus)
-        latitud = dss.bus_read_x()
         longitude = dss.bus_read_y()
+        latitud = dss.bus_read_x()
         df_Buscoords = df_Buscoords.append(
             {'Id_node': bus, 'GPSlat(r)': latitud, 'GPSlon(r)': longitude}, ignore_index=True)
-
     elements = ['vsources', 'transformers', 'lines', 'loads', 'capacitors']
-
     BBDD_Buscoords['Buscoords'] = df_Buscoords
     element_list.append('Buscoords')
 
@@ -166,8 +163,10 @@ def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str)
     for num in range(num_element):
         name = dss.vsources_read_name()
         bus_name = dss.cktelement_read_bus_names()
-        num_cond, node_order, bus1, bus2 = dss.cktelement_num_conductors(), dss.cktelement_node_order(), \
-                                           dss.cktelement_read_bus_names()[0], ''
+        num_cond, node_order, bus1, bus2 = \
+            dss.cktelement_num_conductors(), \
+            dss.cktelement_node_order(), \
+            dss.cktelement_read_bus_names()[0], ''
         from_bus, to_bus = from_to_bus(False, num_cond, node_order, bus1, bus2)
 
         df_Vsource = df_Vsource.append({'Id_Vsource': name, 'bus1': from_bus}, ignore_index=True)
@@ -199,9 +198,9 @@ def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str)
         columns={'GPSlat(r)_x': 'GPSlat(r)_bushv', 'GPSlon(r)_x': 'GPSlon(r)_bushv',
                  'GPSlat(r)_y': 'GPSlat(r)_buslv', 'GPSlon(r)_y': 'GPSlon(r)_buslv'})
 
-    df_Transformer = df_Transformer[['Id_Transformer',
-                                     'bushv', 'GPSlat(r)_bushv', 'GPSlon(r)_bushv',
-                                     'buslv', 'GPSlat(r)_buslv', 'GPSlon(r)_buslv']]
+    df_Transformer = df_Transformer[
+        ['Id_Transformer', 'bushv', 'GPSlat(r)_bushv', 'GPSlon(r)_bushv', 'buslv', 'GPSlat(r)_buslv', 'GPSlon(r)_buslv']
+    ]
 
     BBDD_Buscoords['Transformer'] = df_Transformer
     element_list.append('Transformer')
@@ -209,7 +208,6 @@ def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str)
     'Load'
     num_element = dss.loads_count()
     dss.loads_first()
-
     for num in range(num_element):
         name = dss.loads_read_name()
         bus_name = dss.cktelement_read_bus_names()
@@ -307,12 +305,9 @@ def Update_coordinates_for_GIS(workbook: str, dss_file_3ph: str, save_path: str)
     BBDD_Buscoords['PVSystem'] = df_PVSystem
     element_list.append('PVSystem')
 
-    workbook_aux = f'BBDD_Buscoords_{workbook}.xlsx'
+    workbook_aux = f'BBDD_Buscoords_{prj_name}.xlsx'
     save_BBDD_xlsx(workbook_DSS=workbook_aux, elements_OpenDSS=element_list,
                    BBDD_OpenDSS=BBDD_Buscoords, out_path=save_path)
 
-dss_file_3ph = r"....\10. 13ieee_node\Master_13node_ieee.dss"
-save_path = r"....\10. 13ieee_node"
 
-Update_coordinates_for_GIS(workbook='13ieee_BBDD', dss_file_3ph=dss_file_3ph, save_path=save_path)
 

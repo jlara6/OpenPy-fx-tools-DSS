@@ -167,17 +167,28 @@ def master_content_dir(name_dss: str, list_elements: list, path_save: str, add_p
 
     aux_0 = '\n'\
             f'Redirect Voltagebases_{name_dss}.dss\n'
-
-    if coords == 'XY':
-        aux_1 = '\n'\
-                f'Buscoords Buscoords_{name_dss}.dss' \
-                '\n'
-    elif coords == 'LatLong':
-        aux_1 = '\n'\
-                f'LatLongCoords Buscoords_{name_dss}.dss'\
-                '\n'
+    if logg_alert.export_csv:
+        if coords == 'XY':
+            aux_1 = '\n'\
+                    f'Buscoords Buscoords_{name_dss}.csv' \
+                    '\n'
+        elif coords == 'LatLong':
+            aux_1 = '\n'\
+                    f'LatLongCoords Buscoords_{name_dss}.csv'\
+                    '\n'
+        else:
+            aux_1 = '\n'
     else:
-        aux_1 = '\n'
+        if coords == 'XY':
+            aux_1 = '\n'\
+                    f'Buscoords Buscoords_{name_dss}.dss' \
+                    '\n'
+        elif coords == 'LatLong':
+            aux_1 = '\n'\
+                    f'LatLongCoords Buscoords_{name_dss}.dss'\
+                    '\n'
+        else:
+            aux_1 = '\n'
 
     aux_2 = '\n'\
             'solve'
