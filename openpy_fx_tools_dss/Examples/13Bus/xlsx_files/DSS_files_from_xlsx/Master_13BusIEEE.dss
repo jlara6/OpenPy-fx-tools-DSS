@@ -13,16 +13,10 @@ Redirect Load_13BusIEEE.dss
 Redirect Transformer_13BusIEEE.dss
 Redirect RegControl_13BusIEEE.dss
 Redirect Capacitor_13BusIEEE.dss
-Redirect Monitor_13BusIEEE.dss
-Redirect Sensor_13BusIEEE.dss
+Redirect Switch_13BusIEEE.dss
 
 Redirect Voltagebases_13BusIEEE.dss
 
-Buscoords Buscoords_13BusIEEE.dss
+LatLongCoords Buscoords_13BusIEEE.csv
 
-solve mode=duty stepsize=0 number=1
-Show monitor 671
-
-Estimate
-
-Export Estimation
+solve

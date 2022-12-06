@@ -16,11 +16,16 @@ logger_aux = logging.getLogger(__name__)
 orient, indent = "index", 1
 
 add_DSS_empty = True
+add_Switch = True
+
 Logg_opt = False
 alert_msg = True
 print_msg = True
+
 export_csv = True
 GIS_Info = True
+
+
 
 def update_logg_file(msg: str = None, Typ: int = 0, logger=logger_aux, Logg: bool = Logg_opt, Print: bool = print_msg):
     """

@@ -107,6 +107,7 @@ def _Create_DSS_to_xlsx_files(
         BBDD_OpenDSS.pop('Buscoords')
 
     BBDD_OpenDSS = _check_DSS_default_values(BBDD_OpenDSS=BBDD_OpenDSS)
+
     xlsx_name_DSS = f'BBDD_DSS_{prj_name}.xlsx'
     _save_BBDD_xlsx(
         workbook_DSS=xlsx_name_DSS,
@@ -123,8 +124,6 @@ def _Create_DSS_to_xlsx_files(
         Update_coordinates_for_GIS(prj_name=prj_name, DSS_file=DSS_file, save_path=path_save)
 
 
-
-
 def _check_DSS_default_values(BBDD_OpenDSS: dict):
     for ClassName in BBDD_OpenDSS.keys():
         if len([x for x in [ClassName] if x in list_General_DSS]) == 1:
@@ -133,12 +132,19 @@ def _check_DSS_default_values(BBDD_OpenDSS: dict):
             BBDD_OpenDSS[ClassName] = Other_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
         if len([x for x in [ClassName] if x in list_PD_elements_DSS]) == 1:
             BBDD_OpenDSS[ClassName] = PD_elem_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+            if ClassName == 'Line':
+                if logg_alert.add_Switch:
+                    df_Class_Switch = BBDD_OpenDSS[ClassName][BBDD_OpenDSS[ClassName].Switch.isin(['Yes'])]
+                    df_Class_Line = BBDD_OpenDSS[ClassName][BBDD_OpenDSS[ClassName].Switch.isin(['', 'No'])]
         if len([x for x in [ClassName] if x in list_PC_elements_DSS]) == 1:
             BBDD_OpenDSS[ClassName] = PC_elem_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
         if len([x for x in [ClassName] if x in list_Controls_DSS]) == 1:
             BBDD_OpenDSS[ClassName] = Controls_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
         if len([x for x in [ClassName] if x in list_Meters_DSS]) == 1:
             BBDD_OpenDSS[ClassName] = Meters_Def_Value(DF_elem_DSS=BBDD_OpenDSS[ClassName], name_class=ClassName)
+    if logg_alert.add_Switch:
+        BBDD_OpenDSS['Line'] = df_Class_Line
+        BBDD_OpenDSS['Switch'] = df_Class_Switch.rename(columns={'Id_Line': 'Id_Switch'})
     return BBDD_OpenDSS
 
 def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=None):
@@ -185,6 +191,15 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
 
 
 def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, dict_class: dict):
+    """
+
+
+    :param BBDD_OpenDSS:
+    :param DSS_elem_list:
+    :param ClassName:
+    :param dict_class:
+    :return:
+    """
     elem_no_drt = ['WindGen', 'Generic5', 'FMonitor']
     PC_elem_no_drt = ['WindGen', 'Generic5']
     if len([x for x in [ClassName] if x in elem_no_drt]) == 1:

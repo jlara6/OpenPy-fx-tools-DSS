@@ -17,25 +17,19 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
     if name_class == 'Transformer':
         if not DF_elem_DSS.empty:
             for index, row in DF_elem_DSS.iterrows():
-
                 if DF_elem_DSS['windings'][index] == 2:
                     if DF_elem_DSS['XHL'][index] != '':
                         row_aux = ['XHT', 'XLT', 'X12', 'X13', 'X23']
                         for x in row_aux:
                             DF_elem_DSS[x][index] = ''
-
                 if DF_elem_DSS['windings'][index] == 3:
                     if DF_elem_DSS['XHL'][index] != '':
                         row_aux = ['X12', 'X13', 'X23']
                         for x in row_aux:
                             DF_elem_DSS[x][index] = ''
-
                 row_aux = ['wdg', 'bus', 'conn', 'kV', 'kVA', 'tap', '%R']
                 for x in row_aux:
                     DF_elem_DSS[x][index] = ''
-
-
-
                 row_aux = [
                     'Rneut', 'flrise', 'hsrise', '%noloadloss', 'normhkVA', 'emerghkVA',
                     'sub', 'MaxTap', 'MinTap', 'NumTaps', 'subname', '%imag', 'ppm_antifloat', 'XRConst', 'LeadLag',
@@ -53,7 +47,6 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
 
                     if DF_elem_DSS[x[0]][index] == x[1]:
                         DF_elem_DSS[x[0]][index] = ''
-
         return DF_elem_DSS
     elif name_class == 'Line':
         if not DF_elem_DSS.empty:
@@ -62,9 +55,7 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
                     list_Line = ['rmatrix', 'xmatrix', 'cmatrix']
                     for m in list_Line:
                         DF_elem_DSS[m][index] = ''
-
                 if DF_elem_DSS['Switch'][index] == 'Yes':
-
                     list_Line = [
                         'r1', 'x1', 'r0', 'x0', 'C1', 'C0', 'rmatrix', 'xmatrix', 'cmatrix', 'Rg', 'Xg', 'rho',
                         'geometry', 'units', 'spacing', 'wires', 'EarthModel', 'cncables', 'tscables', 'B1', 'B0',
@@ -72,28 +63,21 @@ def PD_elem_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str) -> pd.DataFram
                         'basefreq', 'enabled', 'like']
                     for m in list_Line:
                         DF_elem_DSS[m][index] = ''
-
                     colum_aux = ['r1', 'r0', 'x1', 'x0', 'C1', 'C0']
                     Value = [0.0001, 0.0001, 0, 0, 0, 0]
                     for x in zip(colum_aux, Value):
                         DF_elem_DSS[x[0]][index] = x[1]
-
                 row_aux = [
                     'linecode', 'length', 'Switch', 'Rg', 'Xg', 'rho', 'units', 'EarthModel', 'LineType', 'faultrate',
                     'pctperm', 'repair', 'enabled', 'basefreq']
-
                 value_aux = [
                     '336 MCM ACSR on 4 ft spacing', 1, 'no', 0.01805, 0.155081, 100, 'None', 'Deri', 'OH', 0.1, 20, 3,
                     'Yes', 'base frequency']
-
                 for x in zip(row_aux, value_aux):
-
                     if DF_elem_DSS[x[0]][index] == dss.solution_read_frequency():
                         DF_elem_DSS[x[0]][index] = ''
-
                     if DF_elem_DSS[x[0]][index] == x[1]:
                         DF_elem_DSS[x[0]][index] = ''
-
         return DF_elem_DSS
 
     elif name_class == 'Capacitor':
