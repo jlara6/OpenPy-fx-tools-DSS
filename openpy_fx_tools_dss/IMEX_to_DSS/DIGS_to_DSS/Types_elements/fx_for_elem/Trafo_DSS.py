@@ -143,7 +143,7 @@ def DIGS_trafo_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFram
     return df_trafo_DSS
 
 
-def DIGS_trafo_conn_group_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFrame,
+def DIGS_trafo_conn_group_DSS(DF_ElmTr2: pd.DataFrame, DataFrame_TypTr2: pd.DataFrame,
                               DataFrame_ElmTr3: pd.DataFrame, DataFrame_TypTr3: pd.DataFrame,
                               DataFrame_ElmTerm: pd.DataFrame, DataFrame_StaCubic: pd.DataFrame) -> pd.DataFrame:
 
@@ -156,48 +156,43 @@ def DIGS_trafo_conn_group_DSS(DataFrame_ElmTr2: pd.DataFrame, DataFrame_TypTr2: 
                  'XRConst', 'LeadLag', 'Seasons', 'Ratings', 'Inherited Properties', 'Faultrate', 'Basefreq',
                  'Like'])
 
-    if DataFrame_ElmTr2.empty == True and DataFrame_TypTr2.empty == True:
+    if DF_ElmTr2.empty == True and DataFrame_TypTr2.empty == True:
         pass
     else:
 
-        DataFrame_ElmTr2 = DataFrame_ElmTr2[DataFrame_ElmTr2['ciEnergized(i)'] == 1]  #Filters energized elements
+        DF_ElmTr2 = DF_ElmTr2[DF_ElmTr2['ciEnergized(i)'] == 1]  #Filters energized elements
         'Function that eliminates empty spaces and special characters that can cause convergence problems in OpenDSS'
-        characters_delete(DataFrame_ElmTr2, 'loc_name(a:40)')
+        characters_delete(DF_ElmTr2, 'loc_name(a:40)')
         characters_delete(DataFrame_TypTr2, 'loc_name(a:40)')
-
-        df_StaCubic_ElmTerm = merge_ElmTerm_StaCubic(DataFrame_StaCubic=DataFrame_StaCubic,
-                                                     DataFrame_ElmTerm=DataFrame_ElmTerm)
-
-
+        df_StaCubic_ElmTerm = merge_ElmTerm_StaCubic(
+            DataFrame_StaCubic=DataFrame_StaCubic,
+            DataFrame_ElmTerm=DataFrame_ElmTerm)
         'Part 1: Identify bus and node connection in DigSilent to OpenDSS '
         'Result -> df_bushv_buslv_conn'
-        df_bushv = DataFrame_ElmTr2[['ID(a:40)', 'bushv(p)']]
-        df_buslv = DataFrame_ElmTr2[['ID(a:40)', 'buslv(p)']]
+        df_bushv = DF_ElmTr2[['ID(a:40)', 'bushv(p)']]
+        df_buslv = DF_ElmTr2[['ID(a:40)', 'buslv(p)']]
         'Bus High Voltage'
-        df_bushv_conn = pd.merge(df_bushv, df_StaCubic_ElmTerm,
-                                 how='inner', left_on='bushv(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
+        df_bushv_conn = pd.merge(
+            df_bushv, df_StaCubic_ElmTerm, how='inner', left_on='bushv(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
         df_bushv_conn = df_bushv_conn[['ID(a:40)_x', 'loc_name(a:40)', 'nphase(i)', 'Bus_name_DSS', 'phase_DSS']].\
             rename(columns={'ID(a:40)_x': 'ID(a:40)'})
         'Bus Low Voltage'
-        df_buslv_conn = pd.merge(df_buslv, df_StaCubic_ElmTerm,
-                                 how='inner', left_on='buslv(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
+        df_buslv_conn = pd.merge(
+            df_buslv, df_StaCubic_ElmTerm, how='inner', left_on='buslv(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
         df_buslv_conn = df_buslv_conn[['ID(a:40)_x', 'loc_name(a:40)', 'nphase(i)', 'Bus_name_DSS', 'phase_DSS']].\
             rename(columns={'ID(a:40)_x': 'ID(a:40)'})
 
         'Merge Bus_HV and Bus_LV'
         df_bushv_buslv_conn = pd.merge(df_bushv_conn, df_buslv_conn, on='ID(a:40)').rename(
-            columns={'Bus_name_DSS_x': 'bushv_dss', 'Bus_name_DSS_y': 'buslv_dss',
-                     'loc_name(a:40)_x': 'name_hv', 'loc_name(a:40)_y': 'name_lv',
-                     'nphase(i)_x': 'nphase_hv', 'nphase(i)_y': 'nphase_lv',
-                     'phase_DSS_x': 'DSS_hv', 'phase_DSS_y': 'DSS_lv'})
-
+            columns={
+                'Bus_name_DSS_x': 'bushv_dss', 'Bus_name_DSS_y': 'buslv_dss', 'loc_name(a:40)_x': 'name_hv',
+                'loc_name(a:40)_y': 'name_lv', 'nphase(i)_x': 'nphase_hv', 'nphase(i)_y': 'nphase_lv',
+                'phase_DSS_x': 'DSS_hv', 'phase_DSS_y': 'DSS_lv'})
         'Part 2: Identify the type of transformer (TypTr2)'
         df_TypTr2_name = DataFrame_TypTr2[
             ['ID(a:40)', 'loc_name(a:40)', 'nt2ph(i)', 'tr2cn_h(a:2)', 'tr2cn_l(a:2)', 'nt2ag(r)', 'dutap(r)']]
-        merge_Elm_Typ = pd.merge(DataFrame_ElmTr2, df_TypTr2_name,
-                                 how='left',
-                                 left_on='typ_id(p)', right_on='ID(a:40)',
-                                 suffixes=('_x', '_y'))
+        merge_Elm_Typ = pd.merge(
+            DF_ElmTr2, df_TypTr2_name, how='left', left_on='typ_id(p)', right_on='ID(a:40)', suffixes=('_x', '_y'))
 
 
         merge_ElmTr2_TypTr2 = pd.merge(merge_Elm_Typ, df_bushv_buslv_conn,

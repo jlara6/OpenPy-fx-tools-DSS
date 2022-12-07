@@ -39,8 +39,8 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
     print('First stage: Database verification')
     text_aux = text_aux + 'Database verification: Ok\n'
 
-    BBDD_DigS_to_dic_and_DF, message_elem_exist = check_if_element_exists(BBDD_elem_DigS=BBDD_DigS_to_dic_and_DF,
-                                                                          name_sheets=sheets)
+    BBDD_DigS_to_dic_and_DF, message_elem_exist = check_if_element_exists(
+        BBDD_elem_DigS=BBDD_DigS_to_dic_and_DF, name_sheets=sheets)
     file_logging_info(logfilename='BBDD_Digsilent summary', message=message_elem_exist)
     name_folders_elements(dict_df_DigS=BBDD_DigS_to_dic_and_DF)
 
@@ -52,11 +52,12 @@ def DIGS_TO_DSS(workbook_address: str, StaCubic_address: str, projects_name: str
     print('Second stage: Phase identification')
     text_aux = text_aux + 'Phase identification: Ok\n'
     BBDD_DigS_to_dic_and_DF['ElmTerm'] = terminal_name_check(DataFrame_ElmTerm=BBDD_DigS_to_dic_and_DF['ElmTerm'])
-    BBDD_DigS_to_dic_and_DF['StaCubic'] = phase_identification(DataFrame_StaCubic=BBDD_DigS_to_dic_and_DF['StaCubic'],
-                                                               DataFrame_ElmTerm=BBDD_DigS_to_dic_and_DF['ElmTerm'],
-                                                               file_direction=out_path,
-                                                               StaCubic_direction=StaCubic_address,
-                                                               file_name=projects_name)
+    BBDD_DigS_to_dic_and_DF['StaCubic'] = phase_identification(
+        DataFrame_StaCubic=BBDD_DigS_to_dic_and_DF['StaCubic'],
+        DataFrame_ElmTerm=BBDD_DigS_to_dic_and_DF['ElmTerm'],
+        file_direction=out_path,
+        StaCubic_direction=StaCubic_address,
+        file_name=projects_name)
 
     #From functions_to_OpenDSS
     print('___________________________________________________________________________________________________________')

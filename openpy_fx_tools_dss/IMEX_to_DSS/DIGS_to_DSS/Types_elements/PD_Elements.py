@@ -15,7 +15,7 @@ def PD_elements_DSS(dict_df_DigS:dict, BBDD_OpenDSS:dict, OpenDSS_element_list:l
 
 
     # from Trafo_DSS.py (2 winding transformer)
-    BBDD_OpenDSS['Transformer'] = DIGS_trafo_conn_group_DSS(DataFrame_ElmTr2=dict_df_DigS['ElmTr2'],
+    BBDD_OpenDSS['Transformer'] = DIGS_trafo_conn_group_DSS(DF_ElmTr2=dict_df_DigS['ElmTr2'],
                                                             DataFrame_ElmTr3=dict_df_DigS['ElmTr3'],
                                                             DataFrame_TypTr2=dict_df_DigS['TypTr2'],
                                                             DataFrame_TypTr3=dict_df_DigS['TypTr3'],

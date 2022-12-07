@@ -6,9 +6,9 @@
 # @Software: PyCharm
 
 
-list_General_DSS = ['WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape',
-                    'LoadShape', 'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
-
+list_General_DSS = [
+    'WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape', 'LoadShape',
+    'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
 dict_General = dict()
 dict_General['LineCode'] = [
     'nphases', 'r1', 'x1', 'r0', 'x0', 'C1', 'C0', 'units', 'rmatrix', 'xmatrix', 'cmatrix', 'baseFreq', 'normamps',
@@ -30,8 +30,9 @@ dict_General['XYcurve'] = [
 dict_General['GrowthShape'] = ['npts', 'year', 'mult', 'csvfile', 'sngfile', 'dblfile', 'like']
 dict_General['TCC_Curve'] = ['npts', 'C_array', 'T_array', 'like']
 dict_General['Spectrum'] = ['NumHarm', 'harmonic', '%mag', 'angle', 'CSVFile', 'like']
-dict_General['WireData'] = ['Rdc', 'Rac', 'Runits', 'GMRac', 'GMRunits', 'radius', 'radunits', 'normamps', 'emergamps',
-                            'diam', 'Seasons', 'Ratings', 'Capradius', 'like']
+dict_General['WireData'] = [
+    'Rdc', 'Rac', 'Runits', 'GMRac', 'GMRunits', 'radius', 'radunits', 'normamps', 'emergamps', 'diam', 'Seasons',
+    'Ratings', 'Capradius', 'like']
 dict_General['CNData'] = [
     'k', 'DiaStrand', 'GmrStrand', 'Rstrand', 'EpsR', 'InsLayer', 'DiaIns', 'DiaCable', 'Rdc', 'Rac', 'Runits', 'GMRac',
     'GMRunits', 'radius', 'radunits', 'normamps', 'emergamps', 'diam', 'Seasons', 'Ratings', 'Capradius', 'like']
@@ -50,7 +51,6 @@ dict_General['XfmrCode'] = [
 
 list_Other_DSS = ['Vsource', 'Fault', 'GICsource', 'Isource']
 dict_Other = dict()
-
 dict_Other['Vsource'] = [
     'bus1', 'basekv', 'pu', 'angle', 'frequency', 'phases', 'MVAsc3', 'MVAsc1', 'x1r1', 'x0r0', 'Isc3', 'Isc1', 'R1',
     'X1', 'R0', 'X0', 'ScanType', 'Sequence', 'bus2', 'Z1', 'Z0', 'Z2', 'puZ1', 'puZ0', 'puZ2', 'baseMVA', 'Yearly',
@@ -67,13 +67,12 @@ dict_Other['Isource'] = [
 
 list_PD_elements_DSS = ['Transformer', 'Line', 'Capacitor', 'AutoTrans', 'GICTransformer', 'Reactor']
 dict_PD_elem = dict()
-
 dict_PD_elem['Transformer'] = [
-    'phases', 'windings', 'XfmrCode', 'buses', 'conns', 'kVs', 'kVAs', 'taps', '%Rs', 'MaxTap', 'MinTap',
-    'NumTaps',  'normamps', 'emergamps', 'normhkVA', 'emerghkVA', 'wdg', 'bus', 'conn', 'kV', 'kVA', 'tap', '%R',
-    'Rneut', 'Xneut', 'RdcOhms', 'XHL', 'XHT', 'XLT', 'X12', 'X13', 'X23', '%loadloss', '%noloadloss', 'Xscarray',
-    'thermal', 'n', 'm', 'flrise', 'hsrise', 'sub', 'subname', '%imag', 'ppm_antifloat', 'bank', 'XRConst', 'LeadLag',
-    'WdgCurrents', 'Core', 'Seasons', 'Ratings', 'faultrate', 'pctperm', 'repair', 'basefreq', 'enabled', 'like']
+    'phases', 'windings', 'XfmrCode', 'buses', 'conns', 'kVs', 'kVAs', 'taps', '%Rs', 'MaxTap', 'MinTap', 'NumTaps',
+    'normamps', 'emergamps', 'normhkVA', 'emerghkVA', 'wdg', 'bus', 'conn', 'kV', 'kVA', 'tap', '%R', 'Rneut', 'Xneut',
+    'RdcOhms', 'XHL', 'XHT', 'XLT', 'X12', 'X13', 'X23', '%loadloss', '%noloadloss', 'Xscarray', 'thermal', 'n', 'm',
+    'flrise', 'hsrise', 'sub', 'subname', '%imag', 'ppm_antifloat', 'bank', 'XRConst', 'LeadLag', 'WdgCurrents', 'Core',
+    'Seasons', 'Ratings', 'faultrate', 'pctperm', 'repair', 'basefreq', 'enabled', 'like']
 dict_PD_elem['Line'] = [
     'bus1', 'bus2', 'linecode', 'length', 'phases', 'r1', 'x1', 'r0', 'x0', 'C1', 'C0', 'rmatrix', 'xmatrix', 'cmatrix',
     'Switch', 'Rg', 'Xg', 'rho', 'geometry', 'units', 'spacing', 'wires', 'EarthModel', 'cncables', 'tscables', 'B1',
@@ -118,9 +117,9 @@ dict_PC_elem['IndMach012'] = [
     'phases', 'bus1', 'kv', 'kW', 'pf', 'conn', 'kVA', 'H', 'D', 'puRs', 'puXs', 'puRr', 'puXr', 'puXm', 'Slip',
     'MaxSlip', 'SlipOption', 'Yearly', 'Daily', 'Duty', 'Debugtrace', 'spectrum', 'basefreq', 'enabled', 'like']
 dict_PC_elem['Load'] = [
-    'phases', 'bus1', 'kV', 'kW', 'kvar', 'kVA', 'pf', 'model', 'yearly', 'daily', 'duty', 'growth', 'conn',
-    'Rneut', 'Xneut', 'status', 'class', 'Vminpu', 'Vmaxpu', 'Vminnorm', 'Vminemerg', 'xfkVA', 'allocationfactor',
-    '%mean', '%stddev', 'CVRwatts', 'CVRvars', 'kwh', 'kwhdays', 'Cfactor', 'CVRcurve', 'NumCust', 'ZIPV', '%SeriesRL',
+    'phases', 'bus1', 'kV', 'kW', 'kvar', 'kVA', 'pf', 'model', 'yearly', 'daily', 'duty', 'growth', 'conn', 'Rneut',
+    'Xneut', 'status', 'class', 'Vminpu', 'Vmaxpu', 'Vminnorm', 'Vminemerg', 'xfkVA', 'allocationfactor', '%mean',
+    '%stddev', 'CVRwatts', 'CVRvars', 'kwh', 'kwhdays', 'Cfactor', 'CVRcurve', 'NumCust', 'ZIPV', '%SeriesRL',
     'RelWeight', 'Vlowpu', 'puXharm', 'XRharm', 'spectrum', 'basefreq', 'enabled', 'like']
 dict_PC_elem['PVSystem'] = [
     'phases', 'bus1', 'kv', 'irradiance', 'Pmpp', '%Pmpp', 'Temperature', 'pf', 'conn', 'kvar', 'kVA', '%Cutin',
@@ -150,8 +149,9 @@ dict_PC_elem['WindGen'] = [
     'H', 'D', 'UserModel', 'UserData', 'ShaftModel', 'ShaftData', 'DutyStart', 'Balanced', 'XRdp', 'spectrum',
     'basefreq', 'enabled', 'like']
 
-list_Controls_DSS = ['CapControl', 'ESPVLControl', 'ExpControl', 'Fuse', 'GenDispatcher', 'InvControl', 'Recloser',
-                     'RegControl', 'Relay', 'StorageController', 'SwtControl', 'UPFCControl']
+list_Controls_DSS = [
+    'CapControl', 'ESPVLControl', 'ExpControl', 'Fuse', 'GenDispatcher', 'InvControl', 'Recloser', 'RegControl',
+    'Relay', 'StorageController', 'SwtControl', 'UPFCControl']
 dict_Control = dict()
 dict_Control['CapControl'] = [
     'element', 'terminal', 'capacitor', 'type', 'PTratio', 'CTratio', 'ONsetting', 'OFFsetting', 'Delay',

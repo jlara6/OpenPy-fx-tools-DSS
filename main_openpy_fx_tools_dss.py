@@ -5,9 +5,9 @@ test = fx_dss.examples_lib()
 
 
 run_temp_xlsx = 0
-run_DSS_to_xlsx = 0
+run_DSS_to_xlsx = 1
 run_xlsx_to_DSS = 1
-opt_crt = 1
+opt_crt = 2
 
 if __name__ == '__main__':
     # Loads the examples loaded in the library
