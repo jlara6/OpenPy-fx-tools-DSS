@@ -157,6 +157,7 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
     for element in drt.ActiveClass.AllNames():
         name = "{element}".format(element=element)
         drt.ActiveClass.Name(element)
+
         data[name] = dict()
         for i, n in enumerate(drt.Element.AllPropertyNames()):
             # use 1-based index for compatibility with previous versions
@@ -168,6 +169,8 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
             string = transform_string(string)
             if type(string) == list:
                 string = str(string).replace("'", "")
+                if ClassName == 'LineSpacing':
+                    string = string.replace(" ", ",")
                 if string == "[]":
                     string = ""
             if type(string) == tuple:
@@ -187,8 +190,6 @@ def ClassName_to_DataFrame(ClassName: str, transform_string=None, clean_data=Non
     data = clean_data(data, ClassName)
     df_class = pd.DataFrame(pd.DataFrame(data).T).reset_index().rename(columns={'index': f'Id_{ClassName}'})
     return df_class
-
-
 
 def _Add_BBDD_list_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, ClassName: str, dict_class: dict):
     """
@@ -347,7 +348,8 @@ def _evaluate_expression(string):
     elif "|" in string:
         return string
     elif string.startswith("'") and string.endswith("'"):
-        print('here')
+        #print('here')
+        return string
     elif type(string) == list:
         return string
     else:
@@ -363,21 +365,30 @@ def _clean_data(data, class_name):
         drt.ActiveClass.Name(element)
 
         if "nconds" in drt.Element.AllPropertyNames():
-            nconds = int(data[name]["nconds"])
-            x = []
-            h = []
-            units = []
+            if "spacing" in drt.Element.AllPropertyNames():
+                if data[name]["spacing"] != "":
+                    data[name]["x"] = ""
+                    data[name]["h"] = ""
+                    data[name]["units"] = ""
+            else:
+                pass
 
-            for cond in range(1, nconds + 1):
-                drt.run_command("{name}.cond={cond}".format(name=name, cond=cond))
-                x.append(float(drt.run_command("? {name}.x".format(name=name))))
-                h.append(float(drt.run_command("? {name}.h".format(name=name))))
-                units.append(drt.run_command("? {name}.units".format(name=name)))
-
-            data[name]["x"] = x
-            data[name]["h"] = h
-            data[name]["units"] = units
-
+        if class_name == "Transformer":
+            if data[name]["XfmrCode"] != "":
+                list_aux = ['phases', 'windings', 'conns', 'kVs', 'kVAs', 'taps', '%Rs', 'MaxTap',
+                            'MinTap', 'NumTaps', 'normamps', 'emergamps', 'normhkVA', 'emerghkVA', 'wdg', 'bus', 'conn',
+                            'kV', 'kVA', '%R', 'Rneut', 'Xneut', 'RdcOhms', 'XHL', 'XHT', 'XLT', 'X12', 'X13', 'X23',
+                            '%loadloss', '%noloadloss', 'Xscarray', 'thermal', 'n', 'm', 'flrise', 'hsrise', 'sub',
+                            'subname', '%imag', 'ppm_antifloat', 'bank', 'XRConst', 'LeadLag', 'WdgCurrents', 'Core',
+                            'Seasons', 'Ratings', 'faultrate', 'pctperm', 'repair', 'basefreq', 'enabled', 'like']
+                for i in list_aux:
+                    data[name][i] = ""
+        if class_name == 'LineGeometry':
+            if data[name]["wires"] != "":
+                data[name]["cncable"] = ""
+                data[name]["tscable"] = ""
+                data[name]["cncables"] = ""
+                data[name]["tscables"] = ""
         if class_name == 'Vsource':
             list_AllPropertyNames = drt.Element.AllPropertyNames()
             pos = data[name]['bus1'].find('.')
@@ -411,7 +422,7 @@ def _clean_data(data, class_name):
                             else:
                                 if int(data[name][k]) == 3:
                                     data[name]["bus2"] = data[name]["bus2"][:pos] + '.1.2.3' + ph_2
-
+                    '''
                     if 'conns' in drt.Element.AllPropertyNames():
                         pos = data[name]['buses']
                         aux1 = pos.find('[')
@@ -432,6 +443,6 @@ def _clean_data(data, class_name):
                                     list_nbus.append(bus[:pos] + '.1.2.3' + ph_1)
 
                         data[name]['buses'] = f'[{list_nbus[0]}, {list_nbus[1]}]'
-
+                    '''
 
     return data

@@ -10,11 +10,15 @@ from openpy_fx_tools_dss.interface_dss import dss
 from openpy_fx_tools_dss.NameClass_columns import dict_General
 from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.fx_objects import _COL_ORD, _COL_MTY
 
-list_General_DSS = ['WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape',
-                    'LoadShape', 'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve']
+list_General_DSS = [
+    'WireData', 'LineSpacing', 'LineGeometry', 'LineCode', 'XfmrCode', 'CNData', 'GrowthShape', 'LoadShape',
+    'PriceShape', 'Spectrum', 'TCC_Curve', 'TSData', 'TShape', 'XYcurve'
+]
+
+order_General_DSS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
 
 def General_ORD(DF_elem_DSS: pd.DataFrame, name_class: str):
-
     if name_class == 'LineCode':
         return _COL_ORD(dict_General, DF_elem_DSS, name_class)
     elif name_class == 'LoadShape':
@@ -58,7 +62,6 @@ def General_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str):
                     if x[1] == 'nphases':
                         if DF_elem_DSS[x[0]][index] == DF_elem_DSS[x[1]][index]:
                             DF_elem_DSS[x[0]][index] = ''
-
         return DF_elem_DSS
 
     elif name_class == 'LoadShape':
@@ -66,7 +69,6 @@ def General_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str):
             for index, row in DF_elem_DSS.iterrows():
                 if DF_elem_DSS['mult'][index] == DF_elem_DSS['Pmult'][index]:
                     DF_elem_DSS['Pmult'][index] = ''
-
                 if DF_elem_DSS['Pmax'][index] == 1:
                     DF_elem_DSS['Pmax'][index] = ''
                 if DF_elem_DSS['sinterval'][index] == 3600:
@@ -74,72 +76,82 @@ def General_Def_Value(DF_elem_DSS: pd.DataFrame, name_class: str):
                 if DF_elem_DSS['minterval'][index] == 60:
                     DF_elem_DSS['minterval'][index] = ''
         return DF_elem_DSS
-
     elif name_class == 'TShape':
         if not DF_elem_DSS.empty:
             pass
-
         return DF_elem_DSS
-
     elif name_class == 'PriceShape':
         if not DF_elem_DSS.empty:
             pass
-
         return DF_elem_DSS
-
     elif name_class == 'XYcurve':
         if not DF_elem_DSS.empty:
             pass
-
         return DF_elem_DSS
-
     elif name_class == 'GrowthShape':
         if not DF_elem_DSS.empty:
             pass
-
         return DF_elem_DSS
-
     elif name_class == 'TCC_Curve':
         if not DF_elem_DSS.empty:
             pass
-
         return DF_elem_DSS
-
     elif name_class == 'Spectrum':
         if not DF_elem_DSS.empty:
             pass
         return DF_elem_DSS
-
     elif name_class == 'WireData':
         if not DF_elem_DSS.empty:
             pass
         return DF_elem_DSS
-
     elif name_class == 'CNData':
         if not DF_elem_DSS.empty:
             pass
         return DF_elem_DSS
-
     elif name_class == 'TSData':
         if not DF_elem_DSS.empty:
             pass
         return DF_elem_DSS
-
     elif name_class == 'LineGeometry':
         if not DF_elem_DSS.empty:
             pass
         return DF_elem_DSS
-
     elif name_class == 'LineSpacing':
         if not DF_elem_DSS.empty:
             pass
         return DF_elem_DSS
-
     elif name_class == 'XfmrCode':
         if not DF_elem_DSS.empty:
-            pass
-        return DF_elem_DSS
+            for index, row in DF_elem_DSS.iterrows():
+                if DF_elem_DSS['windings'][index] == 2:
+                    if DF_elem_DSS['Xhl'][index] != '':
+                        row_aux = ['Xht', 'Xlt', 'X12', 'X13', 'X23']
+                        for x in row_aux:
+                            DF_elem_DSS[x][index] = ''
+                if DF_elem_DSS['windings'][index] == 3:
+                    if DF_elem_DSS['Xhl'][index] != '':
+                        row_aux = ['X12', 'X13', 'X23']
+                        for x in row_aux:
+                            DF_elem_DSS[x][index] = ''
+                row_aux = ['wdg', 'conn', 'kV', 'kVA', 'tap', '%R']
+                for x in row_aux:
+                    DF_elem_DSS[x][index] = ''
+                row_aux = [
+                    'Rneut', 'flrise', 'hsrise', '%noloadloss', 'normhkVA', 'emerghkVA',
+                    'MaxTap', 'MinTap', 'NumTaps', '%imag', 'ppm_antifloat',
+                    'RdcOhms', 'Seasons', 'Ratings', 'n', 'm', 'thermal']
 
+                value_aux = [
+                    -1, 65, 15, 0, '110% of kVA rating of Winding 1', '150% of kVA rating of Winding 1',
+                    1.1, 0.9, 32, 0, 1, '85% of %R', 1, '[1100.0]', 0.8, 0.8, 2]
+                for x in zip(row_aux, value_aux):
+
+                    if DF_elem_DSS[x[0]][index] == dss.solution_read_frequency():
+                        DF_elem_DSS[x[0]][index] = ''
+
+                    if DF_elem_DSS[x[0]][index] == x[1]:
+                        DF_elem_DSS[x[0]][index] = ''
+        return DF_elem_DSS
     else:
         return DF_elem_DSS
 

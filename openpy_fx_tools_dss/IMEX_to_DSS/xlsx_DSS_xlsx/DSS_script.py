@@ -15,6 +15,12 @@ import glob
 import shutil
 from openpy_fx_tools_dss.logg_print_alert import logg_alert
 from ...helper_functions import is_float
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Other_elem_DSS import list_Other_DSS
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.General_elem_DSS import list_General_DSS
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PD_elem_DSS import list_PD_elements_DSS
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.PC_elem_DSS import list_PC_elements_DSS
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Controls_elem_DSS import list_Controls_DSS
+from openpy_fx_tools_dss.IMEX_to_DSS.xlsx_DSS_xlsx.Types_elem_DSS_to_xlxs.Meters_elem_DSS import list_Meters_DSS
 
 log_py = logging.getLogger(__name__)
 
@@ -140,6 +146,9 @@ def master_content_dir(name_dss: str, list_elements: list, path_save: str, add_p
     :param coords:
     :return:
     """
+
+    list_PD_elements_DSS.append('Switch')
+
     if add_path:
         content = \
             f'set Datapath=({path_save}\)\n'\
@@ -156,13 +165,71 @@ def master_content_dir(name_dss: str, list_elements: list, path_save: str, add_p
     aux = ''
     content_aux = ''
 
+    list_1 = []
+    list_2 = []
+    list_3 = []
+    list_4 = []
+    list_5 = []
+    list_6 = []
+
+
     for element in list_elements:
+        if len([x for x in [element] if x in list_General_DSS]) == 1:
+            list_1.append(element)
+        if len([x for x in [element] if x in list_Other_DSS]) == 1:
+            list_2.append(element)
+        if len([x for x in [element] if x in list_PD_elements_DSS]) == 1:
+            list_3.append(element)
+        if len([x for x in [element] if x in list_PC_elements_DSS]) == 1:
+            list_4.append(element)
+        if len([x for x in [element] if x in list_Controls_DSS]) == 1:
+            list_5.append(element)
+        if len([x for x in [element] if x in list_Meters_DSS]) == 1:
+            list_6.append(element)
+
+        '''
         if element == 'Buscoords':
             pass
         elif element != 'Voltagebases':
             content_aux = f'Redirect {element}_{name_dss}.dss\n'
             aux = aux + content_aux
-
+        '''
+    list_aux1 = [j for j in list_General_DSS for i in list_1 if i == j]
+    content_aux = f'\n'
+    aux = aux + content_aux
+    for element in list_aux1:
+        content_aux = f'Redirect {element}_{name_dss}.dss\n'
+        aux = aux + content_aux
+    list_aux2 = [j for j in list_Other_DSS for i in list_2 if i == j]
+    content_aux = f'\n'
+    aux = aux + content_aux
+    for element in list_aux2:
+        content_aux = f'Redirect {element}_{name_dss}.dss\n'
+        aux = aux + content_aux
+    list_aux3 = [j for j in list_PD_elements_DSS for i in list_3 if i == j]
+    content_aux = f'\n'
+    aux = aux + content_aux
+    for element in list_aux3:
+        content_aux = f'Redirect {element}_{name_dss}.dss\n'
+        aux = aux + content_aux
+    list_aux4 = [j for j in list_PC_elements_DSS for i in list_4 if i == j]
+    content_aux = f'\n'
+    aux = aux + content_aux
+    for element in list_aux4:
+        content_aux = f'Redirect {element}_{name_dss}.dss\n'
+        aux = aux + content_aux
+    list_aux5 = [j for j in list_Controls_DSS for i in list_5 if i == j]
+    content_aux = f'\n'
+    aux = aux + content_aux
+    for element in list_aux5:
+        content_aux = f'Redirect {element}_{name_dss}.dss\n'
+        aux = aux + content_aux
+    list_aux6 = [j for j in list_Meters_DSS for i in list_6 if i == j]
+    content_aux = f'\n'
+    aux = aux + content_aux
+    for element in list_aux6:
+        content_aux = f'Redirect {element}_{name_dss}.dss\n'
+        aux = aux + content_aux
     aux = content + aux
 
     aux_0 = '\n'\
@@ -194,7 +261,6 @@ def master_content_dir(name_dss: str, list_elements: list, path_save: str, add_p
             'solve'
 
     aux = aux + aux_0 + aux_1 + aux_2
-
     return aux
 
 
@@ -240,6 +306,8 @@ def check_BBDD(xlsx_file: str):
             list_elements.append(name_sheet)
         else:
             pass
+
+
     return list_elements
 
 #5
@@ -276,13 +344,11 @@ def create_element_base_dss(name_dss: str, element: str, direction: str, coords:
                 else:
                     if aux <= len(dict_element[key]):
                         value_DSS = dict_element[key][aux]
-
                         if str(value_DSS) != 'nan':
                             list_str = ['linecode']
                             if len([x for x in [key] if x in list_str]) == 1:
                                 if is_float(dict_element[key][aux]):
                                     value_DSS = str(int(value_DSS))
-
                             script = '{}={} '.format(key, value_DSS)
                             list_aux.append(script)
                         else:

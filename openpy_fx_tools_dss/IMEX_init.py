@@ -12,7 +12,6 @@ from .logg_print_alert.logg_alert import add_DSS_empty
 aux_xlsx = class_xlsx_to_DSS()
 
 class xlsx_DSS_xlsx:
-
     def create_template_xlsx(
             self, path_save: str = None, prj_name: str = 'default', elem_list: list = [], all_elem: bool = True):
         """

@@ -17,7 +17,6 @@ if __name__ == '__main__':
     if run_temp_xlsx == 1:
         # Generates the xlsx template for xlsx_data entry. In development
         xlsx.create_template_xlsx()
-
     if run_DSS_to_xlsx == 1:
         # Generate xlsx file.
         xlsx.OpenDSS_to_xlsx(
@@ -25,7 +24,6 @@ if __name__ == '__main__':
             path_save=DSS_path['path_save'],
             prj_name=DSS_path['prj_name']
         )
-
     if run_xlsx_to_DSS == 1:
         # Generate OpenDSS files.
         xlsx.xlsx_to_OpenDSS(

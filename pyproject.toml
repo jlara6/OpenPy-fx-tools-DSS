@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "openpy-fx-tools-dss"
-version = "0.1.4"
+version = "0.1.6"
 license = "LICENSE"
 description = "Python functions for extracting, executing routines, etc. from projects modeled in OpenDSS"
 authors = ["Jorge A. Lara S. <jlara@iee.unsj.edu.ar>"]

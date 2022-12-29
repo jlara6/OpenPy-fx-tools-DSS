@@ -15,8 +15,11 @@ Redirect RegControl_13BusIEEE.dss
 Redirect Capacitor_13BusIEEE.dss
 Redirect Switch_13BusIEEE.dss
 
+New Monitor.M1 element=Line.650632 terminal=1 mode=0
+
+
 Redirect Voltagebases_13BusIEEE.dss
 
 LatLongCoords Buscoords_13BusIEEE.csv
 
-solve
+solve mode=daily stepsize=0 number=1
