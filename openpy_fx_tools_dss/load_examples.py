@@ -9,8 +9,8 @@ import logging
 import os
 import pathlib
 from openpy_fx_tools_dss.logg_print_alert import logg_alert
-log_py = logging.getLogger(__name__)
 
+log_py = logging.getLogger(__name__)
 
 class examples_lib:
 

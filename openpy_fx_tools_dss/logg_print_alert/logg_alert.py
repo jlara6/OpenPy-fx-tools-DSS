@@ -25,9 +25,13 @@ print_msg = True
 export_csv = True
 GIS_Info = True
 
-
-
-def update_logg_file(msg: str = None, Typ: int = 0, logger=logger_aux, Logg: bool = Logg_opt, Print: bool = print_msg):
+def update_logg_file(
+        msg: str = None,
+        Typ: int = 0,
+        logger=logger_aux,
+        Logg: bool = Logg_opt,
+        Print: bool = print_msg
+):
     """
     Creates or updates the log_py file. In addition, it prints the message formatted according to the type.
 

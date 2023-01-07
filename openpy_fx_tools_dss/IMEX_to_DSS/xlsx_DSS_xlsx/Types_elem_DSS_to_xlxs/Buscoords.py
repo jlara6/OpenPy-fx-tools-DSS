@@ -21,7 +21,6 @@ def Buscoords_DSS(BBDD_OpenDSS: dict, DSS_elem_list: list, opt: str):
 
     for name in all_bus_names:
         coord[name] = dict()
-        dss.circuit_set_active_bus(name)
         if opt == 'XY':
             coord[name]['Y'] = dss.bus_read_y()
             coord[name]['X'] = dss.bus_read_x()

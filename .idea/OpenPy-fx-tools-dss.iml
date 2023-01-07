@@ -7,4 +7,10 @@
     <orderEntry type="jdk" jdkName="Python 3.8 (OpenPy-fx-tools-DSS)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
+  <component name="ReSTService">
+    <option name="TXT_IS_RST" value="true" />
+  </component>
 </module>

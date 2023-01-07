@@ -13,8 +13,7 @@ if __name__ == "__main__":
         xlsx.OpenDSS_to_xlsx(
             DSS_path=DSS_path,
             path_save=xlsx_path,
-            prj_name='test',
-            add_empty=False
+            prj_name='test'
         )
     if xlsx_DSS == 1:
         xlsx.xlsx_to_OpenDSS(
