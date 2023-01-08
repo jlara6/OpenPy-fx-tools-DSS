@@ -10,7 +10,8 @@ dssCOM.Text.Command('solve')
 test_ActiveBus = 0
 test_ActiveCktElement = 0 #Review
 test_ActiveClas = 0
-test_ActiveDSSElement = 1
+test_ActiveDSSElement = 0
+test_Capacitor = 1
 
 if test_ActiveBus == 1:
     print(f'AllPCEatBus-> {dssCOM.ActiveBus.AllPCEatBus(634)}')
@@ -91,7 +92,19 @@ if test_ActiveDSSElement == 1:
     print(f'Properties_read-> {dssCOM.ActiveDSSElement.Properties_read("element")}')
     print(f'Properties_write-> {dssCOM.ActiveDSSElement.Properties_write("element", "Line.671680")} - review')
     print(f'Properties_read-> {dssCOM.ActiveDSSElement.Properties_read("element")}')
-
+if test_Capacitor == 1:
+    print(f'AllNames-> {dssCOM.Capacitor.AllNames()}')
+    print(f'AvailableSteps-> {dssCOM.Capacitor.AvailableSteps()} - need used test')
+    print(f'Close-> {dssCOM.Capacitor.Close()} - need used test')
+    print(f'Count-> {dssCOM.Capacitor.Count()}')
+    print(f'First-> {dssCOM.Capacitor.First()}')
+    print(f'IsDelta-> {dssCOM.Capacitor.IsDelta()}')
+    print(f'kV-> {dssCOM.Capacitor.kV()} - (read/write)')
+    print(f'Name-> {dssCOM.Capacitor.Name()} - (read/write)')
+    print(f'Next-> {dssCOM.Capacitor.Next()}')
+    print(f'NumSteps-> {dssCOM.Capacitor.NumSteps()} - (read/write)')
+    #print(f'Open-> {dssCOM.Capacitor.Open()}')
+    print(f'States-> {dssCOM.Capacitor.States()} - (read/write)')
 #dss.Text.Command('Show Voltage')
 
 
