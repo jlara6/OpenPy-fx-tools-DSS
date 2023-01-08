@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+# @Time    : 02/01/2023
+# @Author  : Ing. Jorge Lara
+# @Email   : jlara@iee.unsj.edu.ar
+# @File    : COM_Interface.py
+# @Software: PyCharm
 
 import win32com.client
 from openpy_fx_tools_dss.COM.Interface.ActiveBus import ActiveBus

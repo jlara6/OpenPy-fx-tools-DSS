@@ -8,5 +8,4 @@
 import py_dss_interface
 import opendssdirect as drt
 
-
 dss = py_dss_interface.DSSDLL()
