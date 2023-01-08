@@ -7,8 +7,11 @@ path = r"C:\Users\tote_\OneDrive\Escritorio\test_lib\IEEE13Node_test.dss"
 dssCOM.Text.Command(f'Compile {path}')
 dssCOM.Text.Command('solve')
 
-test_ActiveBus = 1
-test_ActiveCktElement = 1
+test_ActiveBus = 0
+test_ActiveCktElement = 0
+test_ActiveClas = 1
+
+
 if test_ActiveBus == 1:
     print(f'AllPCEatBus-> {dssCOM.ActiveBus.AllPCEatBus(634)}')
     print(f'AllPDEatBus-> {dssCOM.ActiveBus.AllPDEatBus("634")}')
@@ -63,9 +66,24 @@ if test_ActiveBus == 1:
     print(f'Zsc1-> {dssCOM.ActiveBus.Zsc1("633")} - need test use')
     print(f'ZscMatrix-> {dssCOM.ActiveBus.ZscMatrix("632")} - need test use (create Matrix)')
     print(f'ZscRefresh-> {dssCOM.ActiveBus.ZscRefresh("632")} - need test use')
-
 if test_ActiveCktElement == 1:
-    pass
+    #need review
+    print(f'AllPropertyNames-> {dssCOM.ActiveCktElement.AllPropertyNames("Load.634a")}')
+    print(f'AllVariableNames-> {dssCOM.ActiveCktElement.AllVariableNames("Load.634a")} - need test use')
+    print(f'AllVariableValues-> {dssCOM.ActiveCktElement.AllVariableValues("Load.634a")} - need test use')
+    print(f'BusNames_read-> {dssCOM.ActiveCktElement.BusNames_read()} - review')
+    dssCOM.ActiveCktElement.BusNames_write("Load.671", "632.1" ) #REVIEW
+    print(f'BusNames_read-> {dssCOM.ActiveCktElement.BusNames_read()} - review')
+    print(f'Close-> {dssCOM.ActiveCktElement.Close("Line.645646")} - review need test using')
+if test_ActiveClas == 1:
+    print(f'AllBusNames-> {dssCOM.ActiveClass.AllNames("load")}')
+    print(f'First-> {dssCOM.ActiveClass.First("load")}')
+    print(f'Next-> {dssCOM.ActiveClass.Next("load")}')
+    print(f'Name-> {dssCOM.ActiveClass.Name_read("load")}')
+    print(f'NumElements-> {dssCOM.ActiveClass.NumElements("load")}')
+    print(f'ActiveClassName-> {dssCOM.ActiveClass.ActiveClassName()}')
+    print(f'Count-> {dssCOM.ActiveClass.Count("load")}')
+    print(f'ActiveClassParent-> {dssCOM.ActiveClass.ActiveClassParent("vsource")}')
 #dss.Text.Command('Show Voltage')
 
 

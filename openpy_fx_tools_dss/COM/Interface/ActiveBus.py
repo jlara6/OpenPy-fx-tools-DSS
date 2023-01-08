@@ -8,6 +8,13 @@
 from .Base import Base
 
 class ActiveBus(Base):
+    """
+    This interface can be used to gain access to the features of the active Bus.
+    Since buses are not objects, this interface provides access to the bus properties and values.
+    The active bus needs to be specified by using the Active Circuit interface.
+    The ActiveBus interface is embedded within the ActiveCircuit interface,
+    requiring the definition of this interface before getting access the to ActiveBus interface
+    """
     def __init__(self, DSSObject):
         self.Base = Base(DSSObject)
         self.DSSObject = DSSObject
