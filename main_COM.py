@@ -8,9 +8,9 @@ dssCOM.Text.Command(f'Compile {path}')
 dssCOM.Text.Command('solve')
 
 test_ActiveBus = 0
-test_ActiveCktElement = 0
-test_ActiveClas = 1
-
+test_ActiveCktElement = 0 #Review
+test_ActiveClas = 0
+test_ActiveDSSElement = 1
 
 if test_ActiveBus == 1:
     print(f'AllPCEatBus-> {dssCOM.ActiveBus.AllPCEatBus(634)}')
@@ -84,6 +84,14 @@ if test_ActiveClas == 1:
     print(f'ActiveClassName-> {dssCOM.ActiveClass.ActiveClassName()}')
     print(f'Count-> {dssCOM.ActiveClass.Count("load")}')
     print(f'ActiveClassParent-> {dssCOM.ActiveClass.ActiveClassParent("vsource")}')
+if test_ActiveDSSElement == 1:
+    print(f'AllPropertyNames-> {dssCOM.ActiveDSSElement.AllPropertyNames("Line")}')
+    print(f'Name-> {dssCOM.ActiveDSSElement.Name()}')
+    print(f'NumProperties-> {dssCOM.ActiveDSSElement.NumProperties()}')
+    print(f'Properties_read-> {dssCOM.ActiveDSSElement.Properties_read("element")}')
+    print(f'Properties_write-> {dssCOM.ActiveDSSElement.Properties_write("element", "Line.671680")} - review')
+    print(f'Properties_read-> {dssCOM.ActiveDSSElement.Properties_read("element")}')
+
 #dss.Text.Command('Show Voltage')
 
 
