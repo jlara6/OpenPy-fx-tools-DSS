@@ -7,6 +7,8 @@
 
 import win32com.client
 from openpy_fx_tools_dss.COM.Interface.ActiveBus import ActiveBus
+from openpy_fx_tools_dss.COM.Interface.ActiveCktElement import ActiveCktElement
+from openpy_fx_tools_dss.COM.Interface.ActiveClass import ActiveClass
 from openpy_fx_tools_dss.COM.Interface.Text import Text
 
 class COM_DLL:
@@ -18,7 +20,8 @@ class COM_DLL:
 
         self.Text = Text(self.DSSObject)
         self.ActiveBus = ActiveBus(self.DSSObject)
-
+        self.ActiveCktElement = ActiveCktElement(self.DSSObject)
+        self.ActiveClass = ActiveClass(self.DSSObject)
 def _Check_DSS_Connection(DSSObject=None, version:bool=True):
 
     DSSObject = win32com.client.Dispatch("OpenDSSEngine.DSS")

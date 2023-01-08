@@ -6,6 +6,7 @@
 # @Software: PyCharm
 
 import numpy as np
+import math
 import cmath
 
 class Base:
@@ -51,6 +52,12 @@ class Base:
                     cplx_aux = complex(data[i], data[i + 1])
                     data_aux.append(_polar(cplx_aux))
             return data_aux
+    def _extract_class_name(self, element: str):
+        pos = element.find('.')
+        class_DSS = element[:pos]
+        name_DSS = element[pos + 1:]
+        return class_DSS, name_DSS
+
 def _check_bool(orig, rect, polar):
     if orig == True and rect == None and polar == None:
         return orig, rect, polar
@@ -61,10 +68,14 @@ def _check_bool(orig, rect, polar):
         orig, rect, polar = False, False, True
         return orig, rect, polar
 
-import math
+
+
+
+
 def _polar(z):
     a= z.real
     b= z.imag
     r = math.hypot(a,b)
     theta = np.rad2deg(math.atan2(b,a))
     return r,theta
+

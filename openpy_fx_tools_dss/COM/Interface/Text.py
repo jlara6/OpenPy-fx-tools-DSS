@@ -9,7 +9,12 @@ import logging
 from openpy_fx_tools_dss.logg_print_alert import logg_alert
 
 class Text:
-
+    """
+    This interface is the general command interpreter for OpenDSS.
+    It executes commands and queries and return results just like the OpenDSS edit window in the Executable.
+    This is one of the most used interfaces when driving OpenDSS through COM.
+    The Text interface is exposed directly by the OpenDSSEngine.
+    """
     def __init__(self, DSSObject):
         self.DSSObject = DSSObject
         self.DSSText = self.DSSObject.Text
