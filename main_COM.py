@@ -11,7 +11,8 @@ test_ActiveBus = 0
 test_ActiveCktElement = 0 #Review
 test_ActiveClas = 0
 test_ActiveDSSElement = 0
-test_Capacitor = 1
+test_Capacitor = 0
+test_Circuit = 1
 
 if test_ActiveBus == 1:
     print(f'AllPCEatBus-> {dssCOM.ActiveBus.AllPCEatBus(634)}')
@@ -105,6 +106,31 @@ if test_Capacitor == 1:
     print(f'NumSteps-> {dssCOM.Capacitor.NumSteps()} - (read/write)')
     #print(f'Open-> {dssCOM.Capacitor.Open()}')
     print(f'States-> {dssCOM.Capacitor.States()} - (read/write)')
+
+if test_Circuit == 1:
+    print(f'ActiveBus-> {dssCOM.Circuit.ActiveBus("650")}')
+    print(f'ActiveCktElement-> {dssCOM.Circuit.ActiveCktElement()}')
+    print(f'AllBusDistances-> {dssCOM.Circuit.AllBusDistances()}')
+    #print(f'AllBusVmag->\n {dssCOM.Circuit.AllBusVmag()}')
+    #print(f'AllBusVmagPU->\n {dssCOM.Circuit.AllBusVmagPu()}')
+    #print(f'AllBusVolts->\n {dssCOM.Circuit.AllBusVolts()}')
+    #print(f'AllElementLosses->\n {dssCOM.Circuit.AllElementLosses()}')
+    #print(f'AllNodeDistances->\n {dssCOM.Circuit.AllNodeDistances()}')
+    print(f'Capacity-> {dssCOM.Circuit.Capacity()} - need test using')
+    print(f'Disable-> {dssCOM.Circuit.Disable("Load.634a")}')
+    print(f'Ebable-> {dssCOM.Circuit.Enable("Load.634a")}')
+    print(f'LineLosses->{dssCOM.Circuit.LineLosses()}' )
+    print(f'Losses->{dssCOM.Circuit.Losses()}')
+    print(f'NumBuses->{dssCOM.Circuit.NumBuses()}')
+    print(f'NumCktElements->{dssCOM.Circuit.NumCktElements()}')
+    print(f'NumNodes->{dssCOM.Circuit.NumNodes()}')
+    print(f'SetActiveBusi->{dssCOM.Circuit.SetActiveBusi(55)}')
+    print(f'SubstationLosses->{dssCOM.Circuit.SubstationLosses()}')
+    #print(f'SystemY\n->{dssCOM.Circuit.SystemY()}')
+    print(f'TotalPower->{dssCOM.Circuit.TotalPower()}')
+    print(f'Ycurrents\n->{dssCOM.Circuit.YCurrents(polar=True)}')
+    print(f'YNodeOrder\n->{dssCOM.Circuit.YNodeOrder()}')
+    print(f'YNodeVarray\n->{dssCOM.Circuit.YNodeVarray()}')
 #dss.Text.Command('Show Voltage')
 
 
