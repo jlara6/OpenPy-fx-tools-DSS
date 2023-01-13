@@ -12,7 +12,8 @@ test_ActiveCktElement = 0 #Review
 test_ActiveClas = 0
 test_ActiveDSSElement = 0
 test_Capacitor = 0
-test_Circuit = 1
+test_Circuit = 0
+test_Lines = 1
 
 if test_ActiveBus == 1:
     print(f'AllPCEatBus-> {dssCOM.ActiveBus.AllPCEatBus(634)}')
@@ -131,6 +132,59 @@ if test_Circuit == 1:
     print(f'Ycurrents\n->{dssCOM.Circuit.YCurrents(polar=True)}')
     print(f'YNodeOrder\n->{dssCOM.Circuit.YNodeOrder()}')
     print(f'YNodeVarray\n->{dssCOM.Circuit.YNodeVarray()}')
+if test_Lines == 1:
+    print(f'Lines->{dssCOM.Lines.AllNames()}')
+    dssCOM.Lines.First()
+    print(f'Name->{dssCOM.Lines.Name()}')
+    print(f'Lines->{dssCOM.Lines.AllNames()}')
+    print(f'Bus1_read->{dssCOM.Lines.Bus1_read()}')
+    #print(f'Bus1_write->{dssCOM.Lines.Bus1_write("671")}')
+    #print(f'Bus1_read->{dssCOM.Lines.Bus1_read()}')
+
+    print(f'Bus2_read->{dssCOM.Lines.Bus2_read()}')
+    #print(f'Bus2_write->{dssCOM.Lines.Bus2_write("670")}')
+    #print(f'Bus2_read->{dssCOM.Lines.Bus2_read()}')
+
+    print(f'C0_read->{dssCOM.Lines.C0_read()}')
+    print(f'C0_write->{dssCOM.Lines.C0_write(0.005)}')
+    print(f'C0_read->{dssCOM.Lines.C0_read()}')
+
+    print(f'C1_read->{dssCOM.Lines.C1_read()}')
+    print(f'C1_write->{dssCOM.Lines.C1_write(0.005)}')
+    print(f'C1_read->{dssCOM.Lines.C1_read()}')
+
+    print(f'CMatrix->{dssCOM.Lines.Cmatrix()}')
+    print(f'Count->{dssCOM.Lines.Count()}')
+    print(f'EmergAmps->{dssCOM.Lines.EmergAmps_read()}')
+    print(f'EmergAmps Write->{dssCOM.Lines.EmergAmps_write()}')
+    print(f'EmergAmps->{dssCOM.Lines.EmergAmps_read()}')
+    print(f'Geometry->{dssCOM.Lines.Geometry()} - need test used read/write')
+    print(f'Length->{dssCOM.Lines.Length_read()}')
+    print(f'Length_write->{dssCOM.Lines.Length_write(5000)}')
+    print(f'Length->{dssCOM.Lines.Length_read()}')
+    print(f'LineCode->{dssCOM.Lines.LineCode()} - need test used read/write')
+    print(f'NormAmps->{dssCOM.Lines.NormAmps_read()}')
+    print(f'NormAmps Write->{dssCOM.Lines.NormAmps_write()}')
+    print(f'NormAmps->{dssCOM.Lines.NormAmps_read()}')
+    print(f'NumCust->{dssCOM.Lines.NumCust()} - need test using')
+    print(f'Parent->{dssCOM.Lines.Parent()} - need test using')
+    print(f'Phases->{dssCOM.Lines.Phases_read()}')
+    #print(f'Phases Write->{dssCOM.Lines.Phases_write(4)}')
+    #print(f'Phases->{dssCOM.Lines.Phases_read()}')
+    print(f'Rmatrix_read\n->{dssCOM.Lines.Rmatrix_read()}')
+    print(f'Rmatrix_write\n->{dssCOM.Lines.Rmatrix_write(dssCOM.Lines.Rmatrix_read())}')
+    print(f'Rmatrix_read\n->{dssCOM.Lines.Rmatrix_read()}')
+    print(f'SeasonRating->{dssCOM.Lines.SeasonRating()}')
+    print(f'Spacing_read->{dssCOM.Lines.Spacing_read()} - need test using')
+    print(f'TotalCust->{dssCOM.Lines.TotalCust()} - need test using')
+    print(f'Units_read->{dssCOM.Lines.Units_read()}')
+    dssCOM.Lines.Units_write(4)
+    print(f'Units_read->{dssCOM.Lines.Units_read()}')
+    print(f'Yprim\n->{dssCOM.Lines.Yprim()}')
+
+
+
+#dssCOM.Text.Command("plot circuit Power max=2000 n n C1=$00FF0000")
 #dss.Text.Command('Show Voltage')
 
 
