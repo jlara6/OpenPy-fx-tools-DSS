@@ -195,7 +195,7 @@ class ActiveBus(Base):
             return self.DSSActiveBus.Latitude
         else:
             return None
-    def Latitude_write(self, myBus, data: float = None):
+    def Latitude_write(self, myBus, NewData: float = None):
         """
         (write) - This property allows to write the latitude in GIS coordinates for the active bus.
 
